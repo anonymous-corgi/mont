@@ -27,7 +27,7 @@ public class Print {
 			System.out.println("<Error> The startIndex and the endIndex are invalid.");
 			return;
 		}
-		System.out.println("The Array or SubArray: (length: "+ (end - start + 1) + ")");
+		System.out.println("The Array or SubArray: (length: "+ (end - start) + ")");
 		System.out.print("{");
 		
 		int breakIndex = 0;
@@ -39,7 +39,7 @@ public class Print {
 				breakIndex = 0;
 			}
 		}
-		System.out.print(nums[end - 1] + "}");
+		System.out.println(nums[end - 1] + "}");
 	}
 	
 	public static void printList(List<?> list, int start, int end) {
@@ -69,7 +69,7 @@ public class Print {
 				breakIndex = 0;
 			}
 		}
-		System.out.print(list.get(end - 1) + "}");
+		System.out.println(list.get(end - 1) + "}");
 		
 		
 	}
