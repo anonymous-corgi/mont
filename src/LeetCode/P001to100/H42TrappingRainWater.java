@@ -1,4 +1,4 @@
-package com.LeetCode.P1_100;
+package LeetCode.P001to100;
 
 public class H42TrappingRainWater {
 	
