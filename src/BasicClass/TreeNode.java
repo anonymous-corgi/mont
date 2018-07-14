@@ -1,32 +1,17 @@
 package BasicClass;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
-public class TreeNode{	
+public class TreeNode implements Iterable<TreeNode> {	
 	public int val;
 	public TreeNode left, right;
 	public TreeNode(int val) {
 		this.val = val;
 		this.left = this.right = null;
 	}
-
-	
-//	public class Iterato mplements Iterator<TreeNode>  {
-//
-//		@Override
-//		public boolean hasNext() {
-//			// TODO Auto-generated method stub
-//			return false;
-//		}
-//
-//		@Override
-//		public TreeNode next() {
-//			// TODO Auto-generated method stub
-//			return null;
-//		}
-//		
-//	}
 	
 	public static String serialize(TreeNode root) {
 		if (root == null) {
@@ -55,7 +40,6 @@ public class TreeNode{
 		
 		return sb.toString();
 	}
-	
 	
 	public static TreeNode deserialize(String data) {
 		if (data == null || data.length() < 3) {
@@ -90,4 +74,40 @@ public class TreeNode{
 		return root;
 	}
 
+	@Override
+	public Iterator<TreeNode> iterator() {
+		// TODO Auto-generated method stub
+		return new TreeNodeIterator(this);
+	}
+	
+	public class TreeNodeIterator implements Iterator<TreeNode>  {
+		
+		Stack<TreeNode> stack;
+		
+		private TreeNodeIterator(TreeNode root) {
+			stack = new Stack<>();
+			while (root != null) {
+				stack.push(root);
+				root = root.left;
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+
+		@Override
+		public TreeNode next() {
+			TreeNode cursor = stack.pop();
+			TreeNode root = cursor.right;
+			while (root != null) {
+				stack.push(root);
+				root = root.left;
+			}
+			return cursor;
+		}
+		
+	}
+	
 }
