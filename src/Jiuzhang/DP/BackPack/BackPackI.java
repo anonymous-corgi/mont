@@ -18,6 +18,7 @@ package Jiuzhang.DP.BackPack;
  */
 public class BackPackI {
 	
+	//This is the optimal way to count the maximum capacity
 	public int backPack(int m, int[] A) {
 		if (A == null) {
 			return 0;
@@ -34,6 +35,30 @@ public class BackPackI {
 		}
 		return dp[m];
 	}
+	
+	//Solution2
+	//This solution is mostly used for count number of possibilities.
+	//Similar to BackPackVI
+    public int backPackS2(int m, int[] A) {
+        boolean f[][] = new boolean[A.length + 1][m + 1];
+        f[0][0] = true;
+        for (int i = 1; i <= A.length; i++) {
+            for (int j = 0; j <= m; j++) {
+                f[i][j] = f[i - 1][j];
+                if (j >= A[i-1] && f[i-1][j - A[i-1]]) {
+                    f[i][j] = true;
+                }
+            } // for j
+        } // for i
+        
+        for (int i = m; i >= 0; i--) {
+            if (f[A.length][i]) {
+                return i;
+            }
+        }
+        
+        return 0;
+    }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
