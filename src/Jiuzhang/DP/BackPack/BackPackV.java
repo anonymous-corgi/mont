@@ -1,7 +1,7 @@
 package Jiuzhang.DP.BackPack;
 
 public class BackPackV {
-	
+	//Count How many ways can get to target without repeated use
 	public int backPackV(int[] nums, int target) {
 		if (nums == null) {
 			return 0;

@@ -19,7 +19,7 @@ package Jiuzhang.DP.BackPack;
  * return 6
  */
 public class BackPackVI {
-	
+	//Count How many ways can get to target with repeated use
     public int backPackVI(int[] nums, int target) {
         // write your code here
     		if (nums == null) {

@@ -17,7 +17,7 @@ package Jiuzhang.DP.BackPack;
  * You function should return the max size we can fill in the given backpack.
  */
 public class BackPackI {
-	
+	//Count Max weight can be stored in m capacity without repeated use
 	//This is the optimal way to count the maximum capacity
 	public int backPack(int m, int[] A) {
 		if (A == null) {

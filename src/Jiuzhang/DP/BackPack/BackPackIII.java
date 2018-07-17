@@ -2,7 +2,7 @@ package Jiuzhang.DP.BackPack;
 
 //BackPackII doesn't contain repeated object
 public class BackPackIII {
-	
+	//Count Max value can be stored in m capacity without repeated use
 	public int backPackIII(int[] A, int[] V, int m) {
 		if (A == null || V == null) {
 			return -1;
