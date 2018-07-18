@@ -1,4 +1,4 @@
-package Jiuzhang.HardCollection;
+package jiuzhang.hardcollection;
 
 public class M944MaximumSubmatrix {
 	  int rows, columns;

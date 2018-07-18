@@ -1,4 +1,4 @@
-package LeetCode.DFS;
+package leetcode.dfs;
 
 import utils.test.Print;
 

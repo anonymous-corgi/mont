@@ -1,4 +1,4 @@
-package Jiuzhang.C1;
+package jiuzhang.c1;
 
 public class M200LongestPalindromicSubstring {
 	

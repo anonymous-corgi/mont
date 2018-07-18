@@ -1,4 +1,4 @@
-package Jiuzhang.C3.Traversal;
+package jiuzhang.c3.traversal;
 
 public class M246BinaryTreePathSumII {
 

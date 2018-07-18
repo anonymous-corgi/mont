@@ -1,4 +1,4 @@
-package Jiuzhang.C2.XXOO;
+package jiuzhang.c2.xxoo;
 
 public class E14FirstPositionOfTarget {
 //    public int binarySearch(int[] nums, int target) {

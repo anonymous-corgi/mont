@@ -1,4 +1,4 @@
-package Jiuzhang.C4.Matrix;
+package jiuzhang.c4.matrix;
 
 import java.util.LinkedList;
 import java.util.Queue;

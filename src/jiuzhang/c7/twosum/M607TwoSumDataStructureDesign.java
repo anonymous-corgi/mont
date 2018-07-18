@@ -1,4 +1,4 @@
-package Jiuzhang.C7.TwoSum;
+package jiuzhang.c7.twosum;
 
 import java.util.HashMap;
 import java.util.Map;

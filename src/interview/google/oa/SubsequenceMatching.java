@@ -1,4 +1,4 @@
-package InterView.Google.OA;
+package interview.google.oa;
 
 /**
  * Write a function that, given a string S and a string T, 

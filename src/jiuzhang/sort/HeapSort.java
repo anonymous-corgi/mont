@@ -1,4 +1,4 @@
-package Jiuzhang.Sort;
+package jiuzhang.sort;
 
 public class HeapSort {
 	

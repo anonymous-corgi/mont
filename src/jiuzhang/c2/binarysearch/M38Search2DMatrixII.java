@@ -1,4 +1,4 @@
-package Jiuzhang.C2.BinarySearch;
+package jiuzhang.c2.binarysearch;
 
 public class M38Search2DMatrixII {
     public int searchMatrix(int[][] matrix, int target) {
@@ -7,7 +7,7 @@ public class M38Search2DMatrixII {
     	}
     	return searchMatrix(matrix, target, matrix.length - 1, 0);
     }
-//    用了一种特俗的传参方式来统计总个数
+//    锟斤拷锟斤拷一锟斤拷锟斤拷锟阶的达拷锟轿凤拷式锟斤拷统锟斤拷锟杰革拷锟斤拷
     private int searchMatrix(int[][] matrix, int target, int row, int column) {
     	if(row < 0 || column > (matrix[0].length - 1)){
     	    return 0;

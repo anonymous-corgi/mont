@@ -1,4 +1,4 @@
-package Jiuzhang.C4.Matrix;
+package jiuzhang.c4.matrix;
 
 public class M433NumberOfIslands2 {
 	

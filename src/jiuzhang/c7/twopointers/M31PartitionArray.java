@@ -1,4 +1,4 @@
-package Jiuzhang.C7.TwoPointers;
+package jiuzhang.c7.twopointers;
 
 public class M31PartitionArray {
 	

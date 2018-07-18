@@ -1,4 +1,4 @@
-package Jiuzhang.C4.TopologicalSort;
+package jiuzhang.c4.topologicalsort;
 
 import java.util.HashMap;
 import java.util.HashSet;

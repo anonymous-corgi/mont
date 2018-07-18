@@ -1,4 +1,4 @@
-package Jiuzhang.C4.TopologicalSort;
+package jiuzhang.c4.topologicalsort;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class H121WordLadderII {
                             List<String> list = new ArrayList<>(record.get(head));
                             list.add(next);
                             results.add(list);
-//                            recycleBin.add(next);//Ñ°ÕÒ¶à¸ö´ð°¸Ê±£¬ÐèÒª½«×îºóµÄ´ð°¸·Å»ØÈ¥£¬ÒÔ¹©ÆäËü´ð°¸Ñ¡È¡¡£
+//                            recycleBin.add(next);//Ñ°ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ä´ð°¸·Å»ï¿½È¥ï¿½ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡È¡ï¿½ï¿½?
                         }else{
                             taskList.add(next);
                             List<String> list = new ArrayList<>(record.get(head));
@@ -87,7 +87,7 @@ public class H121WordLadderII {
 		String start = "qa";
 		String end = "sq";
 		String[] words= 
-			{"si","go","se","cm","so","ph","mt","db","mb","sb","kr","ln","tm","le","av","sm","ar","ci","ca","br","ti","ba","to","ra","fa","yo","ow","sn","ya","cr","po","fe","ho","ma","re","or","rn","au","ur","rh","sr","tc","lt","lo","as","fr","nb","yb","if","pb","ge","th","pm","rb","sh","co","ga","li","ha","hz","no","bi","di","hi","qa","pi","os","uh","wm","an","me","mo","na","la","st","er","sc","ne","mn","mi","am","ex","pt","io","be","fm","ta","tb","ni","mr","pa","he","lr","sq","ye"};
+			{"si","go","se","cm","so","ph","mt","db","mb","sb","kr","ln","tm","le","av","sm","ar","ci","ca","br","ti","ba","to","ra","fa","yo","ow","sn","ya","cr","po","fe","ho","ma","re","or","rn","au","ur","rh","sr","tc","lt","lo","as","fr","nb","yb","if","pb","ge","th","pm","rb","sh","co","ga","li","ha","hz","no","bi","di","hi","qa","phoneinterview","os","uh","wm","an","me","mo","na","la","st","er","sc","ne","mn","mi","am","ex","pt","io","be","fm","ta","tb","ni","mr","pa","he","lr","sq","ye"};
 		for(int i = 0; i < words.length; i++){
 			dict.add(words[i]);
 		}

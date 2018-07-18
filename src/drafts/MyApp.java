@@ -1,4 +1,4 @@
-package Drafts;
+package drafts;
 
 import java.util.*;
 public class MyApp {

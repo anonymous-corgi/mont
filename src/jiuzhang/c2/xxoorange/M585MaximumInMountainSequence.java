@@ -1,4 +1,4 @@
-package Jiuzhang.C2.XXOORange;
+package jiuzhang.c2.xxoorange;
 
 public class M585MaximumInMountainSequence {
     public int mountainSequence(int[] nums) {

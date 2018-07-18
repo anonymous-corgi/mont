@@ -1,4 +1,4 @@
-package Jiuzhang.HardCollection;
+package jiuzhang.hardcollection;
 
 public class M931MedianOfKSortedArrays {
 

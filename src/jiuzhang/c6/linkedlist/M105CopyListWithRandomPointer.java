@@ -1,4 +1,4 @@
-package Jiuzhang.C6.LinkedList;
+package jiuzhang.c6.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;

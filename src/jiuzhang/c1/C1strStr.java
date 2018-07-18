@@ -1,4 +1,4 @@
-package Jiuzhang.C1;
+package jiuzhang.c1;
 
 public class C1strStr {
     private final int BASE = 1000000;

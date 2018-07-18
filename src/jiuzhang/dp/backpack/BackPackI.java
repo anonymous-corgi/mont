@@ -1,4 +1,4 @@
-package Jiuzhang.DP.BackPack;
+package jiuzhang.dp.backpack;
 
 /**
  * LintCode 92 BackPack

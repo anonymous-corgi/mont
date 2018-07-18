@@ -1,4 +1,4 @@
-package Jiuzhang.DP.BackPack;
+package jiuzhang.dp.backpack;
 
 //BackPackIII contains repeated object
 public class BackPackII {

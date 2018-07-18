@@ -1,4 +1,4 @@
-package Jiuzhang.C8.Cache;
+package jiuzhang.c8.cache;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package Jiuzhang.C3.DivideConquer;
+package jiuzhang.c3.divideconquer;
 
 public class M596MinimumSubtree {
 	public class TreeNode {

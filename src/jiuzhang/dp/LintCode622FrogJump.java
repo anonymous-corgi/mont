@@ -1,4 +1,4 @@
-package Jiuzhang.DP;
+package jiuzhang.dp;
 
 import java.util.HashMap;
 import java.util.HashSet;

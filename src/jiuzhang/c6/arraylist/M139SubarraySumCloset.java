@@ -1,4 +1,4 @@
-package Jiuzhang.C6.ArrayList;
+package jiuzhang.c6.arraylist;
 
 import java.util.Arrays;
 import java.util.Comparator;

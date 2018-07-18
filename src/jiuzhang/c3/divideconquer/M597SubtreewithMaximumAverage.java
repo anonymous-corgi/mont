@@ -1,4 +1,4 @@
-package Jiuzhang.C3.DivideConquer;
+package jiuzhang.c3.divideconquer;
 
 public class M597SubtreewithMaximumAverage {
 	public class TreeNode {
@@ -18,7 +18,7 @@ public class M597SubtreewithMaximumAverage {
     }
     
     private class Result{
-        // 不单记录�?小Tree 还要记录这个Tree的信�?
+        // 不单记录�??小Tree 还要记录这个Tree的信�??
         TreeNode maxNode ;
         double maxAve;
         int theNum;

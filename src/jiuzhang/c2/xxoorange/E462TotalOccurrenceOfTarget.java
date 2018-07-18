@@ -1,4 +1,4 @@
-package Jiuzhang.C2.XXOORange;
+package jiuzhang.c2.xxoorange;
 
 public class E462TotalOccurrenceOfTarget {
     public int totalOccurrence(int[] A, int target) {

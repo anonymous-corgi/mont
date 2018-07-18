@@ -1,4 +1,4 @@
-package Jiuzhang.C8.HeapPriorityQueue;
+package jiuzhang.c8.heappriorityqueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

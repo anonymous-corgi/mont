@@ -1,4 +1,4 @@
-package Jiuzhang.DP.BackPack;
+package jiuzhang.dp.backpack;
 
 public class BackPackV {
 	//Count How many ways can get to target without repeated use

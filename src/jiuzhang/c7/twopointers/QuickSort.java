@@ -1,4 +1,4 @@
-package Jiuzhang.C7.TwoPointers;
+package jiuzhang.c7.twopointers;
 
 public class QuickSort {
 
@@ -8,7 +8,7 @@ public class QuickSort {
       high  --> Ending index */
 	public void sort(int arr[], int low, int high) {
 		if (low < high)	{
-			/* pi is partitioning index, arr[pi] is 
+			/* phoneinterview is partitioning index, arr[phoneinterview] is
               now at right place */
 			int pi = partition(arr, low, high);
 			printArray(arr);

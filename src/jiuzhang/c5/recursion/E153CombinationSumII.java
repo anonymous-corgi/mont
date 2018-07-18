@@ -1,4 +1,4 @@
-package Jiuzhang.C5.Recursion;
+package jiuzhang.c5.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;

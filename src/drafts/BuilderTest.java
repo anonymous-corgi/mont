@@ -1,4 +1,4 @@
-package Drafts;
+package drafts;
 
 public class BuilderTest {
 	

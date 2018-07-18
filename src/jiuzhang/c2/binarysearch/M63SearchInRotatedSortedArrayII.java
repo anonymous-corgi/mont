@@ -1,4 +1,4 @@
-package Jiuzhang.C2.BinarySearch;
+package jiuzhang.c2.binarysearch;
 
 public class M63SearchInRotatedSortedArrayII {
 	

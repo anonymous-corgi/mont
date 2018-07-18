@@ -1,4 +1,4 @@
-package Jiuzhang.DP;
+package jiuzhang.dp;
 
 public class LeetCode871MinimumNumberOfRefuelingStops {	
 	

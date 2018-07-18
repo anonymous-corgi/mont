@@ -1,4 +1,4 @@
-package Jiuzhang.C5.Graph;
+package jiuzhang.c5.graph;
 
 import java.util.ArrayList;
 import java.util.List;

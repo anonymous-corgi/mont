@@ -1,4 +1,4 @@
-package BasicClass;
+package basicclass;
 
 public class BinarySearchTree<E extends Comparable<? super E>> {
 	

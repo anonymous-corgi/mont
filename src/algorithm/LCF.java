@@ -1,4 +1,4 @@
-package OtherAlgorithm;
+package algorithm;
 
 public class LCF {
 	

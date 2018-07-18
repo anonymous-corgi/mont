@@ -1,4 +1,4 @@
-package LeetCode.P001to100;
+package leetcode.p001to100;
 
 import java.util.LinkedList;
 

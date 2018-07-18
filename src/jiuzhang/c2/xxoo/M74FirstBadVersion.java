@@ -1,4 +1,4 @@
-package Jiuzhang.C2.XXOO;
+package jiuzhang.c2.xxoo;
 //	OOXX
 public class M74FirstBadVersion {
     public int findFirstBadVersion(int n) {

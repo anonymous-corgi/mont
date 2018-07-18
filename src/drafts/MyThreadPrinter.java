@@ -1,4 +1,4 @@
-package Drafts;
+package drafts;
 
 public class MyThreadPrinter implements Runnable {     
         
@@ -49,7 +49,7 @@ public class MyThreadPrinter implements Runnable {
              
              
         new Thread(pa).start();  
-        Thread.sleep(1);  //È·±£°´Ë³ÐòA¡¢B¡¢CÖ´ÐÐ  
+        Thread.sleep(1);  //È·ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½CÖ´ï¿½ï¿½  
         new Thread(pb).start();  
         Thread.sleep(1);    
         new Thread(pc).start();     

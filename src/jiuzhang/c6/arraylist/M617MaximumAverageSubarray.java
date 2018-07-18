@@ -1,4 +1,4 @@
-package Jiuzhang.C6.ArrayList;
+package jiuzhang.c6.arraylist;
 
 public class M617MaximumAverageSubarray {
 	

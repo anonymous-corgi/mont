@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import BasicClass.TreeNode;
+import basicclass.TreeNode;
 
 public class Print {
 	

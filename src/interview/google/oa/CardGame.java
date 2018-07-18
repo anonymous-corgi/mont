@@ -1,4 +1,4 @@
-package InterView.Google.OA;
+package interview.google.oa;
 
 /**
  * Assume you are playing a card game in which each card has a cost and a damage caused to your opponent.

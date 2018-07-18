@@ -1,6 +1,6 @@
-package Jiuzhang.C2.BinarySearch;
+package jiuzhang.c2.binarysearch;
 
-import Jiuzhang.C2.XXOO.SVNRepo;
+import jiuzhang.c2.xxoo.SVNRepo;
 
 public class M447SearchInBigSortedArray {
 	

@@ -1,4 +1,4 @@
-package Jiuzhang.C2.XXOO;
+package jiuzhang.c2.xxoo;
 
 public class M159FindMinimumInRotatedSortedArray {
 	public int findMin(int[] nums) {
