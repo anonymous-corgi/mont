@@ -19,7 +19,7 @@
 *.ctxt
 
 .mtj.tmp/
-
+*.iml
 
 *.7z  
 *.dmg  
