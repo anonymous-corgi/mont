@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import utils.test.Print;
+import utils.Print;
 
 public class PermutationWithDuplications {
 	

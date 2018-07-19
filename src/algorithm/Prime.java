@@ -1,6 +1,6 @@
 package algorithm;
 
-import utils.test.Print;
+import utils.Print;
 
 public class Prime {
 	
