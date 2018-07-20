@@ -40,10 +40,8 @@ public class Converter {
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
-    Converter one = new Converter();
     int num = -8;
-    System.out.println(one.convertToBinary(num));
-
+    System.out.println(Converter.convertToBinary(num));
   }
 
 }
