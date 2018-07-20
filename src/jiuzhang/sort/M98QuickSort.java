@@ -1,6 +1,6 @@
 package jiuzhang.sort;
 
-import jiuzhang.c6.linkedlist.ListNode;
+import basicclass.ListNode;
 
 public class M98QuickSort {
 	

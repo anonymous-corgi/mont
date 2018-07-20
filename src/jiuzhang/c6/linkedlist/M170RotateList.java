@@ -1,5 +1,7 @@
 package jiuzhang.c6.linkedlist;
 
+import basicclass.ListNode;
+
 public class M170RotateList {
 	
     public ListNode rotateRight(ListNode head, int k) {

@@ -1,4 +1,4 @@
-package jiuzhang.c6.linkedlist;
+package basicclass;
 
 public class ListNode {
 		public int val;

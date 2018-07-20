@@ -1,6 +1,6 @@
 package jiuzhang.c6.cyclicList;
 
-import jiuzhang.c6.linkedlist.ListNode;
+import basicclass.ListNode;
 
 public class E599InsertIntoACyclicSortedList {
 	

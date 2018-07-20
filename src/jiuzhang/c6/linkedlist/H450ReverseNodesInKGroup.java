@@ -1,5 +1,7 @@
 package jiuzhang.c6.linkedlist;
 
+import basicclass.ListNode;
+
 public class H450ReverseNodesInKGroup {	
 	
     public ListNode reverseKGroup(ListNode head, int k) {

@@ -1,5 +1,7 @@
 package jiuzhang.c6.linkedlist;
 
+import basicclass.ListNode;
+
 public class M99ReorederList {
 	
     public void reorderList(ListNode head) {

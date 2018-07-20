@@ -1,5 +1,7 @@
 package jiuzhang.c6.linkedlist;
 
+import basicclass.ListNode;
+
 public class M36ReverseLinkedListII {
 	
     public ListNode reverseBetween(ListNode head, int m, int n) {
