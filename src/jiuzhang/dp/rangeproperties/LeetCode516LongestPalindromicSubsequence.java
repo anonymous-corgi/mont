@@ -1,4 +1,4 @@
-package jiuzhang.dp;
+package jiuzhang.dp.rangeproperties;
 
 public class LeetCode516LongestPalindromicSubsequence {
 	
