@@ -1,4 +1,4 @@
-package jiuzhang.dp;
+package jiuzhang.dp.lis;
 
 public class M76LongestIncreasingSubsequence {
 	
