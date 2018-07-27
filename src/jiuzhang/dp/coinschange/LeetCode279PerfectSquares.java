@@ -1,21 +1,18 @@
-package jiuzhang.dp;
+package jiuzhang.dp.coinschange;
 
-public class LintCodeM513PerfectSquares {
-	
-    private int[] source;
-    private int[] record;
+public class LeetCode279PerfectSquares {
+
     public int numSquares(int n) {
         // write your code here
         if (n < 1) {
             return 0;
         }
         int sourceLen = (int) Math.sqrt((double) n) + 1;
-        source = new int[sourceLen];
+        int[] record = new int[n + 1];
+        int[] source = new int[sourceLen];
         for (int i = 0; i < sourceLen; i++) {
             source[i] = i * i;
         }
-        
-        record = new int[n + 1];
         for (int i = 1; i < sourceLen; i++) {
             record[source[i]] = 1;
         }
@@ -36,7 +33,7 @@ public class LintCodeM513PerfectSquares {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LintCodeM513PerfectSquares one = new LintCodeM513PerfectSquares();
+		LeetCode279PerfectSquares one = new LeetCode279PerfectSquares();
 		int n = 15;
 		System.out.println(one.numSquares(n));
 
