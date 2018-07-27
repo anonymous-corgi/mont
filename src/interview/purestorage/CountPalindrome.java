@@ -1,4 +1,4 @@
-package jiuzhang.dp;
+package interview.purestorage;
 
 public class CountPalindrome {
 	
