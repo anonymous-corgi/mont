@@ -1,4 +1,4 @@
-package jiuzhang.dp.lis;
+package jiuzhang.dp.longestincreasingsubsequence;
 
 import java.util.Arrays;
 import java.util.Comparator;
