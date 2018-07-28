@@ -1,4 +1,4 @@
-package jiuzhang.dp;
+package jiuzhang.dp.partition;
 
 public class LintCode437CopyBooks {
 	
