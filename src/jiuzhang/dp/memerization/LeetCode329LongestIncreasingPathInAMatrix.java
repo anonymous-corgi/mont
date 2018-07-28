@@ -44,7 +44,7 @@ public class LeetCode329LongestIncreasingPathInAMatrix {
   public static void main(String[] args) {
     // TODO Auto-generated method stub
     LeetCode329LongestIncreasingPathInAMatrix one = new LeetCode329LongestIncreasingPathInAMatrix();
-    int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
+    int[][] matrix = {{1,2,3,4,5},{16,17,18,19,6},{15,24,25,20,7},{14,23,22,21,8},{13,12,11,10,9}};
     System.out.println(one.longestIncreasingPath(matrix));
   }
 
