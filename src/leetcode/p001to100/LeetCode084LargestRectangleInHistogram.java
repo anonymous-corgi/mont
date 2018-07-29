@@ -25,7 +25,10 @@ public class LeetCode084LargestRectangleInHistogram {
   
   public static void main(String[] args) {
     // TODO Auto-generated method stub
-
+    LeetCode084LargestRectangleInHistogram one = 
+        new LeetCode084LargestRectangleInHistogram();
+    int[] heights = {4,6,5,7,8,3};
+    one.largestRectangleArea(heights);
   }
 
 }
