@@ -1,4 +1,4 @@
-package interview.fb;
+package leetcode.p001to100;
 
 import java.util.ArrayList;
 import java.util.List;
