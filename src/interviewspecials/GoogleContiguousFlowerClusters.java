@@ -1,6 +1,6 @@
-package jiuzhang.unionfind;
+package interviewspecials;
 
-public class GoogleOAFlowerClusters {
+public class GoogleContiguousFlowerClusters {
 
   //Storing the first position of this bloomed cluster.
   private int[] ufp;
@@ -72,7 +72,7 @@ public class GoogleOAFlowerClusters {
     int[] arr = {9,8,1,2,7,4,5,6,3};
     int k = 2;
     int m = 2;
-    System.out.println(new GoogleOAFlowerClusters().solution(arr, k, m));
+    System.out.println(new GoogleContiguousFlowerClusters().solution(arr, k, m));
   }
 
 }
