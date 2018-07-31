@@ -1,4 +1,4 @@
-package leetcode.p001to100;
+package subjects.subarray;
 
 public class LeetCode076MinimumWindowSubstring {
 	
