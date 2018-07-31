@@ -1,4 +1,4 @@
-package jiuzhang.unionfind;
+package leetcode.p301to400;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +88,13 @@ public class LeetCode399EvaluateDivision {
     ufp.put(aP, bP);
     ufv.put(aP, v);
   }
+//  You can also connect a'root to b rather than b's root. Code as follow:
+//  private void connect(String a, String b, double values) {
+//    String aP = find(a);
+//    double v = values / ufv.get(a);
+//    uf.put(aP, b);
+//    ufv.put(aP, v);
+//  }
   
   public static void main(String[] args) {
     // TODO Auto-generated method stub
