@@ -1,4 +1,4 @@
-package leetcode.p151to200;
+package leetcode.p101to150;
 
 public class LeetCode135Candy {
   
