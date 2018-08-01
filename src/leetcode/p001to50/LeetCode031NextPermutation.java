@@ -1,4 +1,4 @@
-package leetcode.p001to100;
+package leetcode.p001to50;
 
 import utils.Print;
 
