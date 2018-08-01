@@ -1,4 +1,4 @@
-package leetcode.p201to300;
+package leetcode.p201to250;
 
 public class LeetCode200NumberOfIslands {
 	

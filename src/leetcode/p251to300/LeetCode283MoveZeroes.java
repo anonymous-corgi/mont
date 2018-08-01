@@ -1,4 +1,4 @@
-package leetcode.p201to300;
+package leetcode.p251to300;
 
 public class LeetCode283MoveZeroes {
   
