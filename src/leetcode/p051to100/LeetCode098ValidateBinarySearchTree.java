@@ -1,4 +1,4 @@
-package leetcode.p001to100;
+package leetcode.p051to100;
 
 import java.util.Stack;
 import basicclass.TreeNode;

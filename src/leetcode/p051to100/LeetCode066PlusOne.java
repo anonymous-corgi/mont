@@ -1,4 +1,4 @@
-package leetcode.p001to100;
+package leetcode.p051to100;
 
 public class LeetCode066PlusOne {
   //Google Onsite: Use Backtracking to do it.
