@@ -1,4 +1,4 @@
-package leetcode.p501to600;
+package leetcode.p501to550;
 
 import basicclass.TreeNode;
 
