@@ -1,4 +1,4 @@
-package leetcode.p601to700;
+package leetcode.p601to650;
 
 public class LeetCode643MaximumAverageSubarray {
   

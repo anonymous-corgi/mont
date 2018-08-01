@@ -1,4 +1,4 @@
-package leetcode.p801to900;
+package leetcode.p801to850;
 
 public class LeetCode849MaximizeDistanceToClosestPerson {
   
