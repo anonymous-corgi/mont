@@ -3,11 +3,11 @@ package leetcode.p701to750;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class LeetCode731MyCalendarI {
+public class LeetCode729MyCalendarI {
   
   private final TreeMap<Integer, Integer> map;
 
-  public LeetCode731MyCalendarI() {
+  public LeetCode729MyCalendarI() {
       map = new TreeMap<>();
   }
   
