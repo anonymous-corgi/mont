@@ -41,6 +41,7 @@ public class SegmentTree {
 		size = nums.length;
 		root = buildTree(nums, 0, nums.length - 1);
 	}
+	
 	public void update(int i, int val) {
 		update(root, i, val);
 	}
