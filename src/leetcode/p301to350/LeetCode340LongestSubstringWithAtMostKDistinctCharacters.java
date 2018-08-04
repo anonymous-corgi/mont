@@ -1,6 +1,6 @@
 package leetcode.p301to350;
 
-public class LeetCodoe340LongestSubstringWithAtMostKDistinctCharacters {
+public class LeetCode340LongestSubstringWithAtMostKDistinctCharacters {
   
   public int lengthOfLongestSubstringKDistinct(String s, int k) {
     // write your code here

@@ -1,4 +1,4 @@
-package jiuzhang.dp;
+package leetcode.p301to350;
 
 public class LeetCode338CountingBits {
   
