@@ -1,3 +1,3 @@
 # Bits:
-##### 1. [LeetCode 231. Power of Two](https://github.com/RaychHuang/Algorithm/blob/master/src/leetcode/)
-##### 2. [LeetCode 338. Counting Bits](https://github.com/RaychHuang/Algorithm/blob/master/src/leetcode/)
+##### 1. [LeetCode 231. Power of Two](https://github.com/RaychHuang/Algorithm/blob/master/src/leetcode/p201to250/LeetCode231PowerOfTwo.java)
+##### 2. [LeetCode 338. Counting Bits](https://github.com/RaychHuang/Algorithm/blob/master/src/leetcode/p301to350/LeetCode338CountingBits.java)
