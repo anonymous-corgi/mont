@@ -1,4 +1,4 @@
-package lintcodespecials;
+package lintcode.p1351to1400;
 
 import java.util.HashSet;
 import java.util.Set;
