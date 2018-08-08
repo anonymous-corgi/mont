@@ -1,4 +1,4 @@
-package leetcode.contest;
+package leetcode.p851to900;
 
 public class LeetCode875KokoEatingBananas {
   
