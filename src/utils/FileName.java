@@ -4,7 +4,7 @@ public class FileName {
   
   public static void main(String[] args) {
     // TODO Auto-generated method stub
-    String numberandname = "205. Interval Minimum Number";
+    String numberandname = "";
     getBothDir(numberandname);
     
 //    int number = ;
