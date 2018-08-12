@@ -5,8 +5,8 @@ import java.util.Queue;
 
 public class LeetCode295FindMedianFromDataStream {
   
-  private Queue<Long> small = new PriorityQueue<>();
-  private Queue<Long> large = new PriorityQueue<>((a, b) -> (int)(b - a));
+  private Queue<Long> small = new PriorityQueue<>((a, b) -> (int)(b - a));
+  private Queue<Long> large = new PriorityQueue<>();
   
   public void addNum(int num) {
     large.add((long) num);
@@ -29,7 +29,6 @@ public class LeetCode295FindMedianFromDataStream {
       one.addNum(nums[i]);
       System.out.println(one.findMedian());
     }
-
   }
 
 }
