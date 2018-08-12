@@ -6,19 +6,19 @@ import java.util.Queue;
 public class LeetCode295FindMedianFromDataStream {
   
   private Queue<Long> small = new PriorityQueue<>();
-  private Queue<Long> large = new PriorityQueue<>();
+  private Queue<Long> large = new PriorityQueue<>((a, b) -> (int)(b - a));
   
   public void addNum(int num) {
     large.add((long) num);
-    small.add(-large.poll());
+    small.add(large.poll());
     if (large.size() < small.size())
-      large.add(-small.poll());
+      large.add(small.poll());
   }
   
   public double findMedian() {
     return large.size() != small.size()
         ? large.peek()
-            : (large.peek() - small.peek()) / 2.0;
+            : (large.peek() + small.peek()) / 2.0;
   }
 
   public static void main(String[] args) {
