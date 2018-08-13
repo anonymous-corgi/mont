@@ -2,10 +2,10 @@ package basicclass;
 
 public class BinaryIndexedTree {
   
-  private final int[] num;
+  private final int[] stub;
   private final int[] bit;
   public BinaryIndexedTree(int[] nums) {
-    this.num = new int[nums.length + 1];
+    this.stub = new int[nums.length + 1];
     this.bit = new int[nums.length + 1];
     for (int i = 0; i < nums.length; i++) {
       update(i, nums[i]);
@@ -13,8 +13,8 @@ public class BinaryIndexedTree {
   }
   
   public void update(int i, int val) {
-    int diff = val - num[i + 1];
-    num[i + 1] = val;
+    int diff = val - stub[i + 1];
+    stub[i + 1] = val;
     for (int j = i + 1; j < bit.length; j += (j & -j)) {
       bit[j] += diff;
     }
