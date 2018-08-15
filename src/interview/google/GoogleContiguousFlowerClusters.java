@@ -1,4 +1,4 @@
-package interviewspecials;
+package interview.google;
 
 public class GoogleContiguousFlowerClusters {
 
