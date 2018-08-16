@@ -5,6 +5,7 @@ import java.util.TreeMap;
 public class LeetCode732MyCalendarIII {
   
   private TreeMap<Integer, Integer> timeline = new TreeMap<>();
+  
   public int book(int s, int e) {
     timeline.put(s, timeline.getOrDefault(s, 0) + 1);
     timeline.put(e, timeline.getOrDefault(e, 0) - 1);

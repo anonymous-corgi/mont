@@ -5,17 +5,13 @@ import java.util.TreeMap;
 
 public class LeetCode729MyCalendarI {
   
-  private final TreeMap<Integer, Integer> map;
-
-  public LeetCode729MyCalendarI() {
-      map = new TreeMap<>();
-  }
+  private final TreeMap<Integer, Integer> map = new TreeMap<>();
   
   public boolean book(int start, int end) {
       Map.Entry<Integer, Integer> prev = map.floorEntry(start);
       Map.Entry<Integer, Integer> next = map.ceilingEntry(start);
       if ((prev == null || prev.getValue() <= start) 
-      && (next == null || next.getKey() >= end)) {
+            && (next == null || next.getKey() >= end)) {
           map.put(start, end);
           return true;
       }
