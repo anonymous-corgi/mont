@@ -3,7 +3,6 @@ package jiuzhang.dp;
 public class LeetCode152MaximumProductSubarray {
   
   public int maxProduct(int[] nums) {
-    // write your code here
     if (nums == null || nums.length == 0) {
       return 0;
     }
@@ -23,14 +22,12 @@ public class LeetCode152MaximumProductSubarray {
         max = 0;
         min = 0;
       }
-      
       result = Math.max(result, max);
     }
     return result;
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
     LeetCode152MaximumProductSubarray one
     = new LeetCode152MaximumProductSubarray();
     int[] nums = {-4,-3,-2};
