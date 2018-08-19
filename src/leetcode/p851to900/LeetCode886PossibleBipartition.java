@@ -2,7 +2,7 @@ package leetcode.p851to900;
 
 import java.util.HashSet;
 
-public class LeetCode890PossibleBipartition {
+public class LeetCode886PossibleBipartition {
   
   public boolean possibleBipartition(int N, int[][] dislikes) {
     @SuppressWarnings("unchecked")
@@ -44,8 +44,8 @@ public class LeetCode890PossibleBipartition {
   }
 
   public static void main(String[] args) {
-    LeetCode890PossibleBipartition one =
-        new LeetCode890PossibleBipartition();
+    LeetCode886PossibleBipartition one =
+        new LeetCode886PossibleBipartition();
     int N = 4;
     int[][] dislikes = {{1,2},{1,3},{2,4},{2,3}};
     System.out.println(one.possibleBipartition(N, dislikes));
