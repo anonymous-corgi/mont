@@ -1,5 +1,7 @@
 package algorithm;
 
+import java.util.Random;
+
 public class BitOperation {
   
 //  Set the last (right) 1-bit of a positive integer to 0-bit 
@@ -28,11 +30,17 @@ public class BitOperation {
   public static int op3(int num) {
     return num > 0 ? (num & -num) : 0; 
   }
+  
+  
+  public static boolean op4(int num) {
+    int n = new Random().nextInt();
+    return ((num ^ n) ^ n) == num; 
+  }
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
     int num = 20;
-    System.out.println(op3(num));
+    System.out.println(op4(num));
   }
 
 }
