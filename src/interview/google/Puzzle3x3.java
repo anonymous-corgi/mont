@@ -22,23 +22,25 @@ public class Puzzle3x3 {
     while (!taskList.isEmpty()) {
       for (int i = 0, iLen = taskList.size(); i < iLen; i++) {
         String cursor = taskList.poll();
-        if (TARGET.equals(cursor)) { return step; }
+        if (TARGET.equals(cursor)) { 
+          return step;
+        }
         int zero = cursor.indexOf('0');
         char[] puzzle = cursor.toCharArray();
-        for (int j = 0; j < ALTS[zero].length; j++) {
-          puzzle[zero] = puzzle[ALTS[zero][j]];
-          puzzle[ALTS[zero][j]] = '0';
+        for (int j : ALTS[zero]) {
+          puzzle[zero] = puzzle[j];
+          puzzle[j] = '0';
           String nextPuzzle = String.valueOf(puzzle);
           if (visited.add(nextPuzzle)) {
             taskList.offer(nextPuzzle);
           }
-          puzzle[ALTS[zero][j]] = puzzle[zero];
+          puzzle[j] = puzzle[zero];
           puzzle[zero] = '0';
         }
       }
       step++;
     }
-    return step;
+    return -1;
   }
 
   public static void main(String[] args) {
