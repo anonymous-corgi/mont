@@ -1,6 +1,7 @@
 package leetcode.p201to250;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import utils.Print;
 
@@ -14,19 +15,14 @@ public class LeetCode247StrobogrammaticNumberII {
   }
 
   private List<String> find(int n, int len) {
-    List<String> res = new ArrayList<>();
     if (n == 0) {
-      res.add("");
-      return res;
+      return new ArrayList<>(Arrays.asList(""));
+    }
+    if (n == 1) {
+      return new ArrayList<>(Arrays.asList("0", "1", "8"));
     }
     
-    if (n == 1) {
-      String[] strs = new String[]{"0", "1", "8"};
-      for (String str : strs) {
-        res.add(str);
-      }
-      return res;
-    }
+    List<String> res = new ArrayList<>();
     List<String> prev = find(n - 2, len);
     for (String str : prev) {
       if (n != len) {
@@ -46,7 +42,6 @@ public class LeetCode247StrobogrammaticNumberII {
     int n = 4;
     List<String> list = one.findStrobogrammatic(n);
     Print.printList(list);
-
   }
 
 }
