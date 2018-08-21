@@ -1,7 +1,7 @@
 package leetcode.p251to300;
 
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
@@ -9,10 +9,10 @@ public class LeetCode269AlienDictionary {
 	
   private class Node {
     public int ins;
-    public Set<Character> nxt;
+    public Set<Integer> next;
     public Node () {
       ins = 0;
-      nxt = new HashSet<>();
+      next = new HashSet<>();
     }
   }
   
@@ -35,44 +35,40 @@ public class LeetCode269AlienDictionary {
     }
     
     for (int i = 0, wLen = words.length - 1; i < wLen; i++) {
-      String s1 = words[i];
-      String s2 = words[i + 1];
-      int minLen = Math.min(s1.length() , s2.length());
+      char[] s1 = words[i].toCharArray();
+      char[] s2 = words[i + 1].toCharArray();
+      int minLen = Math.min(s1.length , s2.length);
       for (int j = 0; j < minLen; j++) {
-        char c1 = s1.charAt(j);
-        char c2 = s2.charAt(j);
-        if (c1 != c2) {
-          if (!nodes[toInt(c1)].nxt.contains(c2)) {
-            nodes[toInt(c1)].nxt.add(c2);
-            nodes[toInt(c2)].ins++;
+        if (s1[j] != s2[j]) {
+          int i1 = toInt(s1[j]);
+          int i2 = toInt(s2[j]);
+          if (nodes[i1].next.add(i2)) {
+            nodes[i2].ins++;
           }
           break;
         }
       }
     }
-    
-    Queue<Character> taskList = new LinkedList<>();
-    StringBuilder sb = new StringBuilder();
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //Using PriorityQueue can get the smallest in lexicographical order!
+    Queue<Integer> taskList = new PriorityQueue<>();
+    StringBuilder res = new StringBuilder();
     for (int i = 0; i < 26; i++) {
       if (nodes[i] != null && nodes[i].ins == 0) {
-        taskList.offer(toChar(i));
+        taskList.offer(i);
       }
     }
     
     while (!taskList.isEmpty()) {
-      Character cursor = taskList.poll();
-      sb.append(cursor);
-      for (Character nei : nodes[toInt(cursor)].nxt) {
-        int in = nodes[toInt(nei)].ins;
-        if (in > 1) {
-          nodes[toInt(nei)].ins--;
-        } else if (in == 1) {
-          nodes[toInt(nei)].ins = 0;
+      Integer cursor = taskList.poll();
+      res.append(toChar(cursor));
+      for (Integer nei : nodes[cursor].next) {
+        if (nodes[nei].ins-- == 1) {
           taskList.offer(nei);
         }
       }
     }
-    return sb.length() == size ? sb.toString() : "";
+    return res.length() == size ? res.toString() : "";
   }
   
   private int toInt(char c) {
@@ -84,12 +80,13 @@ public class LeetCode269AlienDictionary {
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    
     LeetCode269AlienDictionary one = new LeetCode269AlienDictionary();
-//    String[] words = {"ze","yf","xd","wd","vd","ua","tt","sz","rd", "qd","pz","op","nw","mt","ln","ko","jm","il", "ho","gk","fa","ed","dg","ct","bb","ba"};
+//    //"wertf"
 //    String[] words = {"wrt","wrf","er","ett","rftt"};
-    String[] words = {"zy","zx"};
+//    //"yxz"
+//    String[] words = {"zy","zx"};
+//    //"abcd"
+    String[] words = {"ab","adc"};
     System.out.println(one.alienOrder(words));
   }
 
