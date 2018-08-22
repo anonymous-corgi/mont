@@ -5,7 +5,7 @@ public class LeetCode486PredictTheWinner {
   public boolean PredictTheWinner(int[] nums) {
     int[][] dp = new int[nums.length][nums.length];
     for (int i = 0; i < nums.length; i++) {
-      dp[0][i] = nums[i];
+      dp[i][i] = nums[i];
     }
     for (int g = 1; g < nums.length; g++) {
       for (int s = 0, sLen = nums.length - g; s < sLen; s++) {
@@ -17,8 +17,7 @@ public class LeetCode486PredictTheWinner {
   }
   
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-
+    
   }
 
 }
