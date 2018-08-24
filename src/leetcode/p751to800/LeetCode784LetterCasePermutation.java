@@ -1,4 +1,4 @@
-package leetcode.p701to750;
+package leetcode.p751to800;
 
 import java.util.ArrayList;
 import java.util.List;
