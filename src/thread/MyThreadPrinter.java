@@ -1,4 +1,4 @@
-package drafts;
+package thread;
 
 public class MyThreadPrinter implements Runnable {     
   
