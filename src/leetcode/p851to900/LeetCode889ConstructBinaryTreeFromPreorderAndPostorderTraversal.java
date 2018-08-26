@@ -1,34 +1,45 @@
 package leetcode.p851to900;
 
+import java.util.HashMap;
+import java.util.Map;
 import basicclass.TreeNode;
 
 public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
+  
+  private Map<Integer, Integer> map = new HashMap<>();
   
   public TreeNode constructFromPrePost(int[] pre, int[] post) {
     if (pre == null || pre.length == 0) {
       return null;
     }
+    for (int i = 0; i < post.length; i++) {
+      map.put(post[i], i);
+    }
     return helper(pre, post, 0, pre.length - 1, 0, pre.length - 1);
   }
   
   private TreeNode helper(int[] pre, int[] post, 
-                          int preS, int preE, int posS, int posE) {
-    if (preS > preE) {
+                          int preStart, int preEnd, 
+                          int posStart, int posEnd) {
+    if (preStart > preEnd) {
       return null;
     }
-    TreeNode root = new TreeNode(pre[preS]);
-    if (preS == preE) {
+    TreeNode root = new TreeNode(pre[preStart]);
+    if (preStart == preEnd) {
       return root;
     }
-    preS++;
-    posE--;
-    int leftTreeLen = 0;
-    for (int i = posE; i >= posS; i--) {
-      if (post[i] == pre[preS]) {
-        leftTreeLen = i - posS;
-        break;
-      }
-    }
+    preStart++;
+    posEnd--;
+    
+    int leftTreeLen = map.get(pre[preStart]) - posStart;
+    
+//    int leftTreeLen = 0;
+//    for (int i = posE; i >= posS; i--) {
+//      if (post[i] == pre[preS]) {
+//        leftTreeLen = i - posS;
+//        break;
+//      }
+//    }
     
 //    int leftTreeLen = 0;
 //    long flag = 0;
@@ -40,11 +51,11 @@ public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
 //      }
 //    }
     
-    root.left = helper(pre, post, preS, preS + leftTreeLen, posS, posS + leftTreeLen);
-    root.right = helper(pre, post, preS + leftTreeLen + 1, preE, posS + leftTreeLen + 1, posE);
+    root.left = helper(pre, post, preStart, preStart + leftTreeLen, posStart, posStart + leftTreeLen);
+    root.right = helper(pre, post, preStart + leftTreeLen + 1, preEnd, posStart + leftTreeLen + 1, posEnd);
     return root;
   }
-
+  
   public static void main(String[] args) {
     LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal one =
         new LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal();
@@ -58,5 +69,5 @@ public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
     TreeNode root = one.constructFromPrePost(pre, post);
     System.out.println(TreeNode.serialize(root));
   }
-
+  
 }
