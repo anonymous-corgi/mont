@@ -1,40 +1,57 @@
 package leetcode.p101to150;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class LeetCode140WordBreakII {
   
-  public List<String> wordBreak(String s, Set<String> wordDict) {
-    return dfs(s, wordDict, new HashMap<String, LinkedList<String>>());
+  private HashMap<String, List<String>> cache;
+  
+  public List<String> wordBreak(String s, List<String> wordDict) {
+    cache = new HashMap<String, List<String>>();
+    cache.put("", Arrays.asList(""));
+    List<Integer> lenList = getLenList(wordDict);
+    return dfs(s, lenList, new HashSet<String>(wordDict));
   }       
   
-// DFS function returns an array including all substrings derived from s.
-  List<String> dfs(String s, Set<String> wordDict, HashMap<String, LinkedList<String>>map) {
-    if (map.containsKey(s)) {
-      return map.get(s);
+  private List<String> dfs(String s, List<Integer> lenList, Set<String> wordDict) {
+    if (cache.containsKey(s)) {
+      return cache.get(s);
     }
     
-    LinkedList<String>res = new LinkedList<String>();     
-    if (s.length() == 0) {
-      res.add("");
-      return res;
-    }               
-    for (String word : wordDict) {
-      if (s.startsWith(word)) {
-        List<String>sublist = dfs(s.substring(word.length()), wordDict, map);
-        for (String sub : sublist) 
-          res.add(word + (sub.isEmpty() ? "" : " ") + sub);               
+    List<String> res = new ArrayList<String>();
+    for (Integer wLen : lenList) {
+      if (wLen > s.length()) {
+        break;
       }
-    }       
-    map.put(s, res);
+      String head = s.substring(0, wLen);
+      if (wordDict.contains(head)) {
+        List<String> sublist = dfs(s.substring(wLen), lenList, wordDict);
+        for (String sub : sublist) {
+          res.add(head + (sub.length() == 0? "" : " " + sub));
+        }
+      }
+    }
+    cache.put(s, res);
     return res;
+  }
+  
+  private List<Integer> getLenList(List<String> wordDict) {
+    Set<Integer> set = new HashSet<>();
+    for (String str : wordDict) {
+      set.add(str.length());
+    }
+    List<Integer> list = new ArrayList<>(set);
+    Collections.sort(list);
+    return list;
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
 
   }
 

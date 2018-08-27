@@ -1,18 +1,22 @@
 package leetcode.p101to150;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class LeetCode139WordBreak {
   
-  private Set<Integer> getLen(List<String> dict) {
-    Set<Integer> set = new TreeSet<>();
+  private List<Integer> getLen(List<String> dict) {
+    Set<Integer> set = new HashSet<>();
     for (int i = 0, len = dict.size(); i < len; i++) {
       set.add(dict.get(i).length());
     }
-    return set;
+    List<Integer> list = new ArrayList<>(set);
+    Collections.sort(list);
+    return list;
   }
   
   public boolean wordBreak(String s, List<String> wordDict) {
@@ -25,26 +29,28 @@ public class LeetCode139WordBreak {
     int len = s.length();
     boolean[] dp = new boolean[len + 1];
     dp[0] = true;
-    Set<Integer> set = getLen(wordDict);
+    List<Integer> lenList = getLen(wordDict);
     for (int i = 1; i <= len; i++) {
-      Iterator<Integer> iter = set.iterator();
-      while (iter.hasNext()) {
-        int wLen = (int) iter.next();
-        if (wLen > i) {
-          break;
-        }
+      for (Integer wLen : lenList) {
+        if (wLen > i) { break; }
+        if (!dp[i - wLen]) { continue; }
         String word = s.substring(i - wLen, i);
-        if (wordDict.contains(word) && dp[i - wLen]) {
-          dp[i] = true;
-        }
+        dp[i] |= wordDict.contains(word);
       }
     }
     return dp[len];
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
+    //Expected Result: true.
+    String s = "abcd";
+    List<String> wordDict = Arrays.asList("a","abc","b","cd");
 
+////    Expected Result: true.
+//    String s = "applepenapple";
+//    List<String> wordDict = Arrays.asList("apple","pen");
+        LeetCode139WordBreak one = new LeetCode139WordBreak();
+   System.out.println(one.wordBreak(s, wordDict));
   }
 
 }
