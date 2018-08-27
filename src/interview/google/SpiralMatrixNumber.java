@@ -23,26 +23,44 @@ public class SpiralMatrixNumber {
    *  0 <= y <= 2^N - 1
    */
   
-  public long calNumber(int N, int x, int y) {
+  public long getNumberByPoint(int N, int x, int y) {
     if (N == 1) {
       return getIndex(x, y, 1);
     }
+    //half means the half of the length.
     int half = 1 << (N - 1);
     int index = getIndex(x, y, half);
-    return (1 << N) * index + calNumber(N - 1, x % half, y % half); 
+    //The size of small rectangle is half * half.
+    long smallRectangleSize = half * half;
+    return smallRectangleSize * index + getNumberByPoint(N - 1, x % half, y % half); 
   }
   
   private int getIndex(int x, int y, int half) {
     return x >= half ? (y >= half ? 3 : 0) : (y >= half ? 2 : 1);
   }
   
+  
+  public static void printPoint(int N, int x, int y) {
+    SpiralMatrixNumber one = new SpiralMatrixNumber();
+    System.out.println("The point (" + x + ", " + y + ") is: " + one.getNumberByPoint(N, x, y));
+  }
+  
+  public static void printEntireMatrix(int N) {
+    SpiralMatrixNumber one = new SpiralMatrixNumber();
+    for (int i = 0, iLen = (1 << N); i < iLen; i++) {
+      for (int j = 0, jLen = (1 << N); j < jLen; j++) {
+        System.out.print(one.getNumberByPoint(N, i, j) + "\t");
+      }
+      System.out.println();
+    }
+  }
 
   public static void main(String[] args) {
     int N = 2;
-    int x = 3;
-    int y = 3;
-    SpiralMatrixNumber one = new SpiralMatrixNumber();
-    System.out.println(one.calNumber(N, x, y));
+    int x = (1 << N) - 1;
+    int y = (1 << N) - 1;
+    printPoint(N, x, y);
+    printEntireMatrix(N);
   }
 
 }
