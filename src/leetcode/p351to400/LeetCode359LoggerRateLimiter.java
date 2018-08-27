@@ -1,7 +1,9 @@
 package leetcode.p351to400;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LeetCode359LoggerRateLimiter {
   
@@ -31,15 +33,46 @@ public class LeetCode359LoggerRateLimiter {
    * // logging string "foo" at timestamp 11
    * logger.shouldPrintMessage(11,"foo"); returns true;
    */
-  
-  private final Map<String, Integer> stub = new HashMap<>();
-  public boolean shouldPrintMessage(int timestamp, String msg) {
-    if (!stub.containsKey(msg) || stub.get(msg) <= timestamp - 10 ) {
-      stub.put(msg, timestamp);
-      return true;
+  public static class Map_method {
+    
+    private final Map<String, Integer> stub = new HashMap<>();
+    
+    public boolean shouldPrintMessage(int timestamp, String msg) {
+      if (!stub.containsKey(msg) || stub.get(msg) <= timestamp - 10 ) {
+        stub.put(msg, timestamp);
+        return true;
+      }
+      return false;
     }
-    return false;
+    
   }
+  
+  //Optimize the peak space usage.
+  public static class Bucket_method {
+    
+    private final int INTERVAL = 10;
+    private final int[] time = new int[INTERVAL];
+    @SuppressWarnings("unchecked")
+    private final Set<String>[] set = new Set[INTERVAL];
+    
+    public Bucket_method() {
+      for (int i = 0; i < INTERVAL; i++) {
+        set[i] = new HashSet<String>();
+        time[i] = -INTERVAL;
+      }
+    }
+    
+    public boolean shouldPrintMessage(int timestamp, String msg) {
+      int index = timestamp % INTERVAL;
+      if (time[index] > timestamp) {
+        set[index].clear();
+        time[index] = timestamp;
+      }
+      return set[index].add(msg);
+    }
+    
+  }
+  
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
