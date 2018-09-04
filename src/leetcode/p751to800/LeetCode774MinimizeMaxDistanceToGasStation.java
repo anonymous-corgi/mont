@@ -3,7 +3,6 @@ package leetcode.p751to800;
 public class LeetCode774MinimizeMaxDistanceToGasStation {
   
   public double minmaxGasDist(int[] stations, int k) {
-    // Write your code here
     if (stations == null || stations.length == 0) {
       return 0d;
     }
@@ -38,13 +37,12 @@ public class LeetCode774MinimizeMaxDistanceToGasStation {
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    LeetCode774MinimizeMaxDistanceToGasStation one = 
-        new LeetCode774MinimizeMaxDistanceToGasStation();
 //    int[] stations = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 //    int k = 9;    
     int[] stations = {3,6,12,19,33,44,67,72,89,95};
     int k = 2;
+    LeetCode774MinimizeMaxDistanceToGasStation one = 
+        new LeetCode774MinimizeMaxDistanceToGasStation();
     System.out.println(one.minmaxGasDist(stations, k));
   }
 
