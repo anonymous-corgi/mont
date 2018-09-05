@@ -1,76 +1,92 @@
 package algorithm;
 
-import java.util.Arrays;
-
 public class ManachersAlgorithm {
-	
-    public static String findLongestPalindrome(String s) {
-        if (s==null || s.length()==0)
-            return "";
-        
-        char[] s2 = addBoundaries(s.toCharArray());
-        int[] p = new int[s2.length]; 
-        int c = 0, r = 0; // Here the first element in s2 has been processed.
-        int m = 0, n = 0; // The walking indices to compare if two elements are the same
-        for (int i = 1; i<s2.length; i++) {
-            if (i > r) {
-                p[i] = 0; m = i - 1; n = i + 1;
-            } else {
-                int i2 = c*2-i;
-                if (p[i2]<(r-i-1)) {
-                    p[i] = p[i2];
-                    m = -1; // This signals bypassing the while loop below. 
-                } else {
-                    p[i] = r-i;
-                    n = r+1; m = i*2-n;
-                }
-            }
-            while (m>=0 && n<s2.length && s2[m]==s2[n]) {
-                p[i]++; m--; n++;
-            }
-            if ((i+p[i])>r) {
-                c = i; r = i+p[i];
-            }
-        }
-        int len = 0; c = 0;
-        for (int i = 1; i<s2.length; i++) {
-            if (len<p[i]) {
-                len = p[i]; c = i;
-            }
-        }
-        char[] ss = Arrays.copyOfRange(s2, c-len, c+len+1);
-        return String.valueOf(removeBoundaries(ss));
+
+  private static final char SEPARATOR = '*';
+  
+  public String longestPalindrome(String s) {
+    if (s == null || s.length() == 0) {
+      return "";
     }
- 
-    private static char[] addBoundaries(char[] cs) {
-        if (cs==null || cs.length==0) {
-        	return "||".toCharArray();        	
+    
+    char[] chs = addBoundaries(s.toCharArray());
+    int[] p = new int[chs.length];
+    // c represents the center of the current Palindrome.
+    // r represents the right radius of the current Palindrome.
+    int c = 0, r = 0;
+    // f: front, b: back. The walking indexes to compare if two elements are the same.
+    int f = 0, b = 0; 
+    for (int i = 0; i < chs.length; i++) {
+      if (i > r) {
+        b = i + 1;
+        f = i - 1;
+      } else {
+        // im the mirror index of i to c.
+        int im = c * 2 - i;
+        if (p[im] + i < r) {
+          p[i] = p[im];
+          f = -1; // This signals bypassing the while loop below. 
+        } else {
+          p[i] = r - i;
+          b = r + 1;
+          f = i * 2 - b;
         }
-
-        char[] cs2 = new char[cs.length * 2 + 1];
-        for (int i = 0; i < (cs2.length - 1); i = i + 2) {
-            cs2[i] = '|';
-            cs2[i + 1] = cs[i / 2];
-        }
-        cs2[cs2.length - 1] = '|';
-        return cs2;
+      }
+      
+      while (f >= 0 && b < chs.length && chs[f] == chs[b]) {
+        p[i]++;
+        f--;
+        b++;
+      }
+      
+      if ((i + p[i]) > r) {
+        c = i;
+        r = i + p[i];
+      }
     }
-
-    private static char[] removeBoundaries(char[] cs) {
-        if (cs==null || cs.length<3)
-            return "".toCharArray();
-
-        char[] cs2 = new char[(cs.length-1)/2];
-        for (int i = 0; i<cs2.length; i++) {
-            cs2[i] = cs[i*2+1];
-        }
-        return cs2;
-    }  
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String str =  "forgeeksskeegfor";
-		System.out.println(findLongestPalindrome(str));
-	}
-
+    
+    // Search the longest Palindrome.
+    int maxC = 0, maxLen = 0;
+    for (int i = 1; i < chs.length; i++) {
+      if (p[i] > maxLen) {
+        maxC = i;
+        maxLen = p[i];
+      }
+    }
+    
+    return removeBoundaries(chs, maxC - maxLen, maxC + maxLen + 1);
+  }
+  
+  private char[] addBoundaries(char[] cs) {
+    if (cs == null || cs.length == 0) {
+      return "|".toCharArray();        	
+    }
+    
+    char[] chs = new char[cs.length * 2 + 1];
+    for (int i = 0; i < (chs.length - 1); i = i + 2) {
+      chs[i] = SEPARATOR;
+      chs[i + 1] = cs[i / 2];
+    }
+    chs[chs.length - 1] = SEPARATOR;
+    return chs;
+  }
+  
+  private String removeBoundaries(char[] cs, int start, int end) {
+    if (cs == null || cs.length < 3) {
+      return "";
+    }
+    
+    char[] res = new char[(end - start) / 2];
+    for (int i = start + 1, j = 0; i < end; i += 2, j++) {
+      res[j] = cs[i];
+    }
+    return String.valueOf(res);
+  }
+  
+  public static void main(String[] args) {
+    String s =  "forgeeksskeegfor";
+    ManachersAlgorithm one = new ManachersAlgorithm();
+    System.out.println(one.longestPalindrome(s));
+  }
+  
 }
