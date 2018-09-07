@@ -15,6 +15,9 @@ public class FibonacciString {
       
       for (int i = start + 1; i <= chs.length; i++) {      
         int val = Integer.parseInt(String.valueOf(chs, start, i - start));
+        if (n > 2 && val > val1 + val2) {
+          break;
+        }
         if (n > 2 && val != val1 + val2) {
           continue;
         }
@@ -30,7 +33,6 @@ public class FibonacciString {
   public static class NonRecursive_method {
     
     public boolean isFibonacciString(String s) {
-
       
       for (int i = 1, iLen = s.length() / 2; i <= iLen; i++) {
         int val1 = Integer.parseInt(s.substring(0, i));
@@ -50,11 +52,9 @@ public class FibonacciString {
               val1 = val2;
               val2 = val;
             }
-
           }
         }
       }
-      
       return false;
     }
     
@@ -62,7 +62,7 @@ public class FibonacciString {
   
   
   public static void main(String[] args) {
-    String s = "1123";
+    String s = "111223";
     FibonacciString.DFS_method one = 
         new FibonacciString.DFS_method();    
     FibonacciString.NonRecursive_method two = 
