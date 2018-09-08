@@ -40,10 +40,9 @@ public class LeetCode087ScrambleString {
   }
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    LeetCode087ScrambleString one = new LeetCode087ScrambleString();
     String s1 = "abc";
     String s2 = "cba";
+    LeetCode087ScrambleString one = new LeetCode087ScrambleString();
     System.out.print(one.isScramble(s1, s2));
   }
 
