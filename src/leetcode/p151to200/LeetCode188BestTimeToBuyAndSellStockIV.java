@@ -7,6 +7,7 @@ public class LeetCode188BestTimeToBuyAndSellStockIV {
     public int maxProfit(int k, int[] prices) {
       int LEN = prices.length;
       if (k >= LEN / 2) {
+
         return quickSolve(prices);
       }
       //After the i times of transaction and the last transaction is done in j day,
@@ -34,7 +35,6 @@ public class LeetCode188BestTimeToBuyAndSellStockIV {
     }
     
   }
-  
   
   public static class DP_method2 {
     
