@@ -65,8 +65,16 @@ public class MaximumSubstring {
 //  }
   
   
+  
   @Test
   public void testGetMaxSubstring1() {
+    String s = "ggaggggg";
+    String res = "ggggg";
+    assertEquals(res, getMaxSubstring(s));
+  }  
+  
+  @Test
+  public void testGetMaxSubstring2() {
     String s = "ggaggggg";
     String res = "ggggg";
     assertEquals(res, getMaxSubstring(s));
