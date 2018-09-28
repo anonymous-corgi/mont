@@ -6,33 +6,32 @@ import basicclass.TreeNode;
 
 public class LeetCode106ConstructBinaryTreeFromInorderAndPostorderTraversal {
   
-  private Map<Integer, Integer> map = new HashMap<>();
+  private Map<Integer, Integer> inorderPosMap;
   
   public TreeNode buildTree(int[] inorder, int[] postorder) {
+    inorderPosMap = new HashMap<>();
     for (int i = 0; i < inorder.length; i++) {
-      map.put(inorder[i], i);
+      inorderPosMap.put(inorder[i], i);
     }
     return helper(inorder, postorder, 0, inorder.length - 1, 0, postorder.length - 1);
   }
   
-  private TreeNode helper(int[] in, int[] post, 
-                          int inStart, int inEnd, 
-                          int poStart, int poEnd) {
-    if (inStart > inEnd) {
+  private TreeNode helper(int[] inorder, int[] postorder, 
+                          int iStart, int iEnd, 
+                          int pStart, int pEnd) {
+    if (iStart > iEnd) {
       return null;
     }
-    TreeNode root = new TreeNode(post[poEnd]);
-    if (inStart == inEnd) {
+    TreeNode root = new TreeNode(postorder[pEnd]);
+    if (iStart == iEnd) {
       return root;
     }
-    int leftTree = map.get(post[poEnd]) - inStart - 1;
-    root.left = helper(in, post, inStart, inStart + leftTree, poStart, poStart + leftTree);
-    root.right =  helper(in, post, inStart + leftTree + 2, inEnd, poStart + leftTree + 1, poEnd - 1);
-    return root;
-  }
-  
-  public static void main(String[] args) {
+    int inorderPos = inorderPosMap.get(postorder[pEnd]);
+    int leftTreeLen = inorderPos - iStart - 1;
     
+    root.left = helper(inorder, postorder, iStart, iStart + leftTreeLen, pStart, pStart + leftTreeLen);
+    root.right = helper(inorder, postorder, iStart + leftTreeLen + 2, iEnd, pStart + leftTreeLen + 1, pEnd - 1);
+    return root;
   }
   
 }

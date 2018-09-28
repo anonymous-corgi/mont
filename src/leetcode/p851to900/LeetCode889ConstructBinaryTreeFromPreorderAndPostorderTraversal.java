@@ -6,14 +6,12 @@ import basicclass.TreeNode;
 
 public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
   
-  private Map<Integer, Integer> map = new HashMap<>();
+  private Map<Integer, Integer> postorderPosMap;
   
   public TreeNode constructFromPrePost(int[] pre, int[] post) {
-    if (pre == null || pre.length == 0) {
-      return null;
-    }
+    postorderPosMap = new HashMap<>();
     for (int i = 0; i < post.length; i++) {
-      map.put(post[i], i);
+      postorderPosMap.put(post[i], i);
     }
     return helper(pre, post, 0, pre.length - 1, 0, pre.length - 1);
   }
@@ -30,29 +28,11 @@ public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
     }
     preStart++;
     posEnd--;
+    int postorderPos = postorderPosMap.get(pre[preStart]);
+    int leftTreeLen = postorderPos - posStart;
     
-    int leftTreeLen = map.get(pre[preStart]) - posStart;
-    
-//    int leftTreeLen = 0;
-//    for (int i = posE; i >= posS; i--) {
-//      if (post[i] == pre[preS]) {
-//        leftTreeLen = i - posS;
-//        break;
-//      }
-//    }
-    
-//    int leftTreeLen = 0;
-//    long flag = 0;
-//    for (int len = preE - preS; leftTreeLen < len; leftTreeLen++) {
-//      flag ^= (1 << pre[preS + leftTreeLen]);
-//      flag ^= (1 << post[posS + leftTreeLen]);
-//      if (flag == 0) {
-//        break;
-//      }
-//    }
-    
-    root.left = helper(pre, post, preStart, preStart + leftTreeLen, posStart, posStart + leftTreeLen);
-    root.right = helper(pre, post, preStart + leftTreeLen + 1, preEnd, posStart + leftTreeLen + 1, posEnd);
+    root.left = helper(pre, post, preStart, preStart + leftTreeLen, posStart, postorderPos);
+    root.right = helper(pre, post, preStart + leftTreeLen + 1, preEnd, postorderPos + 1, posEnd);
     return root;
   }
   
