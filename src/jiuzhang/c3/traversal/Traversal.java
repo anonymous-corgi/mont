@@ -1,6 +1,7 @@
 package jiuzhang.c3.traversal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import basicclass.TreeNode;
@@ -72,6 +73,29 @@ public class Traversal {
             res.add(stack.peek().val);
             prev = stack.pop();
           }
+        }
+        
+      }
+      
+      return res;
+    }
+    
+  }
+  public static class PostOrder2 {
+    //Post-order Postorder non-recursive
+    //Reverse of PreOrder Traversal
+    public List<Integer> postorderTraversal(TreeNode root) {
+      LinkedList<Integer> res = new LinkedList<>();
+      Stack<TreeNode> stack = new Stack<>();
+      while (!stack.isEmpty() || root != null) {
+        
+        if (root != null) {
+          res.addFirst(root.val); 
+          stack.push(root);
+          //For PreOreder Traversal is: root = stack.pop());
+          root = root.right;
+        } else {
+          root = stack.pop().left;
         }
         
       }
