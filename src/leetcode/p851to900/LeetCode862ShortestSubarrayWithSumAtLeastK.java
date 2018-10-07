@@ -4,25 +4,42 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class LeetCode862ShortestSubarrayWithSumAtLeastK {
-  //
+  
+  interface Method {
+    int shortestSubarray(int[] nums, int K);
+  }
+  
+  public static class Standard implements Method {
+
+    @Override
+    public int shortestSubarray(int[] nums, int K) {
+      int LEN = nums.length + 1;
+      int res = LEN;
+      int[] prefix = new int[LEN];
+      for (int i = 0; i < nums.length; i++) {
+        prefix[i + 1] = prefix[i] + nums[i];
+      }
+      Deque<Integer> que = new ArrayDeque<>();
+      for (int i = 0; i < LEN; i++) {
+        while (!que.isEmpty() && prefix[i] - prefix[que.peekFirst()] >=  K) {
+          res = Math.min(res, i - que.pollFirst());
+        }
+        while (!que.isEmpty() && prefix[que.peekLast()] >= prefix[i]) {
+          que.pollLast();
+        }
+        que.addLast(i);
+      }
+      return res < LEN ? res : -1;
+    }
+    
+  }
+  
+  private Method getInstance() {
+    return new Standard();
+  }
+  
   public int shortestSubarray(int[] nums, int K) {
-    int LEN = nums.length;
-    int res = LEN + 1;
-    int[] prefix = new int[LEN + 1];
-    for (int i = 0; i < LEN; i++) {
-      prefix[i + 1] = prefix[i] + nums[i];
-    }
-    Deque<Integer> que = new ArrayDeque<>();
-    for (int i = 0; i <= LEN; i++) {
-      while (que.size() > 0 && prefix[i] - prefix[que.peekFirst()] >=  K) {
-        res = Math.min(res, i - que.pollFirst());
-      }
-      while (que.size() > 0 && prefix[i] <= prefix[que.peekLast()]) {
-        que.pollLast();
-      }
-      que.addLast(i);
-    }
-    return res <= LEN ? res : -1;
+    return getInstance().shortestSubarray(nums, K);
   }
 
   public static void main(String[] args) {
