@@ -2,8 +2,9 @@ package basicclass;
 
 public class BinaryIndexedTree {
   
-  private final int[] stub;
   private final int[] bit;
+  private final int[] stub;
+
   public BinaryIndexedTree(int[] nums) {
     this.stub = new int[nums.length + 1];
     this.bit = new int[nums.length + 1];
@@ -13,31 +14,25 @@ public class BinaryIndexedTree {
   }
   
   public void update(int i, int val) {
-    int diff = val - stub[i + 1];
-    stub[i + 1] = val;
-    for (int j = i + 1; j < bit.length; j += (j & -j)) {
-      bit[j] += diff;
+    int index = i + 1;
+    int diff = val - stub[index];
+    stub[index] = val;
+    for (; index < bit.length; index += (index & -index)) {
+      bit[index] += diff;
     }
   }
-  
-  public int sumRange(int i, int j) {
-    return getSum(j + 1) - getSum(i);
-  }
-  
-  private int getSum(int i) {
+
+  public int getSum(int i) {
     int res = 0;
-    for (int j = i; j > 0; j -= (j & -j)) {
-      res += bit[j];
+    int index = i + 1;
+    for (; index > 0; index -= (index & -index)) {
+      res += bit[index];
     }
     return res;
   }
-  
-  public static void main(String[] args) {
-    int[] nums = {1, 3, 4, 6, 7};
-    BinaryIndexedTree one = new BinaryIndexedTree(nums);
-    for (int i = 0; i <= nums.length; i++) {
-      System.out.println(one.getSum(i));
-    }
+
+  public int getRangeSum(int i, int j) {
+    return getSum(j) - getSum(i - 1);
   }
 
 }
