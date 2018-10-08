@@ -17,52 +17,51 @@ package jiuzhang.dp.backpack;
  * You function should return the max size we can fill in the given backpack.
  */
 public class BackPackI {
+
+	interface  Method {
+		int backPack(int capacity, int[] weights);
+	}
+
 	//Count Max weight can be stored in m capacity without repeated use
 	//This is the optimal way to count the maximum capacity
-	public int backPack(int m, int[] A) {
-		if (A == null) {
-			return 0;
-		}
-		int aLen = A.length;
-		if (aLen == 0) {
-			return 0;
-		}
-		int[] dp = new int[m + 1];
-		for (int i = 0; i < aLen; i++) {
-			for (int j = m; j >= A[i]; j--) {
-				dp[j] = Math.max(dp[j], dp[j - A[i]] + A[i]);
+	public static class Method1 implements Method {
+		@Override
+		public int backPack(int capacity, int[] weights) {
+			if (weights == null || weights.length == 0) {
+				return 0;
 			}
+			int[] dp = new int[capacity + 1];
+			for (int i = 0; i < weights.length; i++) {
+				for (int j = capacity; j >= weights[i]; j--) {
+					dp[j] = Math.max(dp[j], dp[j - weights[i]] + weights[i]);
+				}
+			}
+			return dp[capacity];
 		}
-		return dp[m];
 	}
-	
-	//Solution2
+
 	//This solution is mostly used for count number of possibilities.
 	//Similar to BackPackVI
-    public int backPackS2(int m, int[] A) {
-        boolean f[][] = new boolean[A.length + 1][m + 1];
-        f[0][0] = true;
-        for (int i = 1; i <= A.length; i++) {
-            for (int j = 0; j <= m; j++) {
-                f[i][j] = f[i - 1][j];
-                if (j >= A[i-1] && f[i-1][j - A[i-1]]) {
-                    f[i][j] = true;
-                }
-            } // for j
-        } // for i
-        
-        for (int i = m; i >= 0; i--) {
-            if (f[A.length][i]) {
-                return i;
-            }
-        }
-        
-        return 0;
-    }
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public static class Method2 implements Method {
+		@Override
+		public int backPack(int capacity, int[] weights) {
+			boolean f[][] = new boolean[weights.length + 1][capacity + 1];
+			f[0][0] = true;
+			for (int i = 1; i <= weights.length; i++) {
+				for (int j = 0; j <= capacity; j++) {
+					f[i][j] = f[i - 1][j];
+					if (j >= weights[i-1] && f[i-1][j - weights[i-1]]) {
+						f[i][j] = true;
+					}
+				} // for j
+			} // for i
+			for (int i = capacity; i >= 0; i--) {
+				if (f[weights.length][i]) {
+					return i;
+				}
+			}
+			return 0;
+		}
 	}
 
 }

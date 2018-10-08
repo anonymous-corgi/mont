@@ -2,25 +2,19 @@ package jiuzhang.dp.backpack;
 
 //BackPackIII contains repeated object
 public class BackPackII {
+
   //Count Max value can be stored in m capacity WITHOUT repeated use
-  public int backPackII(int m, int[] A, int V[]) {
-    if (A == null || A.length == 0) {
-      return -1;
+  public int backPackII(int capacity, int[] weights, int values[]) {
+    if (weights == null || weights.length == 0) {
+      return 0;
     }
-    
-    int obsLen = A.length;
-    int[] dp = new int[m + 1];
-    for (int i = 0; i < obsLen; i++) {
-      for (int j = m; j >= A[i]; j--) {
-        dp[j] = Math.max(dp[j - 1], dp[j - A[i]] + V[i]);
+    int[] dp = new int[capacity + 1];
+    for (int i = 0; i < weights.length; i++) {
+      for (int j = capacity; j >= weights[i]; j--) {
+        dp[j] = Math.max(dp[j - 1], dp[j - weights[i]] + values[i]);
       }
     }
-    return dp[m];
-  }
-  
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    
+    return dp[capacity];
   }
   
 }

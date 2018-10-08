@@ -2,47 +2,74 @@ package jiuzhang.dp.backpack;
 
 //BackPackII doesn't contain repeated object
 public class BackPackIII {
+
   //Count Max value can be stored in m capacity WITH repeated use
-  public int backPackIII(int m, int[] A, int[] V) {
-    if (A == null || A.length == 0) {
-      return -1;
-    }
-    
-    int obsLen = A.length;
-    int[] dp = new int[m + 1];
-    for (int i = 0; i < obsLen; i++) {
-      for (int j = A[i]; j <= m; j++) {
-        dp[j] = Math.max(dp[j], dp[j - A[i]] + V[i]);
-      }
-    }
-    return dp[m];
+  interface Method {
+    int backPackIII(int capacity, int[] weights, int[] values);
   }
-  
-  //Method2: Loop from weight first.
-  public int backPackII(int m, int[] A, int V[]) {
-    if (A == null || A.length == 0) {
-      return 0;
-    }
-    int obsLen = A.length;
-    int[] dp = new int[m + 1];
-    for (int i = 1; i <= m; i++) {
-      for (int j = 0; j < obsLen; j++) {
-        if (A[j] > i) {
-          continue;
+
+  //Method1: Loop from items first.
+  public static class Method1 implements Method {
+
+    @Override
+    public int backPackIII(int capacity, int[] weights, int[] values) {
+      if (weights == null || weights.length == 0) {
+        return 0;
+      }
+      int[] dp = new int[capacity + 1];
+      for (int i = 0; i < weights.length; i++) {
+        for (int j = weights[i]; j <= capacity; j++) {
+          dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
         }
-        dp[i] = Math.max(dp[i], dp[i - A[j]] + V[j]);
       }
+      return dp[capacity];
     }
-    return dp[m];
+
   }
-  
+
+  //Method2: Loop from weight first.
+  public static class Method2 implements Method {
+
+    @Override
+    public int backPackIII(int capacity, int[] weights, int[] values) {
+      if (weights == null || weights.length == 0) {
+        return 0;
+      }
+      int[] dp = new int[capacity + 1];
+      for (int i = 1; i <= capacity; i++) {
+        for (int j = 0; j < weights.length; j++) {
+          if (weights[j] <= i) {
+            dp[i] = Math.max(dp[i], dp[i - weights[j]] + values[j]);
+          }
+        }
+      }
+      return dp[capacity];
+    }
+
+  }
+
+  private Method getMethod() {
+    int res = 0;
+    switch (res) {
+      case 0:
+        return new Method1();
+      case 1:
+        return new Method2();
+      default:
+        return new Method1();
+    }
+  }
+
+  public int backPackIII(int capacity, int[] weights, int[] values) {
+    return getMethod().backPackIII(capacity, weights, values);
+  }
+
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    int m = 30;
-    int[] A = {1,2,3,4,5,6,7,8,9,10};
-    int[] V = {1,5,8,9,10,17,17,20,24,30};
+    int capacity = 30;
+    int[] weights = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int[] values = {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
     BackPackIII one = new BackPackIII();
-    System.out.println(one.backPackIII(m, A, V));
+    System.out.println(one.backPackIII(capacity, weights, values));
   }
-  
+
 }

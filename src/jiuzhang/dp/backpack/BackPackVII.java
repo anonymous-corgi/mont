@@ -17,20 +17,19 @@ package jiuzhang.dp.backpack;
  */
 public class BackPackVII {
 	
-	public int backPackVII(int[] nums, int target) {
+	public int backPackVII(int[] weights, int capacity) {
 		// write your code here
-		if (nums == null || nums.length == 0) {
+		if (weights == null || weights.length == 0) {
 			return 0;
 		}
-		int nLen = nums.length;
-		int[] dp = new int[target + 1];
+		int[] dp = new int[capacity + 1];
 		dp[0] = 1;
-		for (int i = 0; i < nLen; i++) {
-			for (int j = nums[i]; j <= target; j++) {
-				dp[j] += dp[j - nums[i]];
+		for (int i = 0; i < weights.length; i++) {
+			for (int j = weights[i]; j <= capacity; j++) {
+				dp[j] += dp[j - weights[i]];
 			}
 		}
-		return dp[target];
+		return dp[capacity];
 	}
 	
 	/**
@@ -43,7 +42,6 @@ public class BackPackVII {
 	 */
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 	}
 
