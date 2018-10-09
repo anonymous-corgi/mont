@@ -16,6 +16,8 @@ public class LeetCode084LargestRectangleInHistogram {
         stack.push(i);
       } else {
         int ht = stack.pop();
+        //The key is stack.peek() it store the first index that is shorter than current index.
+        //Because it can be contiguous or discontiguous to the current index.
         max = Math.max(max, heights[ht] * (stack.isEmpty() ? i : i - 1 - stack.peek()));
         i--;
       }
@@ -24,7 +26,6 @@ public class LeetCode084LargestRectangleInHistogram {
   }
   
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
     LeetCode084LargestRectangleInHistogram one = 
         new LeetCode084LargestRectangleInHistogram();
     int[] heights = {4,6,5,7,8,3};
