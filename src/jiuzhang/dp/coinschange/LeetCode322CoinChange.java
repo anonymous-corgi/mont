@@ -1,4 +1,4 @@
-package jiuzhang.dp.backpack;
+package jiuzhang.dp.coinschange;
 
 public class LeetCode322CoinChange {
 	
