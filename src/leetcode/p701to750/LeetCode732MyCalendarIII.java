@@ -9,20 +9,21 @@ public class LeetCode732MyCalendarIII {
   public int book(int s, int e) {
     timeline.put(s, timeline.getOrDefault(s, 0) + 1);
     timeline.put(e, timeline.getOrDefault(e, 0) - 1);
+    int max = 0;
     int count = 0;
-    int res = 0;
     for (int v : timeline.values()) {
-      res = Math.max(res, count += v);
+      count += v;
+      max = Math.max(max, count);
     }
-    return res;
+    return max;
   }
 
   public static void main(String[] args) {
     LeetCode732MyCalendarIII one =
         new LeetCode732MyCalendarIII();
     int[][] times = {{10, 11}, {10, 13}, {5, 6}, {3, 6}, {4, 13}, {1, 16}};
-    for (int i = 0; i < times.length; i++) {
-      System.out.println(one.book(times[i][0], times[i][1]));
+    for (int[] time : times) {
+      System.out.println(one.book(time[0], time[1]));
     }
   }
 

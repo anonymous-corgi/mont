@@ -5,21 +5,26 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class LeetCode731MyCalendarII {
+
+  interface Method {
+    boolean book(int s, int e);
+  }
   
   //Method 1:
-  public static class TreeMap_method {
-    
-    private TreeMap<Integer, Integer> map = new TreeMap<>();
-    
+  public static class TreeMap_method implements Method {
+
+    private TreeMap<Integer, Integer> timeline = new TreeMap<>();
+
+    @Override
     public boolean book(int s, int e) {
-      map.put(s, map.getOrDefault(s, 0) + 1);
-      map.put(e, map.getOrDefault(e, 0) - 1);
+      timeline.put(s, timeline.getOrDefault(s, 0) + 1);
+      timeline.put(e, timeline.getOrDefault(e, 0) - 1);
       int cnt = 0;
-      for (Integer v : map.values()) {
+      for (Integer v : timeline.values()) {
         cnt += v;
         if (cnt == 3) {
-          map.put(s, map.get(s) - 1);
-          map.put(e, map.get(e) + 1);
+          timeline.put(s, timeline.get(s) - 1);
+          timeline.put(e, timeline.get(e) + 1);
           return false;
         }
       }
@@ -29,41 +34,54 @@ public class LeetCode731MyCalendarII {
   }
   
   //Method 2:
-  public static class List_method {
+  public static class List_method implements Method {
     
+    private Overlap overlaps = new Overlap();
     private List<int[]> books = new ArrayList<>();
-    
+
+    @Override
     public boolean book(int s, int e) {
-      OVerlap overlaps = new OVerlap();
       for (int[] b : books)
         if (Math.max(b[0], s) < Math.min(b[1], e)) {
-          // overlap exist
+          // overlap exists
           if (!overlaps.book(Math.max(b[0], s), Math.min(b[1], e))) {
             return false; // overlaps overlapped
           }
         }
-      books.add(new int[]{ s, e });
+      books.add(new int[]{s, e});
       return true;
     }
     
-    private static class OVerlap {
+    private class Overlap {
+
       List<int[]> books = new ArrayList<>();
-      public boolean book(int start, int end) {
-        for (int[] b : books)
-          if (Math.max(b[0], start) < Math.min(b[1], end)) return false;
-        books.add(new int[]{ start, end });
+
+      boolean book(int start, int end) {
+        for (int[] b : books) {
+          if (Math.max(b[0], start) < Math.min(b[1], end)) {
+            return false;
+          }
+        }
+        books.add(new int[]{start, end});
         return true;
       }
     }
     
   }
 
+  private static Method getMethod() {
+    int type = 0;
+    switch (type) {
+      case 0: return new List_method();
+      default: return new TreeMap_method();
+    }
+  }
+
   public static void main(String[] args) {
-    LeetCode731MyCalendarII.List_method one =
-        new LeetCode731MyCalendarII.List_method();
+    Method one = getMethod();
     int[][] times = {{10, 11}, {10, 13}, {5, 6}, {3, 6}, {4, 13}, {1, 16}};
-    for (int i = 0; i < times.length; i++) {
-      System.out.println(one.book(times[i][0], times[i][1]));
+    for (int[] time : times) {
+      System.out.println(one.book(time[0], time[1]));
     }
   }
 
