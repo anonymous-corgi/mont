@@ -10,27 +10,22 @@ public class LeetCode239SlidingWindowMaximum {
       return new int[0];
     }
     int[] res = new int[nums.length - k + 1];
-    Deque<Integer> deque = new ArrayDeque<>();
+    Deque<Integer> maxQue = new ArrayDeque<>(k);
     for (int i = 0; i < nums.length; i++) {
-      while (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
-        deque.poll();
+      while (!maxQue.isEmpty() && maxQue.peekFirst() <= i - k) {
+        maxQue.pollFirst();
       }
       
-      while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-        deque.pollLast();
+      while (!maxQue.isEmpty() && nums[maxQue.peekLast()] < nums[i]) {
+        maxQue.pollLast();
       }
       
-      deque.offer(i);
+      maxQue.offer(i);
       if (i >= k - 1) {
-        res[i - k + 1] = nums[deque.peekFirst()];
+        res[i - k + 1] = nums[maxQue.peekFirst()];
       }
     }
     return res;
-  }
-
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-
   }
 
 }
