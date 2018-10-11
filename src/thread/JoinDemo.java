@@ -2,10 +2,12 @@ package thread;
 
 public class JoinDemo {
   
-  public static class CustomThread1 extends Thread {  
+  public static class CustomThread1 extends Thread {
+    
     public CustomThread1() {  
       super("[CustomThread1] Thread");  
-    };  
+    }
+    
     public void run() {  
       String threadName = Thread.currentThread().getName();  
       System.out.println(threadName + " start.");  
@@ -21,12 +23,15 @@ public class JoinDemo {
     }  
   }  
   
-  public static class CustomThread2 extends Thread {  
-    CustomThread1 t1;  
-    public CustomThread2(CustomThread1 t1) {  
+  public static class CustomThread2 extends Thread {
+    
+    Thread t1;
+    
+    public CustomThread2(Thread t1) {
       super("[CustomThread2] Thread");  
       this.t1 = t1;  
-    }  
+    }
+    
     public void run() {  
       String threadName = Thread.currentThread().getName();  
       System.out.println(threadName + " start.");  
@@ -38,21 +43,23 @@ public class JoinDemo {
       }  
     }  
   }  
-
+  
+  //main Thread and CustomThread2 is waiting for CustomThread1 ending.
   public static void main(String[] args) {
-    String mainThreadName = Thread.currentThread().getName();  
-    System.out.println(mainThreadName + " start.");  
+    System.out.println("MainThread starts.");
+    
     CustomThread1 t1 = new CustomThread1();  
-    CustomThread2 t2 = new CustomThread2(t1);  
-    try {  
-        t1.start();  
-        Thread.sleep(2000);  
-        t2.start();  
-        t1.join();//在代碼2里，將此處注釋掉  
-    } catch (Exception e) {  
-        System.out.println("Exception from main");  
-    }  
-    System.out.println(mainThreadName + " end!"); 
+    CustomThread2 t2 = new CustomThread2(t1);
+    try {
+      t1.start();
+      Thread.sleep(2000);
+      t2.start();
+      t1.join();
+    } catch (Exception e) {
+      System.out.println("Exception from main");
+    }
+    
+    System.out.println("MainThread ends.");
   }
-
+  
 }

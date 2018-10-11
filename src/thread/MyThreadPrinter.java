@@ -16,36 +16,37 @@ public class MyThreadPrinter implements Runnable {
   public void run() {
     int count = 1;
     while (count < 2) {
-      System.out.println("Thread " + this.name +  " Begins.");
+      System.out.println("Thread " + this.name +  " Begins loop " + count + ".");
       synchronized (prev) {
-        System.out.println("Thread " + this.name +  " Gets: " + prev);
+        System.out.println("Thread " + this.name +  " Gets: " + prev + ".");
         synchronized (self) {
-          System.out.println("Thread " + this.name +  " Gets: " + self);
-          System.out.println("Thread " + this.name + " Times: " + count);
-          count++;
+          System.out.println("Thread " + this.name +  " Gets: " + self + ".");
+
           self.notify();
-          System.out.println("Thread " + this.name +  " is goint to release and wait: " + self);
-        } 
+          System.out.println("Thread " + this.name +  " is going to release and wait: " + self + ".");
+        }
+
         try {
-          System.out.println("Thread " + this.name +  " is goint to release and wait: " + prev);
+          System.out.println("Thread " + this.name +  " is going to release and wait: " + prev + ".");
           prev.wait();
 //          prev.wait(10);
-          System.out.println("Thread " + this.name +  " Re-gets: " + prev);
+          System.out.println("Thread " + this.name +  " Re-gets: " + prev + ".");
         } catch (InterruptedException e) {     
           e.printStackTrace();
         }     
       }
-      System.out.println("Thread " + this.name +  " is goint to finish a cycle.");
+      count++;
+      System.out.println("Thread " + this.name +  " finishes loop " + count + ".");
     }  
   }
   
   public static void main(String[] args) throws Exception {
-    String a = "LockA";
-    String b = "LockB";
-    String c = "LockC";
-    MyThreadPrinter pa = new MyThreadPrinter("A", c, a);
-    MyThreadPrinter pb = new MyThreadPrinter("B", a, b);
-    MyThreadPrinter pc = new MyThreadPrinter("C", b, c);
+    String lockA = "LockA";
+    String lockB = "LockB";
+    String lockC = "LockC";
+    MyThreadPrinter pa = new MyThreadPrinter("A", lockC, lockA);
+    MyThreadPrinter pb = new MyThreadPrinter("B", lockA, lockB);
+    MyThreadPrinter pc = new MyThreadPrinter("C", lockB, lockC);
     
     
     new Thread(pa).start();
