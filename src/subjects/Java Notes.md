@@ -1,11 +1,13 @@
-Java
+# Java
 - ### 1. Generics:
+
   + ##### PECS(Producer Extends, Consumer Super)
   + ##### If ***RedApple*** extends ***Apple*** extends ***Foods***
     + ###### ? super Apple -> Apple, Foods
     + ###### ? extends Apple -> Apple, RedApple
 
   + Explanation:
+
     ```
     interface Function<T, R> {
 
@@ -17,6 +19,7 @@ Java
 
     }
     ```
+
     this.compose() is going to call before.apply().
     As this.compose() is providing V, we need to make sure that before.apply() is not consuming objects that lower than V.
     That means before.apply(? super V).
@@ -24,7 +27,35 @@ Java
     As this.apply(T t) requres T, we need to make sure that before.apply() returns objects that that is not higher than T.
     That means before.apply(? super V) return ? extends T.
 
-- ### 2. Stream
+- ### 2. Lambda
+
+  + ##### ->
+
+    > (parameters) -> Expression
+    > (class parameters) -> Expression
+    >
+    > (parameters) -> { Statements; }
+    > (class parameters) -> { Statements; }
+
+  + ##### ::
+
+    > class::method
+    >
+    > instance::method
+    >
+
+    > *Type1:*
+    > Function<char[], String> function = String::new;
+    > Function<char[], String> function = String::valueOf;
+    >
+    > *Type2:*  
+    > Function<String, Integer> function = String::hashCode;
+    > BiFunction<String, String, Boolean> biFunction = String::equals;
+
+- ### 3. Stream
+
+  ***ForEach*** & ***Comsumer<T\>***
+
   ```
   interface Iterable<T> {
 
@@ -48,6 +79,9 @@ Java
 
   }
   ```
+
+  ***Stream<T\>***
+
   ```
   interface Stream<T> extends BaseStream<T, Stream<T>> {
 
@@ -57,12 +91,21 @@ Java
     //Function<? super P_OUT, ? extends R> mapper: mapper.apply(u)
     <R> Stream<R> map(Function<? super T, ? extends R> mapper);
 
-    //
+    //Terminal Executions 1:
     boolean anyMatch(Predicate<? super T> predicate);
 
     boolean allMatch(Predicate<? super T> predicate);
 
     boolean noneMatch(Predicate<? super T> predicate);
+
+    //Terminal Exectutions 2:
+    T reduce(T identity, BinaryOperator<T> accumulator);
+
+    Optional<T> reduce(BinaryOperator<T> accumulator);
+
+    <U> U reduce(U identity,
+                 BiFunction<U, ? super T, U> accumulator,
+                 BinaryOperator<U> combiner);
 
     //
     <R> R collect(Supplier<R> supplier,
@@ -73,7 +116,9 @@ Java
 
   }
   ```
-  *** Predicate<T> & Function<T, R> ***
+
+  ***Predicate<T\>*** & ***Function<T, R\>*** & ***BiFunction<T, U, R\>*** & ***BinaryOperator<T\>***
+
   ```
   interface Predicate<T> {
 
@@ -100,7 +145,9 @@ Java
     }
 
   }
+  ```
 
+  ```
   interface Function<T, R> {
 
     R apply(T t);
@@ -121,7 +168,38 @@ Java
 
   }
   ```
-  ***Collections***
+
+  ```
+  interface BiFunction<T, U, R> {
+
+    R apply(T t, U u);
+
+    default <V> BiFunction<T, U, V> andThen(Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+  }
+  ```
+
+  ```
+  interface BinaryOperator<T> extends BiFunction<T,T,T> {
+
+    public static <T> BinaryOperator<T> minBy(Comparator<? super T> comparator) {
+        Objects.requireNonNull(comparator);
+        return (a, b) -> comparator.compare(a, b) <= 0 ? a : b;
+    }
+
+    public static <T> BinaryOperator<T> maxBy(Comparator<? super T> comparator) {
+        Objects.requireNonNull(comparator);
+        return (a, b) -> comparator.compare(a, b) >= 0 ? a : b;
+    }
+
+  }
+  ```
+
+  ***Collectors***
+
   ```
   class Collectors {
 
@@ -137,5 +215,10 @@ Java
                                 BinaryOperator<U> mergeFunction);
 
     groupingBy(Function<? super T,? extends K> classifier);
+
+  }
+  ```
+
+  ```
 
   ```
