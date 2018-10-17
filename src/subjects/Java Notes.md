@@ -29,32 +29,37 @@
 
 - ### 2. Lambda
 
-  + ##### ->
+  + ##### **->**
 
-    > (parameters) -> Expression
-    > (class parameters) -> Expression
-    >
-    > (parameters) -> { Statements; }
-    > (class parameters) -> { Statements; }
+  > ```
+  > (parameters) -> Expression
+  > (class parameters) -> Expression
+  >
+  > (parameters) -> { Statements; }
+  > (class parameters) -> { Statements; }
+  > ```
 
-  + ##### ::
+  + ##### **::**
 
-    > class::method
-    >
-    > instance::method
-    >
+  > ```
+  > class::method
+  >
+  > instance::method
+  > ```
 
-    > *Type1:*
-    > Function<char[], String> function = String::new;
-    > Function<char[], String> function = String::valueOf;
-    >
-    > *Type2:*  
-    > Function<String, Integer> function = String::hashCode;
-    > BiFunction<String, String, Boolean> biFunction = String::equals;
+  > ```
+  > *Type1:*
+  > Function<char[], String> function = String::new;
+  > Function<char[], String> function = String::valueOf;
+  >
+  > *Type2:*
+  > Function<String, Integer> function = String::hashCode;
+  > BiFunction<String, String, Boolean> biFunction = String::equals;
+  > ```
 
 - ### 3. Stream
 
-  ***ForEach*** & ***Comsumer<T\>***
+  ***ForEach***
 
   ```
   interface Iterable<T> {
@@ -64,17 +69,6 @@
         for (T t : this) {
           action.accept(t);
         }
-    }
-
-  }
-
-  interface Consumer<T> {
-
-    void accept(T t);
-
-    default Consumer<T> andThen(Consumer<? super T> after) {
-      Objects.requireNonNull(after);
-      return (T t) -> { accept(t); after.accept(t); };
     }
 
   }
@@ -91,14 +85,24 @@
     //Function<? super P_OUT, ? extends R> mapper: mapper.apply(u)
     <R> Stream<R> map(Function<? super T, ? extends R> mapper);
 
-    //Terminal Executions 1:
+  ----------------------------------------------------------------
+  ****Terminal Executions 1:**************************************
+  ----------------------------------------------------------------
+
     boolean anyMatch(Predicate<? super T> predicate);
 
     boolean allMatch(Predicate<? super T> predicate);
 
     boolean noneMatch(Predicate<? super T> predicate);
 
-    //Terminal Exectutions 2:
+    Optional<T> min(Comparator<? super T> comparator);
+
+    Optional<T> max(Comparator<? super T> comparator);
+
+  ----------------------------------------------------------------
+  ****Terminal Executions 2:**************************************
+  ----------------------------------------------------------------
+
     T reduce(T identity, BinaryOperator<T> accumulator);
 
     Optional<T> reduce(BinaryOperator<T> accumulator);
@@ -107,7 +111,10 @@
                  BiFunction<U, ? super T, U> accumulator,
                  BinaryOperator<U> combiner);
 
-    //
+  ----------------------------------------------------------------
+  ****Terminal Executions 3:**************************************
+  ----------------------------------------------------------------
+
     <R> R collect(Supplier<R> supplier,
               BiConsumer<R, ? super T> accumulator,
               BiConsumer<R, R> combiner);
@@ -198,23 +205,69 @@
   }
   ```
 
-  ***Collectors***
+  ***Comsumer<T\>*** & ***BiConsumer<T, U\>***
+
+  ```
+  interface Consumer<T> {
+
+    void accept(T t);
+
+    default Consumer<T> andThen(Consumer<? super T> after) {
+      Objects.requireNonNull(after);
+      return (T t) -> { accept(t); after.accept(t); };
+    }
+
+  }
+  ```
+
+  ```
+  interface BiConsumer<T, U> {
+
+    void accept(T t, U u);
+
+    default BiConsumer<T, U> andThen(BiConsumer<? super T, ? super U> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+  }
+  ```
+
+  ***Collector<T, A, R\>*** & ***Collectors***
+
+  ```
+  interface Collector<T, A, R> {
+
+    Supplier<A> supplier();
+
+    BiConsumer<A, T> accumulator();
+
+    BinaryOperator<A> combiner();
+
+    Function<A, R> finisher();
+
+  }
+  ```
 
   ```
   class Collectors {
 
-    Collector<T, ?, List<T>> toList();
+    <T> Collector<T, ?, List<T>> toList();
 
-    Collector<T, ?, Set<T>> toSet();
+    <T> Collector<T, ?, Set<T>> toSet();
 
-    Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,
+    <T, K, U> Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,
                                 Function<? super T, ? extends U> valueMapper);
 
-    Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,
+    <T, K, U> Collector<T, ?, Map<K,U>> toMap(Function<? super T, ? extends K> keyMapper,
                                 Function<? super T, ? extends U> valueMapper,
                                 BinaryOperator<U> mergeFunction);
 
-    groupingBy(Function<? super T,? extends K> classifier);
+    <T, K> Collector<T, ?, Map<K, List<T>>> groupingBy(Function<? super T,? extends K> classifier);
 
   }
   ```
@@ -222,3 +275,17 @@
   ```
 
   ```
+  ***Reduce() Examples***
+
+  >  ```
+  > // Concat String，concat = "ABCD"
+  > String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat);
+  >
+  > // Get min，minValue = -3.0
+  > double minValue = Stream.of(-1.5, 1.0, -3.0, -2.0).reduce(Double.MAX_VALUE, Double::min);
+  >
+  > // Get sum，sumValue = 10, with initial value
+  > int sumValue = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
+  > // Get sum，sumValue = 10, without initial value
+  > int sumValue = Stream.of(1, 2, 3, 4).reduce(Integer::sum).get();
+  >  ```
