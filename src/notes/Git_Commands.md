@@ -31,6 +31,12 @@
     `$ git config [--global] user.name "[name]"`  
     `$ git config [--global] user.email "[email address]"`
 
+  + ##### 在后台启动 ssh-agent
+    `eval $(ssh-agent -s)`
+
+  + ##### 将SSH私钥添加到 ssh-agent
+    `ssh-add /c/Users/chenjs/.ssh/id_rsa`
+
 ### 三、增加/删除文件
 
   + ##### 添加指定文件到暂存区
