@@ -35,7 +35,11 @@
     `eval $(ssh-agent -s)`
 
   + ##### 将SSH私钥添加到 ssh-agent
-    `ssh-add /c/Users/chenjs/.ssh/id_rsa`
+    `ssh-add /c/Users/USER_NAME/.ssh/id_rsa`
+    
+  + ##### 测试密钥是否工作
+    `$ ssh -T git@github.com`  
+    `$ ssh -T git@gitlab.com`
 
 ### 三、增加/删除文件
 
