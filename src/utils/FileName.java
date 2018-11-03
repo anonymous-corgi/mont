@@ -1,15 +1,12 @@
 package utils;
 
 public class FileName {
-  
+
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    String numberandname = "";
-    getBothDir(numberandname);
-    
-//    int number = ;
-//    String name = "";
-//    getBothDir(number, name);
+
+    String nameWithNumber = "";
+
+    getBothDir(nameWithNumber);
   }
   
   private static final String LEETCODE_DIR = "https://github.com/RaychHuang/Algorithm/blob/master/src/leetcode/p";
