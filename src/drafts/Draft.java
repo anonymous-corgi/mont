@@ -1,11 +1,9 @@
 package drafts;
 
-public class Note {		
+public class Draft {
   
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-//    Note one = new Note();
+//    Draft one = new Draft();
     System.out.println();
   }
-  
 }
