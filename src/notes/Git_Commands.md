@@ -31,6 +31,13 @@
     `$ git config [--global] user.name "[name]"`  
     `$ git config [--global] user.email "[email address]"`
 
+  + ##### 生成 ssh
+    `$ ssh-keygen -t rsa`  
+    
+  + ##### 列出 ssh 并查看
+    `$ ls -al ~/.ssh`  
+    `$ cat ~/.ssh/id_rsa.pub`  
+  
   + ##### 在后台启动 ssh-agent
     `eval $(ssh-agent -s)`
 
