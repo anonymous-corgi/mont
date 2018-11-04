@@ -67,6 +67,41 @@
       }
   }
   ```
+  
+  + ##### 1.4 rx: ***Scheduler***
+  ```java
+  public abstract class Scheduler {
+    
+    public abstract Worker createWorker();
+        
+    public abstract static class Worker implements Subscription {
+      
+      public abstract Subscription schedule(Action0 action);
+
+      /**
+       * Schedules an Action for execution at some point in the future.
+       * <p>
+       * Note to implementors: non-positive {@code delayTime} should be regarded as non-delayed schedule, i.e.,
+       * as if the {@link #schedule(rx.functions.Action0)} was called.
+       *
+       * @param action the Action to schedule
+       *
+       * @param delayTime time to wait before executing the action; non-positive
+       * values indicate an non-delayed schedule
+       *
+       * @param unit the time unit of {@code delayTime}
+       *
+       * @return a subscription to be able to prevent or cancel the execution of the action
+       */
+      public abstract Subscription schedule(final Action0 action, final long delayTime, final TimeUnit unit);
+
+      public Subscription schedulePeriodically(final Action0 action, long initialDelay, long period, TimeUnit unit) {
+          return SchedulePeriodicHelper.schedulePeriodically(this, action,
+                  initialDelay, period, unit, null);
+      }
+    }
+  }
+  ```
 
 - ### 2. Observer<T>.subscribe()
   All These non-static subscribe() methods below will be converted to
@@ -133,26 +168,6 @@
           }
           return subscription;
       }
-  }
-  ```
-  
-- ### 3. Thread Scheduler
-  
-  + ##### 3.1 subscribeOn()
-  ```java
-  public final Observable<T> subscribeOn(Scheduler scheduler) {
-      if (this instanceof ScalarSynchronousObservable) {
-          return ((ScalarSynchronousObservable<T>)this).scalarScheduleOn(scheduler);
-      }
-      
-      return create(new OperatorSubscribeOn<T>(this, scheduler));
-  }
-  ```
-  
-  + ##### 3.2 observeOn()
-  ```
-  public final Observable<T> observeOn(Scheduler scheduler) {
-      return observeOn(scheduler, RxRingBuffer.SIZE);
   }
   ```
 
@@ -294,7 +309,7 @@
   ```
   
 - ### . Lift
-  lift is like a 
+
   + ##### .1 lift()
   ```java
   public final <R> Observable<R> lift(final Operator<? extends R, ? super T> operator) {
@@ -400,8 +415,83 @@
     }
   }
   ```
+- ### . Merge()
+  
+  Merge() will firstly create an Observable<Observable<T\>\> from a sequence of Observable<T\>
+  ```java
+  public static <T> Observable<T> merge(Observable<? extends T>[] sequences) {
+      return merge(from(sequences));
+  }
+  ```
+  
+  ```java
+  public static <T> Observable<T> merge(Observable<? extends Observable<? extends T>> source) {
+    if (source.getClass() == ScalarSynchronousObservable.class) {
+        return ((ScalarSynchronousObservable<T>)source).scalarFlatMap((Func1)UtilityFunctions.identity());
+    }
+    return source.lift(OperatorMerge.<T>instance(false));
+  }
+  ```
+  Inside OperatorMerge<T\> there is a MergeSubscriber<T\> that will subscribe the Parent Observable and emit element T to its child Observable.
+  ```java
+  public final class OperatorMerge<T> implements Operator<T, Observable<? extends T>> {
+    
+    public static <T> OperatorMerge<T> instance(boolean delayErrors, int maxConcurrent) {
+      return new OperatorMerge<T>(delayErrors, maxConcurrent);
+    }
+    
+    @Override
+    public Subscriber<Observable<? extends T>> call(final Subscriber<? super T> child) {
+      MergeSubscriber<T> subscriber = new MergeSubscriber<T>(child, delayErrors, maxConcurrent);
+      MergeProducer<T> producer = new MergeProducer<T>(subscriber);
+      subscriber.producer = producer;
+
+      child.add(subscriber);
+      child.setProducer(producer);
+
+      return subscriber;
+    }
+    
+    static final class MergeSubscriber<T> extends Subscriber<Observable<? extends T>> {
+      
+      final Subscriber<? super T> child;
+      final boolean delayErrors;
+      final int maxConcurrent;
+      
+      public MergeSubscriber(Subscriber<? super T> child, boolean delayErrors, int maxConcurrent) {
+        this.child = child;
+        this.delayErrors = delayErrors;
+        this.maxConcurrent = maxConcurrent;
+      }
+      
+      @Override
+      public void onNext(Observable<? extends T> t) {
+          if (t == null) {
+              return;
+          }
+          if (t == Observable.empty()) {
+              emitEmpty();
+          } else
+          if (t instanceof ScalarSynchronousObservable) {
+              tryEmit(((ScalarSynchronousObservable<? extends T>)t).get());
+          } else {
+              InnerSubscriber<T> inner = new InnerSubscriber<T>(this, uniqueId++);
+              addInner(inner);
+              t.unsafeSubscribe(inner);
+              emit();
+          }
+      }
+      
+      void emitLoop() {
+        child.onNext(v);
+      }
+        
+    }
+    
+  ```
   
 - ### . FlatMap()
+  FlatMap() uses Func1 creating multiple Observable and then uses *merge()* to merge them into one 
   ```java
   public final <R> Observable<R> flatMap(Func1<? super T, ? extends Observable<? extends R>> func) {
     if (getClass() == ScalarSynchronousObservable.class) {
