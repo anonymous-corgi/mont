@@ -41,3 +41,11 @@
     + 4. onRestoreInstanceState(Bundle savedInstanceState)
 
 
+- ### Kotlin
+
+  + ##### Advatages of Kotlin
+    + Null-Safety: through nullable and non-nullable types ('?' '!!')
+    + Concise Code: like 'for loop' and 
+    + Kotlin Supports Full Java Interoperability
+    + Lambda expressions: and is much faster than Java
+    + Incremental compilation
