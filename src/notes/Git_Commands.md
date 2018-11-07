@@ -1,4 +1,4 @@
-# Git Commands
+git # Git Commands
 
 ### 零、基础理解
 
@@ -150,7 +150,8 @@
     `$ git push --set-upstream [remote-repository] [remote-branch]`
 
   + ##### 建立追踪关系，在现有分支与指定的远程分支之间
-    `$ git branch --set-upstream-to [remote-branch]`
+    `$ git branch --set-upstream-to [remote-branch]`  
+    `$ git branch --set-upstream-to [remote-branch] [local-branch]`
 
   + ##### 取消追踪关系，在现有分支与指定的远程分支之间
     `$ git branch --unset-upstream [local-branch]`
