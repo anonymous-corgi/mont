@@ -14,7 +14,7 @@
   + For Data Driven UI: Reduces much work used to have in View and Presenter.
   + For the Data Driven UI: Because UI update is only related to the data change, it can make the service logic much conciser and easier.
   + Extra benefit of Chain of response.
-  + 
+  + Comunication between two Fragments becomes easier.
 
 - ### ViewModel
   + Similar Function to Presenter.
