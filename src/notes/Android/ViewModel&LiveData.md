@@ -1,10 +1,103 @@
 # ViewModel & LiveData
 
-- ###
+- ### ViewModel
+  
+  + ##### The advantages of using ViewModel
+    
+    + The ViewModel class is designed to store and manage UI-related data in a lifecycle conscious way.
+    + The ViewModel class allows data to survive configuration changes such as screen rotations.
+    + 
 
-  + #####
-    +
+  + ##### Caution
+    
+    + A ViewModel must never reference a view, Lifecycle, or any class that may hold a reference to the activity context.
+    
+    + ViewModel objects can contain LifecycleObservers, such as LiveData objects. However ViewModel objects must never observe changes to lifecycle-aware observables, such as LiveData objects.
 
+  + ##### The lifecycle of a ViewModel
+    + It uses the 'LifecycleOwner' - (FragmentActivity or Fragment) to get its FragmentManager(or ChildFragmentManager) and adds a **HolderFragment** to this FragmentManager. This HolderFragment has a **ViewModelStore**.
+
+  + ##### Source Code Analysis
+    + It uses the 'LifecycleOwner' - (FragmentActivity or Fragment) to get its FragmentManager(or ChildFragmentManager) and adds a ***HolderFragment*** to this FragmentManager. This HolderFragment has a ***ViewModelStore*** used to store ViewModel instance. So we   
+    
+    + ***ViewModelProviders***
+    ```java
+    public class ViewModelProviders {
+      
+      public static ViewModelProvider of(@NonNull Fragment fragment, @NonNull Factory factory) {
+        return new ViewModelProvider(ViewModelStores.of(fragment), factory);
+      }
+
+      public static ViewModelProvider of(@NonNull FragmentActivity activity,
+              @NonNull Factory factory) {
+        return new ViewModelProvider(ViewModelStores.of(activity), factory);
+      }
+    }
+    ```
+    
+    + ***ViewModelStores***
+    ```java
+    public class ViewModelStores {
+      
+      public static ViewModelStore of(@NonNull FragmentActivity activity) {
+        return holderFragmentFor(activity).getViewModelStore();
+      }
+
+      public static ViewModelStore of(@NonNull Fragment fragment) {
+        return holderFragmentFor(fragment).getViewModelStore();
+      }
+    }
+    ```
+
+    + ***ViewModelProvider***
+    ```java
+    public class HolderFragment extends Fragment {
+
+      private ViewModelStore mViewModelStore = new ViewModelStore();
+      
+      static class HolderFragmentManager {
+        
+        HolderFragment holderFragmentFor(FragmentActivity activity) {
+          FragmentManager fm = activity.getSupportFragmentManager();
+          HolderFragment holder = findHolderFragment(fm);
+          if (holder != null) {
+            return holder;
+          }
+          holder = mNotCommittedActivityHolders.get(activity);
+          if (holder != null) {
+            return holder;
+          }
+
+          if (!mActivityCallbacksIsAdded) {
+            mActivityCallbacksIsAdded = true;
+            activity.getApplication().registerActivityLifecycleCallbacks(mActivityCallbacks);
+          }
+          holder = createHolderFragment(fm);
+          mNotCommittedActivityHolders.put(activity, holder);
+          return holder;
+        }
+        
+        private static HolderFragment findHolderFragment(FragmentManager manager) {
+          if (manager.isDestroyed()) {
+            throw new IllegalStateException("Can't access ViewModels from onDestroy");
+          }
+
+          Fragment fragmentByTag = manager.findFragmentByTag(HOLDER_TAG);
+          if (fragmentByTag != null && !(fragmentByTag instanceof HolderFragment)) {
+            throw new IllegalStateException("Unexpected "
+                  + "fragment instance was returned by HOLDER_TAG");
+          }
+          return (HolderFragment) fragmentByTag;
+        }
+        
+        private static HolderFragment createHolderFragment(FragmentManager fragmentManager) {
+          HolderFragment holder = new HolderFragment();
+          fragmentManager.beginTransaction().add(holder, HOLDER_TAG).commitAllowingStateLoss();
+          return holder;
+        }
+      }  
+    ```
+    **The Key is createHolderFragment()**
 
 - ### LiveData
 
@@ -66,25 +159,25 @@
 
   + ##### The advantages of using LiveData
     
-    1. **Ensures your UI matches your data state**
+    + **Ensures your UI matches your data state**
       LiveData follows the observer pattern. LiveData notifies Observer objects when the lifecycle state changes. You can consolidate your code to update the UI in these Observer objects. Instead of updating the UI every time the app data changes, your observer can update the UI every time there's a change.
       
-    2. **No memory leaks**
+    + **No memory leaks**
       Observers are bound to Lifecycle objects and clean up after themselves when their associated lifecycle is destroyed.
 
-    3. **No crashes due to stopped activities**
+    + **No crashes due to stopped activities**
       If the observer's lifecycle is inactive, such as in the case of an activity in the back stack, then it doesn’t receive any LiveData events.
 
-    4. **No more manual lifecycle handling**
+    + **No more manual lifecycle handling**
       UI components just observe relevant data and don’t stop or resume observation. LiveData automatically manages all of this since it’s aware of the relevant lifecycle status changes while observing.
       
-    5. **Always up to date data**
+    + **Always up to date data**
       If a lifecycle becomes inactive, it receives the latest data upon becoming active again. For example, an activity that was in the background receives the latest data right after it returns to the foreground.
 
-    6. **Proper configuration changes**
+    + **Proper configuration changes**
       If an activity or fragment is recreated due to a configuration change, like device rotation, it immediately receives the latest available data.
 
-    7. **Sharing resources**
+    + **Sharing resources**
       You can extend a LiveData object using the singleton pattern to wrap system services so that they can be shared in your app. The LiveData object connects to the system service once, and then any observer that needs the resource can just watch the LiveData object. For more information, see Extend LiveData.
 
   + ##### Create LiveData objects
