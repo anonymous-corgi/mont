@@ -2,6 +2,7 @@
 
 - ### Reference Websites:
   + [神兵利器](https://blog.csdn.net/mq2553299/article/details/73414710)
+  + [Dagger 2 完全解析](https://www.jianshu.com/p/26d9f99ea3bb)
   + [Dagger2教程](https://blog.csdn.net/u010961631/article/details/72625715)
 
 - ### Basic Components:
@@ -28,12 +29,100 @@
     + Provided Factory to be instantiated.
     + Has method - injectMembers(): Use the provided Factory to do the actual injection work.
 
-- ### Scope:
+- ### Annotation:
+
+  + ##### @Inject
+    + Added to Constructors as Provider
+    + Added to class members as Injection Places
+    + **@Inject Lazy\<T\> t**: Inject Lazy Member
+    + **@Inject Provider\<T\> t**: Inject Provider Member
+
+  + ##### @Singleton
+    + Must Be added in both Module and Component:
+    + Add \@Singleton to Provides or Class
+    ```java
+    @Module
+    abstract public class TasksRepositoryModule {
+
+      @Singleton
+      @Binds
+      @Local
+      abstract TasksDataSource provideTasksLocalDataSource(TasksLocalDataSource dataSource);
+    }
+    
+    @Singleton
+    public class TasksLocalDataSource implements TasksDataSource {}
+    ```
+    
+    + Also add \@Singleton to Component
+    ```java
+    @Singleton
+    @Component(modules = AppModule.class)
+    public interface AppComponent {}
+    ```
   
-  Scope is only valid for a Component instance. If you create a new Component instance, the scope doesn't work on it.
+  + ##### @scope
+    + Scope is only valid for a Component instance. If you create a new Component instance, the scope doesn't work on it. The instance's lifecycle is bound to that Component.
+    > When a binding uses a scope annotation, that means that the component object holds a reference to the bound object until the component object itself is garbage-collected.
+
+    + Define a custom annotation
+    ```java
+    @Scope
+    @Retention(RUNTIME)
+    public @interface ActivityScope {}
+    ```
+    + Added to both Module and Component like \@Singleton
+
+  + ##### @BindsInstance
+    + Use an instance as Injection Dependency Object
+    > A builder for a component. Components may have a single nested static abstract class or interface annotated with @Component.Builder. If they do, then the component's generated builder will match the API in the type.--source
+    
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
   
-    + ##### @Singleton
-      + Must Be added in both Module and Component.
+  + ##### @Qualifier
+    + Used to distinguish provider with the same resource type.
+    + Define a custom annotation
+    ```java
+    @Qualifier
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Local {}
+    ```
+    
+    ```java
+    @Qualifier
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Remote {}
+    ```
+  
+    + Add this self annotation to the Module
+    ```java
+    @Module
+    abstract public class TasksRepositoryModule {
+
+      @Singleton
+      @Binds
+      @Local
+      abstract TasksDataSource provideTasksLocalDataSource(TasksLocalDataSource dataSource);
+
+      @Singleton
+      @Binds
+      @Remote
+      abstract TasksDataSource provideTasksRemoteDataSource(FakeTasksRemoteDataSource dataSource); 
+    }
+    ```
+    
+    + Add this  self annotation to the 
+    ```java
+    @Inject
+    TasksRepository(@Remote TasksDataSource tasksRemoteDataSource,
+        @Local TasksDataSource tasksLocalDataSource) {
+        mTasksRemoteDataSource = tasksRemoteDataSource;
+        mTasksLocalDataSource = tasksLocalDataSource;
+    }
+    ```
 
 - ### Notes:
 
