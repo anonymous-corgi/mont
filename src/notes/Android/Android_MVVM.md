@@ -10,6 +10,8 @@
 
 
 - ### Advatages:
+  + Work with Observable or LiveData, Network Callback doesn't need to hold reference to the View, won't cause crashed if the View was destroyed.
+  + Maintain the state(data) of the View by Keeping the data inside ViewModel while suffering configuration change.
   + Extends the Advatages of MVP
   + For Data Driven UI: Reduces much work used to have in View and Presenter.
   + For the Data Driven UI: Because UI update is only related to the data change, it can make the service logic much conciser and easier.

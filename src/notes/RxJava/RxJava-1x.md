@@ -313,6 +313,7 @@
   + ##### .1 lift()
   ```java
   public final <R> Observable<R> lift(final Operator<? extends R, ? super T> operator) {
+    //create() is converting a OnSubscribe<R> into a Observable<R>, isn't the key.
     return create(new OnSubscribeLift<T, R>(onSubscribe, operator));
   }
   ```
