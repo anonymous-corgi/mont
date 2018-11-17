@@ -29,6 +29,18 @@
     + Provided Factory to be instantiated.
     + Has method - injectMembers(): Use the provided Factory to do the actual injection work.
 
+- ### Android Dagger:
+  + ##### build.gradle(Module:app)
+  ```
+  dependencies {
+    implementation 'com.google.dagger:dagger:2.11-rc2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
+    implementation 'com.google.dagger:dagger-android-support:2.11-rc2'
+  }
+  ```
+
+
+
 - ### Annotation:
 
   + ##### @Inject
@@ -72,14 +84,106 @@
     public @interface ActivityScope {}
     ```
     + Added to both Module and Component like \@Singleton
-
-  + ##### @BindsInstance
-    + Use an instance as Injection Dependency Object
-    > A builder for a component. Components may have a single nested static abstract class or interface annotated with @Component.Builder. If they do, then the component's generated builder will match the API in the type.--source
     
+  + ##### @Component.Builder + @BindsInstance
+    + [Dagger 2 : Component.Builder 注解有什么用？](https://juejin.im/post/5a4cf2b2f265da430d586ace)
+    + @Component.Builder is to modify the Component.Builder
+    > A builder for a component. Components may have a single nested static abstract class or interface annotated with @Component.Builder. If they do, then the component's generated builder will match the API in the type.--source
+    + @BindsInstance uses an instance as Injection Dependency Object
+    > @BindsInstance methods should be preferred to writing a @Module with constructor arguments and immediately providing those values.--source
+    
+    ```java
+    // Previous Code
+    @Module
+    public class AppModule {
+      Application application;
 
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-  
+      public AppModule(Application application) {
+        this.application = application;
+      }
+      
+      @Provides
+      Application providesApplication() {
+        return application;
+      }
+       
+      @Provides
+      @Singleton
+      public SharedPreferences providePreferences() {
+        return application.getSharedPreferences(DATA_STORE,
+                               Context.MODE_PRIVATE);
+      }
+    }
+    
+    @Singleton
+    @Component(modules = {AppModule.class})
+    public interface AppComponent {
+      void inject(MainActivity mainActivity);
+    }
+    
+    @Override
+    public void onCreate() {
+      super.onCreate();
+      AppComponent appComponent = DaggerAppComponent.builder()
+            .appMoudle(new AppMoudle(this))
+            .build();
+    }
+    ```
+    
+    ```java
+    // The Previous Component is equal to this 
+    @Singleton
+    @Component(modules = {AppModule.class})
+    public interface AppComponent {
+
+      void inject(MainActivity mainActivity);
+      
+      @Component.Builder
+      interface Builder {
+      
+        Builder appModule(AppModule appModule);
+        
+        AppComponent build();
+      }
+    }
+    ```
+    
+    ```java
+    // Using @BindsInstance
+    @Module
+    public class AppModule {
+       
+      @Provides
+      @Singleton
+      public SharedPreferences providePreferences(Application application) {
+        return application.getSharedPreferences(DATA_STORE,
+                               Context.MODE_PRIVATE);
+      }
+    }
+    
+    @Singleton
+    @Component(modules = {AppModule.class})
+    public interface AppComponent {
+      void inject(MainActivity mainActivity);
+      
+      @Component.Builder
+      interface Builder {
+      
+        @BindsInstance Builder application(Application application);  
+        
+        AppComponent build();  
+      }
+    }
+    
+    @Override
+    public void onCreate() {
+      super.onCreate();
+      AppComponent appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .build();
+    }
+    ```
+
   + ##### @Qualifier
     + Used to distinguish provider with the same resource type.
     + Define a custom annotation
