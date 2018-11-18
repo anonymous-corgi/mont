@@ -5,8 +5,18 @@
   + [Dagger 2 完全解析](https://www.jianshu.com/p/26d9f99ea3bb)
   + [Dagger2教程](https://blog.csdn.net/u010961631/article/details/72625715)
 
-- ### Basic Components:
+- ### Dependency
+  + ##### build.gradle(Module:app)
+  ```
+  dependencies {
+    implementation 'com.google.dagger:dagger:2.11-rc2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
+    
+    implementation 'com.google.dagger:dagger-android-support:2.11-rc2'
+  }
+  ```
   
+- ### Basic Components:
   + ##### Dagger2 Automatically generates:
     + 1. DaggerComponent
     + 2. MembersInjector
@@ -29,18 +39,135 @@
     + Provided Factory to be instantiated.
     + Has method - injectMembers(): Use the provided Factory to do the actual injection work.
 
-- ### Android Dagger:
-  + ##### build.gradle(Module:app)
-  ```
-  dependencies {
-    implementation 'com.google.dagger:dagger:2.11-rc2'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
-    implementation 'com.google.dagger:dagger-android-support:2.11-rc2'
+- ### Android Dagger Template:
+  + ***AppComponent***
+  ```java
+  @Singleton
+  @Component(modules = {TasksRepositoryModule.class,
+        ApplicationModule.class,
+        ActivityBindingModule.class,
+        AndroidSupportInjectionModule.class})
+  public interface AppComponent extends AndroidInjector<MyApplication> {
+
+    TasksRepository getTasksRepository();
+
+    // Gives us syntactic sugar. we can then do DaggerAppComponent.builder().application(this).build().inject(this);
+    // never having to instantiate any modules or say which module we are passing the application to.
+    // Application will just be provided into our app graph now.
+    @Component.Builder
+    interface Builder {
+      
+      @BindsInstance
+      AppComponent.Builder application(Application application);
+
+      AppComponent build();
+    }
   }
   ```
+  
+  + ***ActivityBindingModule***
+  ```java
+  @Module
+  public abstract class ActivityBindingModule {
+    
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = TasksModule.class)
+    abstract TasksActivity tasksActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = TaskDetailPresenterModule.class)
+    abstract TaskDetailActivity taskDetailActivity();
+  }
+  ```
+  
+  
+  + ***ApplicationModule***
+  ```java
+  @Module
+  public abstract class ApplicationModule {
+      //expose Application as an injectable context
+      @Binds
+      abstract Context bindContext(Application application);
+  }
+  ```
+  
+  + ***MyApplication***
+  ```java
+  public class MyApplication extends DaggerApplication {
 
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+      return DaggerAppComponent.builder().application(this).build();
+    }
+  }
+  ```
+  
+  + ******
+  ```kotlin
+  @Scope
+  @MustBeDocumented
+  @Retention(AnnotationRetention.RUNTIME)
+  annotation class ActivityScope
+  ```
+  
+  
+  + ##### SourceCode Analysis
+    + 
 
+    + ***DaggerFragment***
+    ```java
+    @Beta
+    public abstract class DaggerFragment extends Fragment implements HasSupportFragmentInjector {
+    
+      @Inject DispatchingAndroidInjector<Fragment> childFragmentInjector;
+    
+      @Override
+      public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
+      }
+    
+      @Override
+      public AndroidInjector<Fragment> supportFragmentInjector() {
+        return childFragmentInjector;
+      }
+    }
+    ```
+    
+    + ***AndroidInjection***
+    AndroidInjection.inject() takes the Injector inside the Application 
+    and do the Injection.
+    ```java
+    public final class AndroidInjection {
+
+      public static void inject(Activity activity) { 
+        checkNotNull(activity, "activity");
+        Application application = activity.getApplication();
+        if (!(application instanceof HasActivityInjector)) {
+          throw new RuntimeException();
+        }
+
+        AndroidInjector<Activity> activityInjector = 
+          ((HasActivityInjector) application).activityInjector();
+          
+        checkNotNull(activityInjector, "%s.activityInjector() returned null", application.getClass());
+
+        activityInjector.inject(activity);
+      }
+      
+      public static void inject(Fragment fragment) {...}
+      
+      public static void inject(Service service) {...}
+      
+      public static void inject(BroadcastReceiver broadcastReceiver, Context context) {...}
+      
+      public static void inject(ContentProvider contentProvider) {...}
+    }
+    ```
+    
+    ```java
+    
+    ```
 - ### Annotation:
 
   + ##### @Inject
@@ -169,7 +296,8 @@
       @Component.Builder
       interface Builder {
       
-        @BindsInstance Builder application(Application application);  
+        @BindsInstance 
+        Builder application(Application application);  
         
         AppComponent build();  
       }
@@ -227,7 +355,44 @@
         mTasksLocalDataSource = tasksLocalDataSource;
     }
     ```
+    
+  + ##### @SubComponent + @Subcomponent.Builder
 
+    ```java
+    @Module(subcomponents = SonComponent.class)
+    public class CarModule {
+      
+      @Provides
+      @ManScope
+      static Car provideCar() {
+        return new Car();
+      }
+    }
+
+    @ManScope
+    @Component(modules = CarModule.class)
+    public interface ManComponent {
+      
+      void inject(Man man); 
+      
+      SonComponent.Builder sonComponent();
+      // or
+      // SonComponent sonComponent();
+    }
+
+    @SonScope
+    @SubComponent(modules = BikeModule.class)
+    public interface SonComponent {
+      
+      void inject(Son son);
+
+      @Subcomponent.Builder
+      interface Builder { // SubComponent mush add Subcomponent.Builder
+        
+        SonComponent build();
+      }
+    }
+    ```
 - ### Notes:
 
   + If a provider needs parameters to instantiate an object. Dagger2 will search for the corresponding provider of the parameters in the same Module or other dependent Modules or Constructors that have @Inject annotation to instantiate that object.
