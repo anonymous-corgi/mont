@@ -10,19 +10,16 @@
 
 
 - ### Advatages:
-  + Work with Observable or LiveData, Network Callback doesn't need to hold reference to the View, won't cause crashed if the View was destroyed.
-  + Maintain the state(data) of the View by Keeping the data inside ViewModel while suffering configuration change.
+  + Maintain the state and data of the view by Keeping the data inside ViewModel while suffering configuration change.
+  + Prevent crashing due to expired view reference. Network Callback doesn't need to hold reference to the View, won't cause crashed if the View was destroyed.
+  + ViewModel Can be reused in similar View, reducing much work.
+  + 
   + Extends the Advatages of MVP
-  + For Data Driven UI: Reduces much work used to have in View and Presenter.
-  + For the Data Driven UI: Because UI update is only related to the data change, it can make the service logic much conciser and easier.
-  + Extra benefit of Chain of response.
-  + Comunication between two Fragments becomes easier.
+  + For the Data Driven UI: Reduces much work used to have in View and Presenter, because UI update is only related to the data change, it can make the service logic much conciser and easier.
+  + Data sharing and Comunication between two Fragments becomes easier.
 
 - ### ViewModel
+  + The ViewModel class is designed to store and manage UI-related data in a lifecycle conscious way. The ViewModel class allows data to survive configuration changes such as screen rotations.
   + Similar Function to Presenter.
   + ViewModel Provides Data source for View to update. We can also insert Action(CallBack) while data changed to control logic for View. 
-  + 
-  + Is used to store the data linked to a View
-  + And OnPropertyChangedCallback
-
-  The Data Binding Library generates binding classes that are used to access the layout's variables and views. 
+  + The Data Binding Library generates binding classes that are used to access the layout's variables and views. 
