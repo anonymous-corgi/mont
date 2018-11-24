@@ -35,19 +35,8 @@ public class LeetCode034FindFirstandLastPositionofElementinSortedArray {
     res[1] = start;
     return res;
   }
-
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    LeetCode034FindFirstandLastPositionofElementinSortedArray one =
-        new LeetCode034FindFirstandLastPositionofElementinSortedArray();
-    int[] nums = {};
-    int target = 1;
-    int[] res = one.searchRange(nums, target);
-    System.out.println("[" + res[0] + "," + res[1] + "]");
-  }
   
-  public int binarySearch2(int[] nums, int target) {
-    // write your code here
+  public int firstPosition(int[] nums, int target) {
     if (nums == null || nums.length == 0) {
       return -1;
     }
@@ -65,8 +54,6 @@ public class LeetCode034FindFirstandLastPositionofElementinSortedArray {
   }
   
   public int lastPosition(int[] nums, int target) {
-    // write your code here
-    // write your code here
     if (nums == null || nums.length == 0) {
       return -1;
     }
@@ -83,4 +70,12 @@ public class LeetCode034FindFirstandLastPositionofElementinSortedArray {
     return nums[start] == target ? start : -1;
   }
 
+  public static void main(String[] args) {
+    LeetCode034FindFirstandLastPositionofElementinSortedArray one =
+            new LeetCode034FindFirstandLastPositionofElementinSortedArray();
+    int[] nums = {};
+    int target = 1;
+    int[] res = one.searchRange(nums, target);
+    System.out.println("[" + res[0] + "," + res[1] + "]");
+  }
 }
