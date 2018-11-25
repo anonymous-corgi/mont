@@ -45,93 +45,15 @@
       return mSnapshot == null ? 0 : mSnapshot.size();
     }
     
+    // This is the Key!
+    // submitList() will use pagedList, mPagedList and mSnapshot. 
     public void submitList(@Nullable final PagedList<T> pagedList,
         @Nullable final Runnable commitCallback) {
-      //J: make sure contiguous is consistent.
-      if (pagedList != null) {
-        if (mPagedList == null && mSnapshot == null) {
-            mIsContiguous = pagedList.isContiguous();
-        } else {
-          if (pagedList.isContiguous() != mIsContiguous) {
-            throw new IllegalArgumentException("AsyncPagedListDiffer cannot handle both"
-                    + " contiguous and non-contiguous lists.");
-          }
-        }
-      }
-
-      // incrementing generation means any currently-running diffs are discarded when they finish
-      final int runGeneration = ++mMaxScheduledGeneration;
-
-      if (pagedList == mPagedList) {
-        // nothing to do (Note - still had to inc generation, since may have ongoing work)
-        if (commitCallback != null) {
-          commitCallback.run();
-        }
-        return;
-      }
-
-      final PagedList<T> previous = (mSnapshot != null) ? mSnapshot : mPagedList;
-
-      if (pagedList == null) {
-        int removedCount = getItemCount();
-        if (mPagedList != null) {
-          mPagedList.removeWeakCallback(mPagedListCallback);
-          mPagedList = null;
-        } else if (mSnapshot != null) {
-          mSnapshot = null;
-        }
-        // dispatch update callback after updating mPagedList/mSnapshot
-        mUpdateCallback.onRemoved(0, removedCount);
-        onCurrentListChanged(previous, null, commitCallback);
-        return;
-      }
-      
-      if (mPagedList == null && mSnapshot == null) {
-        // fast simple first insert
-        mPagedList = pagedList;
-        pagedList.addWeakCallback(null, mPagedListCallback);
-
-        // dispatch update callback after updating mPagedList/mSnapshot
-        mUpdateCallback.onInserted(0, pagedList.size());
-
-        onCurrentListChanged(null, pagedList, commitCallback);
-        return;
-      }
-
-      if (mPagedList != null) {
-        // first update scheduled on this list, so capture mPages as a snapshot, removing
-        // callbacks so we don't have resolve updates against a moving target
-        mPagedList.removeWeakCallback(mPagedListCallback);
-        mSnapshot = (PagedList<T>) mPagedList.snapshot();
-        mPagedList = null;
-      }
-
-      if (mSnapshot == null || mPagedList != null) {
-        throw new IllegalStateException("must be in snapshot state to diff");
-      }
-
-      final PagedList<T> oldSnapshot = mSnapshot;
-      final PagedList<T> newSnapshot = (PagedList<T>) pagedList.snapshot();
-      mConfig.getBackgroundThreadExecutor().execute(new Runnable() {
-        @Override
-        public void run() {
-          final DiffUtil.DiffResult result;
-          result = PagedStorageDiffHelper.computeDiff(
-                  oldSnapshot.mStorage,
-                  newSnapshot.mStorage,
-                  mConfig.getDiffCallback());
-
-          mMainThreadExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-              if (mMaxScheduledGeneration == runGeneration) {
-                latchPagedList(pagedList, newSnapshot, result,
-                        oldSnapshot.mLastLoad, commitCallback);
-              }
-            }
-          });
-        }
-      });
+      + Set mSnapshot = mPagedList?.snapshot()
+      + Set mPagedList = pagedList
+      + Then pagedList.addWeakCallback(null, mPagedListCallback)
+      + According to the change between pagedList(newList) and mPagedList(oldList), submitList() uses mUpdateCallback to notify Adapter about the change in list. 
+      + Calls onCurrentListChanged() (notify all PagedListListener in mListeners). Calls commitCallback?.run() (commitCallback passed in as a parameter)
     }
   }
   ```
@@ -172,5 +94,108 @@
       */
       tryDispatchBoundaryCallbacks(true);
     }
+    
+    
+    /**
+     * Call this when mLowest/HighestIndexAccessed are changed, or
+     * mBoundaryCallbackBegin/EndDeferred is set.
+     */
+    void tryDispatchBoundaryCallbacks(boolean post) {
+      final boolean dispatchBegin = mBoundaryCallbackBeginDeferred
+              && mLowestIndexAccessed <= mConfig.prefetchDistance;
+      final boolean dispatchEnd = mBoundaryCallbackEndDeferred
+              && mHighestIndexAccessed >= size() - 1 - mConfig.prefetchDistance;
+      ...
+    }
+    
+    void dispatchBoundaryCallbacks(boolean begin, boolean end) {
+      // safe to deref mBoundaryCallback here, since we only defer if mBoundaryCallback present
+      if (begin) {
+        mBoundaryCallback.onItemAtFrontLoaded(mStorage.getFirstLoadedItem());
+      }
+      if (end) {
+        mBoundaryCallback.onItemAtEndLoaded(mStorage.getLastLoadedItem());
+      }
+    }
+  }
+  ```
+  
+  + ##### ***PagedList\<T\>.Config***
+  ```java
+  public static class Config {
+    /**
+     * When {@link #maxSize} is set to {@code MAX_SIZE_UNBOUNDED}, the maximum number of items
+     * loaded is unbounded, and pages will never be dropped.
+     */
+    public static final int MAX_SIZE_UNBOUNDED = Integer.MAX_VALUE;
+
+    /**
+     * Size of each page loaded by the PagedList.
+     */
+    public final int pageSize;
+
+    /**
+     * Prefetch distance which defines how far ahead to load.
+     * <p>
+     * If this value is set to 50, the paged list will attempt to load 50 items in advance of
+     * data that's already been accessed.
+     *
+     * @see PagedList#loadAround(int)
+     */
+    public final int prefetchDistance;
+
+    /**
+     * Defines whether the PagedList may display null placeholders, if the DataSource provides
+     * them.
+     */
+    public final boolean enablePlaceholders;
+
+    /**
+     * Defines the maximum number of items that may be loaded into this pagedList before pages
+     * should be dropped.
+     * <p>
+     * {@link PageKeyedDataSource} does not currently support dropping pages - when
+     * loading from a {@code PageKeyedDataSource}, this value is ignored.
+     *
+     * @see #MAX_SIZE_UNBOUNDED
+     * @see Builder#setMaxSize(int)
+     */
+    public final int maxSize;
+
+    /**
+     * Size hint for initial load of PagedList, often larger than a regular page.
+     */
+    public final int initialLoadSizeHint;
+  }
+  ```
+  
+  + ##### ***PagedList\<T\>.BoundaryCallback\<T\>***
+  ```java
+  @MainThread
+  public abstract static class BoundaryCallback<T> {
+    /**
+     * Called when zero items are returned from an initial load of the PagedList's data source.
+     */
+    public void onZeroItemsLoaded() {}
+
+    /**
+     * Called when the item at the front of the PagedList has been loaded, and access has
+     * occurred within {@link Config#prefetchDistance} of it.
+     * <p>
+     * No more data will be prepended to the PagedList before this item.
+     *
+     * @param itemAtFront The first item of PagedList
+     */
+    public void onItemAtFrontLoaded(@NonNull T itemAtFront) {}
+
+    /**
+     * Called when the item at the end of the PagedList has been loaded, and access has
+     * occurred within {@link Config#prefetchDistance} of it.
+     * <p>
+     * No more data will be appended to the PagedList after this item.
+     *
+     * @param itemAtEnd The first item of PagedList
+     */
+    public void onItemAtEndLoaded(@NonNull T itemAtEnd) {}
   }
   ```
