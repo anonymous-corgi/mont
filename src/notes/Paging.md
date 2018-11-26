@@ -1,5 +1,9 @@
 # Paging
 
+
+- ### Sumary
+  + Data is actually stored in ***PagedStorage***
+
 - ### SourceCode Analysis
   + ##### ***PagedListAdatper*** 
   only exposes **submitList()** method for data modification, and uses ***AsyncPagedListDiffer*** to handle the difference between new and old list.
@@ -12,12 +16,16 @@
     
     // Corresponding UI update Callback strategy
     final ListUpdateCallback mUpdateCallback;
-    // Identification rules of the item in list.
+    // AsyncDifferConfig provides Identification rules of the item in list 
+    // - (DiffUtil.ItemCallback<T>) and Executors.
     final AsyncDifferConfig<T> mConfig;
     
     private PagedList<T> mPagedList;
     // mSnapshot stores the previous list while updating new list.
     private PagedList<T> mSnapshot;
+    
+    // mPagedListCallback is created exactly with mUpdateCallback.
+    private PagedList.Callback mPagedListCallback = new PagedList.Callback() {}
     
     public AsyncPagedListDiffer(@NonNull RecyclerView.Adapter adapter,
         @NonNull DiffUtil.ItemCallback<T> diffCallback) {
@@ -73,6 +81,16 @@
   ```java
   public abstract class PagedList<T> extends AbstractList<T> {
     
+    private final ArrayList<WeakReference<Callback>> mCallbacks = new ArrayList<>();
+    
+    public T get(int index) {
+      T item = mStorage.get(index);
+      if (item != null) {
+        mLastItem = item;
+      }
+      return item;
+    }
+    
     public void loadAround(int index) {
       if (index < 0 || index >= size()) {
         throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
@@ -106,6 +124,7 @@
       final boolean dispatchEnd = mBoundaryCallbackEndDeferred
               && mHighestIndexAccessed >= size() - 1 - mConfig.prefetchDistance;
       ...
+      dispatchBoundaryCallbacks(dispatchBegin, dispatchEnd);
     }
     
     void dispatchBoundaryCallbacks(boolean begin, boolean end) {
@@ -197,5 +216,63 @@
      * @param itemAtEnd The first item of PagedList
      */
     public void onItemAtEndLoaded(@NonNull T itemAtEnd) {}
+  }
+  ```
+  
+  
+  + ##### ***PagedStorage\<T\>***
+  // This is the class that actually stores the data for PagedList
+  // PagedStorage will try to trim its mStorage when the number of instances the mStorage stores exceeds the maxSize(PagedList.Config.maxSize)
+  ```java
+  final class PagedStorage<T> extends AbstractList<T> {
+    
+    // The number of item in each page (Exception: the last page might be less)
+    private int mPageSize;
+    /**
+     * Returns true if all pages are the same size, except for the last, which may be smaller
+     * mPageSize is qual to -1 when numbers of item in each page are different(pages > 2)
+     */
+    boolean isTiled() {
+        return mPageSize > 0;
+    }
+    
+    /**
+     * Number of loaded items held by {@link #mPages}. When tiling, doesn't count unloaded pages in
+     * {@link #mPages}. If tiling is disabled, same as {@link #mStorageCount}.
+     *
+     * This count is the one used for trimming.
+     */
+    private int mLoadedCount;
+
+    /**
+     * Number of items represented by {@link #mPages}. If tiling is enabled, unloaded items in
+     * {@link #mPages} may be null, but this value still counts them.
+     */
+    private int mStorageCount;
+    
+    public int size() {
+      return mLeadingNullCount + mStorageCount + mTrailingNullCount;
+    }
+    
+    // The data of PagedList is Actually stored in mPages.
+    // mPages stores many pages(lists) of items.
+    private final ArrayList<List<T>> mPages;
+    
+    // ---------------- Trimming API -------------------
+    // Trimming is always done at the beginning or end of the list, as content is loaded.
+    // In addition to trimming pages in the storage, we also support pre-trimming pages (dropping
+    // them just before they're added) to avoid dispatching an add followed immediately by a trim.
+    //
+    // Note - we avoid trimming down to a single page to reduce chances of dropping page in
+    // viewport, since we don't strictly know the viewport. If trim is aggressively set to size of a
+    // single page, trimming while the user can see a page boundary is dangerous. To be safe, we
+    // just avoid trimming in these cases entirely.
+    private boolean needsTrim(int maxSize, int requiredRemaining, int localPageIndex) {
+      List<T> page = mPages.get(localPageIndex);
+      return page == null || (mLoadedCount > maxSize
+              && mPages.size() > 2
+              && page != PLACEHOLDER_LIST
+              && mLoadedCount - page.size() >= requiredRemaining);
+    }
   }
   ```
