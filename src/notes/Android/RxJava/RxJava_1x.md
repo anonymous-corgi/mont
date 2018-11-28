@@ -1,12 +1,10 @@
 # RxJava
 
-- ###
-
-  + #####
-    +
-
 - ### Reference Websites:
   [给Android开发者的RxJava详解](https://gank.io/post/560e15be2dca930e00da1083)
+  
+- ### My Summary Flow Chart
+  ![Flow Chart](RxJava_1x_Summary_Chart.png)
   
 - ### 1. Basic class and interface
 
@@ -520,5 +518,3 @@
   ```java
   
   ```
-- ### My Summary Flow Chart
-  ![Flow Chart](RxJava-1x-Summary.png)
