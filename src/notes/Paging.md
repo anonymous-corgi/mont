@@ -97,6 +97,8 @@
       }
 
       mLastLoad = index + getPositionOffset();
+      
+      // For TiledpagedList, loadAroundInternal calls mStorage.allocatePlaceholders()
       loadAroundInternal(index);
 
       mLowestIndexAccessed = Math.min(mLowestIndexAccessed, index);
@@ -113,10 +115,15 @@
       tryDispatchBoundaryCallbacks(true);
     }
     
-    
+    // 1. BoundaryCallback can be turned on only when you have set BoundaryCallback 
+    // 2. deferEmpty, mBoundaryCallbackBeginDeferred, mBoundaryCallbackEndDeferred 
+    // can be set true only in deferBoundaryCallbacks() method
+    // and deferBoundaryCallbacks() method will only be called in PageResult.Receiver.onPageResult()
+    // 
     /**
      * Call this when mLowest/HighestIndexAccessed are changed, or
      * mBoundaryCallbackBegin/EndDeferred is set.
+     * Check if we need to dispatch loading front and end.
      */
     void tryDispatchBoundaryCallbacks(boolean post) {
       final boolean dispatchBegin = mBoundaryCallbackBeginDeferred
@@ -126,7 +133,7 @@
       ...
       dispatchBoundaryCallbacks(dispatchBegin, dispatchEnd);
     }
-    
+    // We dispatch BoundaryCallback when mLowest/HighestIndexAccessed reach the Boundary within prefetchDistance.
     void dispatchBoundaryCallbacks(boolean begin, boolean end) {
       // safe to deref mBoundaryCallback here, since we only defer if mBoundaryCallback present
       if (begin) {
@@ -221,8 +228,9 @@
   
   
   + ##### ***PagedStorage\<T\>***
-  // This is the class that actually stores the data for PagedList
-  // PagedStorage will try to trim its mStorage when the number of instances the mStorage stores exceeds the maxSize(PagedList.Config.maxSize)
+  Class holding the pages of data backing a PagedList, presenting sparse loaded data as a List.
+  This is the class Where data of PagedList is actually stored, also responsible for trimming pages to maintain maximumSize.
+  PagedStorage will try to trim its mStorage when the number of instances the mStorage stores exceeds the maxSize(PagedList.Config.maxSize)
   ```java
   final class PagedStorage<T> extends AbstractList<T> {
     
