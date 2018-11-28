@@ -520,15 +520,5 @@
   ```java
   
   ```
-  
-  ```java
-  
-  ```
-  
-  ```java
-  
-  ```
-  
-  ```java
-  
-  ```
+- ### My Summary Flow Chart
+  ![Flow Chart](RxJava-1x-Summary.png)
