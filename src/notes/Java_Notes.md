@@ -289,3 +289,87 @@
   > // Get sum，sumValue = 10, without initial value
   > int sumValue = Stream.of(1, 2, 3, 4).reduce(Integer::sum).get();
   >  ```
+  
+  
+  
+- ### 4. Constructor
+  + ##### Order and 'this'
+  ```java
+  public class Level0 {
+
+    String name = "Level0";
+
+    public Level0() {
+      System.out.println("Level0 constructor starts");
+      printName1();
+      printName2();
+      printName3();
+      System.out.println("Level0 constructor ends");
+    }
+
+    void printName1() {
+      System.out.println("\tLevel0 print1: " + this.name);
+    }
+    void printName2() {
+      System.out.println("\tLevel0 print2: " + this.name);
+    }
+    void printName3() {
+      System.out.println("\tLevel0 print3: " + this.name);
+    }
+  }
+  ```
+  
+  ```java
+  public class Level1 extends Level0 {
+
+    String name = "Level1";
+
+    public Level1() {
+      System.out.println("Level1 constructor starts");
+      printName2();
+      printName3();
+      System.out.println("Level1 constructor ends");
+    }
+
+    void printName2() {
+      System.out.println("\tLevel1 print2: " + this.name);
+    }
+    void printName3() {
+      System.out.println("\tLevel1 print3: " + this.name);
+    }
+  }
+  ```
+  
+  ```java
+  public class Level2 extends Level1 {
+
+    String name = "Level2";
+
+    public Level2() {
+      System.out.println("Level2 constructor starts");
+      printName3();
+      System.out.println("Level2 constructor ends");
+    }
+    
+    void printName3() {
+      System.out.println("\tLevel2 print3: " + this.name);
+    }
+  }
+  ```
+  
+  ```
+  Result of new Level2:
+  Level0 constructor starts
+  	Level0 print1: Level0
+  	Level1 print2: null
+  	Level2 print3: null
+  Level0 constructor ends
+  Level1 constructor starts
+  	Level1 print2: Level1
+  	Level2 print3: null
+  Level1 constructor ends
+  Level2 constructor starts
+  	Level2 print3: Level2
+  Level2 constructor ends
+  ```
+  **'this' always points to child firstly.**
