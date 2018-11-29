@@ -4,6 +4,9 @@
 - ### Sumary
   + Data is actually stored in ***PagedStorage***
 
+- ### My Summary Flow Chart
+  ![](Paging_Summary_Chart.png)
+  
 - ### SourceCode Analysis
   + ##### ***PagedListAdatper*** 
   only exposes **submitList()** method for data modification, and uses ***AsyncPagedListDiffer*** to handle the difference between new and old list.
