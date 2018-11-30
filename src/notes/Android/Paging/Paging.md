@@ -199,6 +199,9 @@
   ```
   
   + ##### ***PagedList\<T\>.BoundaryCallback\<T\>***
+  1. Can set mBoundaryCallback in COnstructor parameter or setBoundaryCallback()
+  2. If you set mBoundaryCallbackBeginDeferred/mBoundaryCallbackEndDeferred true, loadAround() method might trigger these callback when access to the head or tail.
+  3. mBoundaryCallbackBeginDeferred/mBoundaryCallbackEndDeferred can only be set true in deferBoundaryCallbacks() method.
   ```java
   @MainThread
   public abstract static class BoundaryCallback<T> {
