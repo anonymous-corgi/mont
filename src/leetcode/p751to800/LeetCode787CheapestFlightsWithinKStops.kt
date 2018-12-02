@@ -2,15 +2,23 @@ package leetcode.p751to800
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import java.io.Serializable
 import java.util.*
 
-class LeetCode787CheapestFlightsWithinKStops {
+@RunWith(Parameterized::class)
+class LeetCode787CheapestFlightsWithinKStops(val res: Int,
+                                             val n: Int,
+                                             val flights: Array<IntArray>,
+                                             val src: Int,
+                                             val dst: Int,
+                                             val K: Int) {
 
     private val method: Method
         get() = DP_method()
 
     interface Method {
-
         fun findCheapestPrice(n: Int, flights: Array<IntArray>, src: Int, dst: Int, K: Int): Int
     }
 
@@ -48,7 +56,6 @@ class LeetCode787CheapestFlightsWithinKStops {
             }
             return -1
         }
-
     }
 
     class DP_method : Method {
@@ -65,7 +72,6 @@ class LeetCode787CheapestFlightsWithinKStops {
             }
             return if (prices[dst] != Int.MAX_VALUE) prices[dst] else -1
         }
-
     }
 
     fun findCheapestPrice(n: Int, flights: Array<IntArray>, src: Int, dst: Int, K: Int): Int {
@@ -73,39 +79,19 @@ class LeetCode787CheapestFlightsWithinKStops {
     }
 
     @Test
-    fun testFindCheapestPrice1() {
-        val n = 3
-        val flights = arrayOf(intArrayOf(0, 1, 100), intArrayOf(1, 2, 100), intArrayOf(0, 2, 500))
-        val src = 0
-        val dst = 2
-        val K = 1
-        val res = 200
-        assertEquals(res.toLong(), findCheapestPrice(n, flights, src, dst, K).toLong())
-    }
-
-    @Test
-    fun testFindCheapestPrice2() {
-        val n = 3
-        val flights = arrayOf(intArrayOf(0, 1, 100), intArrayOf(1, 2, 100), intArrayOf(0, 2, 500))
-        val src = 0
-        val dst = 2
-        val K = 0
-        val res = 500
-        assertEquals(res.toLong(), findCheapestPrice(n, flights, src, dst, K).toLong())
+    fun testFindCheapestPrice() {
+        assertEquals(res, findCheapestPrice(n, flights, src, dst, K))
     }
 
     companion object {
 
         @JvmStatic
-        fun main(args: Array<String>) {
-            val n = 3
-            val flights = arrayOf(intArrayOf(0, 1, 100), intArrayOf(1, 2, 100), intArrayOf(0, 2, 500))
-            val src = 0
-            val dst = 2
-            val K = 0
-
-            val one = LeetCode787CheapestFlightsWithinKStops()
-            println(one.findCheapestPrice(n, flights, src, dst, K))
+        @Parameterized.Parameters
+        fun data(): List<Array<Serializable>> {
+            return listOf(
+                    arrayOf(500, 3, arrayOf(intArrayOf(0, 1, 100), intArrayOf(1, 2, 100), intArrayOf(0, 2, 500)), 0, 2, 0),
+                    arrayOf(200, 3, arrayOf(intArrayOf(0, 1, 100), intArrayOf(1, 2, 100), intArrayOf(0, 2, 500)), 0, 2, 1)
+            )
         }
     }
 
