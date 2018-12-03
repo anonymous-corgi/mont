@@ -2,8 +2,13 @@ package drafts
 
 class KotlinDraft {
 
-    fun main(args: Array<String>) {
-        println("Hello World!")
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+//            val instance = KotlinDraft()
+            println()
+        }
     }
 }
 
