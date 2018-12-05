@@ -1,5 +1,5 @@
 # Algorithm
-Contains:
-1. jiuzhang highlighted basic algorithm problems.
-2. jiuzhang highlighted DP algorithm problems.
-3. Interview problems.
+
+1. [Jiuzhang highlighted basic algorithm problems.](/src/jiuzhang/)
+2. [Jiuzhang highlighted DP algorithm problems.](/src/jiuzhang/dp/)
+3. [Summary](src/subjects/)
