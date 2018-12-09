@@ -6,6 +6,12 @@ import java.util.List;
 import basicclass.TreeNode;
 
 public class Print {
+
+  // For primitive array: Arrays.toString( array )
+  // For primitive multi-dimension array and object[]: Arrays.deepToString( array )
+  // Primitive multi-dimension array is also a kind of object[].
+
+  // For List<>, list.toString()
   
   public static boolean printArray(int[] nums) {
     return printArray(nums, 0, nums.length);
