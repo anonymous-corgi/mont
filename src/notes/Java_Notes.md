@@ -26,7 +26,17 @@
     this.compose() is call going to call this.apply().
     As this.apply(T t) requres T, we need to make sure that before.apply() returns objects that that is not higher than T.
     That means before.apply(? super V) return ? extends T.
-
+    
+  + ##### Generics is a definition for varible reference.
+    + C\<T\> can only refer C\<T\> instance.
+    + C\<? extends T\> can refer C\<T\> and C\<those ? extends T\> instances.
+    + C\<? super T\> can refer C\<T\> and C\<those ? super T\> instances.
+  
+  + ##### Definition of Producer and Consumer.
+    + Producer\<T\> is that the instance is providing objects inside it or itself for other to use.
+    + Consumer\<T\> is taking object relates to T inside it.
+    + For Map<<? extends K>, <? extends V>>, actually the Key is also a producer. Because we require Producer to produce Key that is <? extends K>. The Map is a Consumer of Producer<? extends K>.
+    
 - ### 2. Lambda
 
   + ##### **->**
