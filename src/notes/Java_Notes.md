@@ -1,11 +1,23 @@
 # Java
 - ### 1. Generics:
 
+  + ##### Generics is a definition for varible reference.
   + ##### PECS(Producer Extends, Consumer Super)
-  + ##### If ***RedApple*** extends ***Apple*** extends ***Foods***
+  + ##### If *RedApple* extends *Apple* extends *Fruit* extends *Foods* extends *Object*
     + ###### ? super Apple -> Apple, Foods
     + ###### ? extends Apple -> Apple, RedApple
-
+    
+    + ###### Producer    
+    + List<T> { fun get() : T }
+    The reference List\<? extends Fruit\> is enabled to reference List\<Fruit\> or List\<Apple\> ... instances. (List\<Fruit\> can't refer to List\<Apple\>... instances.)
+    So it is guaranteed to get a Fruit from from List\<? extends Fruit\>. The producer behaviour of List\<? extends Fruit\> is the same to the List\<Fruit\>.
+    Conversely, adding a Fruit to List\<? extends Fruit\> is prohibited. Because List\<? extends Fruit\> might refer to List\<RedApple\>, adding Fruit to List\<RedApple\> is prohibited.
+    
+    + ###### Consumer
+    + Knife<T> { fun cut(t: T) }
+    The reference Knife\<? super Fruit\> can refer to Knife\<Fruit\> or Knife\<Foods\> ... instance.
+    The situation is that we are guaranteed to have Fruit, and Knife\<? super Fruit\> refers to those instance that can consume Fruit.
+    
   + Explanation:
 
     ```
@@ -27,7 +39,6 @@
     As this.apply(T t) requres T, we need to make sure that before.apply() returns objects that that is not higher than T.
     That means before.apply(? super V) return ? extends T.
     
-  + ##### Generics is a definition for varible reference.
     + C\<T\> can only refer C\<T\> instance.
     + C\<? extends T\> can refer C\<T\> and C\<those ? extends T\> instances.
     + C\<? super T\> can refer C\<T\> and C\<those ? super T\> instances.
