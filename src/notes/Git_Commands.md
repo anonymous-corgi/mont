@@ -36,7 +36,10 @@ git # Git Commands
     
   + ##### 列出 ssh 并查看
     `$ ls -al ~/.ssh`  
+  
+  + ##### 查看或复制id_rsa.pub
     `$ cat ~/.ssh/id_rsa.pub`  
+    `$ cat ~/.ssh/id_rsa.pub | pbcopy` 
   
   + ##### 在后台启动 ssh-agent
     `eval $(ssh-agent -s)`
@@ -47,6 +50,7 @@ git # Git Commands
   + ##### 测试密钥是否工作
     `$ ssh -T git@github.com`  
     `$ ssh -T git@gitlab.com`
+    `$ ssh -T git@bitbucket.org`
 
 ### 三、增加/删除文件
 
