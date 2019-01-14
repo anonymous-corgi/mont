@@ -39,7 +39,7 @@ git # Git Commands
   
   + ##### 查看或复制id_rsa.pub
     `$ cat ~/.ssh/id_rsa.pub`  
-    `$ cat ~/.ssh/id_rsa.pub | pbcopy` 
+    `$ cat ~/.ssh/id_rsa.pub | pbcopy`  
   
   + ##### 在后台启动 ssh-agent
     `eval $(ssh-agent -s)`
@@ -49,8 +49,8 @@ git # Git Commands
     
   + ##### 测试密钥是否工作
     `$ ssh -T git@github.com`  
-    `$ ssh -T git@gitlab.com`
-    `$ ssh -T git@bitbucket.org`
+    `$ ssh -T git@gitlab.com`  
+    `$ ssh -T git@bitbucket.org`  
 
 ### 三、增加/删除文件
 
@@ -171,7 +171,9 @@ git # Git Commands
 
   + ##### 删除远程分支
     `$ git push origin --delete [branch-name]`  
-    `$ git branch -dr [remote/branch]`
+
+  + ##### 删除远程分支在本地的显示。可被git fetch寻回
+    `$ git branch -dr [remote/branch]`  
 
 ### 六、标签
 
