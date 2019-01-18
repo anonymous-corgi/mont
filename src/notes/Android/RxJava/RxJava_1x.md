@@ -3,13 +3,36 @@
 - ### Reference Websites:
   [给Android开发者的RxJava详解](https://gank.io/post/560e15be2dca930e00da1083)
   
-- ### My Summary Flow Chart
-  ![Flow Chart](RxJava_1x_Summary_Chart.png)
+- ### 0. My Summary
+
++ ##### Flow Chart
+![Flow Chart](RxJava_1x_Summary_Chart.png)
+  
++ ##### Note
+  + Suppose we run the following codes:
+  ```java
+    mService
+      .loadData()
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(callback);
+  ```
+  What will happen is as following:
+  1. All Observable instances are instantiated in the main Thread:
+    mService.loadData() firstly creates an observable instance,
+    then both subscribeOn() and observeOn() will successively create their intermediate Observables based on their upper Observable (For subscribeOn(), upper Observable is the one created by mService.loadData(); For observeOn(), upper Observable is the one created by subscribeOn)()) 
+    Lower Observable keeps a reference to its upper Observable, it **doesn't** create the intermediate Observer in this stage.
+  2. Subscribe recursively:
+    2.1. he lowest subscriber(the original subscriber) will firstly subscribe the lowest Observable(the one created by observeOn()). The onStart() is still being processed in main Thread(Because it happens before thread switching)
+    2.2. then create intermediate observeOn()'s Subscriber and subscribe subscribeOn()'s Observable in mainThread (Because observeOn() uses map()).  
+    (then subscribeOn()'s Observable call observeOn().Subscriber.onStart() (but it does nothing))  
+    2.3. subscribeOn's Observable will switch thread before subscribeOn's Subscriber subscribe original Observable (mService.loadData()'s) and trigger the OnSubscribe in original Observable(fetch data from endpoint).
+    2.4. The original will pass the data (call the Subscriber's onNext()) recursively.
+    2.5 Until observeOn.Observable will switch back to UI thread before it passes data down to the original Subscriber.
   
 - ### 1. Basic class and interface
 
   + ##### 1.1 functions: ***Action0*** & ***Action1\<T\>*** & ...& ***ActionN***
-
   ```java
   public interface Action0 extends Action {
       void call();
@@ -243,6 +266,7 @@
   + ##### .2 subscribeOn()
   ```java
   public final Observable<T> subscribeOn(Scheduler scheduler, boolean requestOn) {
+    
     if (this instanceof ScalarSynchronousObservable) {
       return ((ScalarSynchronousObservable<T>)this).scalarScheduleOn(scheduler);
     }
