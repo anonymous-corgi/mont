@@ -1,35 +1,9 @@
-# RxJava
+# RxJava_2x
 
 - ### Reference Websites:
-  [给Android开发者的RxJava详解](https://gank.io/post/560e15be2dca930e00da1083)
   
 - ### 0. My Summary
 
-+ ##### Flow Chart
-![Flow Chart](RxJava_1x_Summary_Chart.png)
-  
-+ ##### Note
-  + Suppose we run the following codes:
-  ```java
-    mService
-      .loadData()
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .subscribe(callback);
-  ```
-  What will happen is as following:
-  1. All Observable instances are instantiated in the main Thread:
-    mService.loadData() firstly creates an observable instance,
-    then both subscribeOn() and observeOn() will successively create their intermediate Observables based on their upper Observable (For subscribeOn(), upper Observable is the one created by mService.loadData(); For observeOn(), upper Observable is the one created by subscribeOn)()) 
-    Lower Observable keeps a reference to its upper Observable, it **doesn't** create the intermediate Observer in this stage.
-  2. Subscribe recursively:
-    2.1. he lowest subscriber(the original subscriber) will firstly subscribe the lowest Observable(the one created by observeOn()). The onStart() is still being processed in main Thread(Because it happens before thread switching)
-    2.2. then create intermediate observeOn()'s Subscriber and subscribe subscribeOn()'s Observable in mainThread (Because observeOn() uses map()).  
-    (then subscribeOn()'s Observable call observeOn().Subscriber.onStart() (but it does nothing))  
-    2.3. subscribeOn's Observable will switch thread before subscribeOn's Subscriber subscribe original Observable (mService.loadData()'s) and trigger the OnSubscribe in original Observable(fetch data from endpoint).
-    2.4. The original will pass the data (call the Subscriber's onNext()) recursively.
-    2.5 Until observeOn.Observable will switch back to UI thread before it passes data down to the original Subscriber.
-  
 - ### 1. Basic class and interface
 
   + ##### 1.1 functions: ***Action0*** & ***Action1\<T\>*** & ...& ***ActionN***
@@ -47,47 +21,61 @@
   }
   ```
   
-  + ##### 1.2 rx: ***Observer\<T\>*** & ***Subscription*** & ***Subscriber\<T\>***
+  + ##### 1. io.reactivex: ***Observer\<T\>***  
   ```java
   public interface Observer<T> {
-    
-      void onCompleted();
 
-      void onError(Throwable e);
+    void onSubscribe(@NonNull Disposable d);
 
-      void onNext(T t);
+    void onNext(@NonNull T t);
+
+    void onError(@NonNull Throwable e);
+
+    void onComplete();
   }
   ```  
   
+  + ##### 1. io.reactivex: ***ObservableSource\<T\>***
   ```java
-  public interface Subscription {
-    
-      void unsubscribe();
+  public interface ObservableSource<T> {
 
-      boolean isUnsubscribed();
-  }
+    /**
+     * Subscribes the given Observer to this ObservableSource instance.
+     * @param observer the Observer, not null
+     * @throws NullPointerException if {@code observer} is null
+     */
+    void subscribe(@NonNull Observer<? super T> observer);
+    }
   ```
   
+  + ##### 1. io.reactivex: ***Observable\<T\>***
   ```java
-  public abstract class Subscriber<T> implements Observer<T>, Subscription {
+  public abstract class Observable<T> implements ObservableSource<T> {
     
-      public void onStart() {
-          // do nothing by default
-      }
-  }
-  ```
-  
-  + ##### 1.3 rx: ***Observable.OnSubscribe\<T\>***
-  ```java
-  public class Observable<T> {
-    
-      final OnSubscribe<T> onSubscribe;
+    public final void subscribe(Observer<? super T> observer) {
+      ObjectHelper.requireNonNull(observer, "observer is null");
+      try {
+          observer = RxJavaPlugins.onSubscribe(this, observer);
 
-      public interface OnSubscribe<T> extends Action1<Subscriber<? super T>> {
-          // cover for generics insanity
+          ObjectHelper.requireNonNull(observer, "Plugin returned null Observer");
+
+          subscribeActual(observer);
+      } catch (NullPointerException e) { // NOPMD
+          throw e;
+      } catch (Throwable e) {
+          Exceptions.throwIfFatal(e);
+          // can't call onError because no way to know if a Disposable has been set or not
+          // can't call onSubscribe because the call might have set a Subscription already
+          RxJavaPlugins.onError(e);
+
+          NullPointerException npe = new NullPointerException("Actually not, but can't throw other exceptions due to RS");
+          npe.initCause(e);
+          throw npe;
       }
+    }
+    
+    protected abstract void subscribeActual(Observer<? super T> observer);
   }
-  ```
   
   + ##### 1.4 rx: ***Scheduler***
   ```java
