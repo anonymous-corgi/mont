@@ -657,8 +657,19 @@
 
 - ### Throttle
   + **throttleFirst()**: Returns an Observable that emits only the first item emitted by the source ObservableSource during sequential time windows of a specified duration.
-  + **throttleLast()**: Returns an Observable that emits only the last item emitted by the source ObservableSource during sequential time windows of a specified duration.
+  **NOTE: throttleFirst is different from throttleLast. it is triggered by the first onNext and block the following onNext() in the time window. It reopens to pass onNext() after that time window (this onNext() is receive after that time freezing window)**
 
-  + **throttleLatest()**: Throttles items from the upstream by first emitting the next item from upstream, then periodically emitting the latest item (if any) when the specified timeout elapses between them. **NOTE: quite similar with sample(). sample doesn't emits first item**
+  + **throttleWithTimeout() == debounce(long timeout, TimeUnit unit)**: Returns an Observable that mirrors the source ObservableSource, except that it drops items emitted by the source ObservableSource that are followed by newer items before a timeout value expires. The timer resets on each emission.**NOTE: in logic it more like throttleFirst**
 
-  + **sample()**: Returns an Observable that emits the most recently emitted item (if any) emitted by the source ObservableSource within periodic time intervals or triggered by a sampler Observable.
+  + **throttleLast() == sample(long period, TimeUnit unit)**: Returns an Observable that emits only the last item emitted by the source ObservableSource during sequential time windows of a specified duration.
+
+  + **throttleLatest()**: **NOTE: work as throttleLast(), but throttleLast() doesn't emits first item while throttleLatest does.**
+
+  + **sample(ObservableSource\<U\> sampler)**: Returns an Observable that emits the most recently emitted item (if any) emitted by the source ObservableSource within periodic time intervals or triggered by a sampler Observable.
+
+- ### Retry
+  + **retry(long times, Predicate\<? super Throwable\> predicate)**: Retries at most times or until the predicate returns false, whichever happens first.
+
+  + **retry(BiPredicate\<? super Integer, ? super Throwable\> predicate)**: Returns an Observable that mirrors the source ObservableSource, resubscribing to it if it calls {@code onError} and the predicate returns true for that specific exception and retry count. **NOTE: predicate passes the retry count and Throwable for you to decide whether to retry.**
+
+  + **retryUntil** is a simplified version of retry(BiPredicate predicate)
