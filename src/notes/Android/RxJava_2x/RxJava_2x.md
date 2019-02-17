@@ -68,6 +68,22 @@
   }
   ```
 
+  + ##### io.reactivex.disposables: ***Disposable***
+  ```java
+  public interface Disposable {
+    /**
+     * Dispose the resource, the operation should be idempotent.
+     */
+    void dispose();
+
+    /**
+     * Returns true if this resource has been disposed.
+     * @return true if this resource has been disposed
+     */
+    boolean isDisposed();
+  }
+  ```
+
   + ##### io.reactivex: ***Emitter\<T\>***
   ```java
   public interface Emitter<T> {
@@ -104,36 +120,6 @@
   }
   ```
 
-  + ##### io.reactivex: ***Observable\<T\>***
-  ```java
-  public abstract class Observable<T> implements ObservableSource<T> {
-
-    public final void subscribe(Observer<? super T> observer) {
-      ObjectHelper.requireNonNull(observer, "observer is null");
-      try {
-          observer = RxJavaPlugins.onSubscribe(this, observer);
-
-          ObjectHelper.requireNonNull(observer, "Plugin returned null Observer");
-
-          subscribeActual(observer);
-      } catch (NullPointerException e) { // NOPMD
-          throw e;
-      } catch (Throwable e) {
-          Exceptions.throwIfFatal(e);
-          // can't call onError because no way to know if a Disposable has been set or not
-          // can't call onSubscribe because the call might have set a Subscription already
-          RxJavaPlugins.onError(e);
-
-          NullPointerException npe = new NullPointerException("Actually not, but can't throw other exceptions due to RS");
-          npe.initCause(e);
-          throw npe;
-      }
-    }
-
-    protected abstract void subscribeActual(Observer<? super T> observer);
-  }
-  ```
-
   + ##### io.reactivex: ***Scheduler***
   ```java
   public abstract class Scheduler {
@@ -141,67 +127,15 @@
     public abstract Worker createWorker();
 
     public abstract static class Worker implements Disposable {
-      /**
-       * Schedules a Runnable for execution without any time delay.
-       *
-       * <p>The default implementation delegates to {@link #schedule(Runnable, long, TimeUnit)}.
-       *
-       * @param run
-       *            Runnable to schedule
-       * @return a Disposable to be able to unsubscribe the action (cancel it if not executed)
-       */
+
       @NonNull
       public Disposable schedule(@NonNull Runnable run) {
           return schedule(run, 0L, TimeUnit.NANOSECONDS);
       }
 
-      /**
-       * Schedules an Runnable for execution at some point in the future specified by a time delay
-       * relative to the current time.
-       * <p>
-       * Note to implementors: non-positive {@code delayTime} should be regarded as non-delayed schedule, i.e.,
-       * as if the {@link #schedule(Runnable)} was called.
-       *
-       * @param run
-       *            the Runnable to schedule
-       * @param delay
-       *            time to "wait" before executing the action; non-positive values indicate an non-delayed
-       *            schedule
-       * @param unit
-       *            the time unit of {@code delayTime}
-       * @return a Disposable to be able to unsubscribe the action (cancel it if not executed)
-       */
       @NonNull
       public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
 
-      /**
-       * Schedules a periodic execution of the given task with the given initial time delay and repeat period.
-       * <p>
-       * The default implementation schedules and reschedules the {@code Runnable} task via the
-       * {@link #schedule(Runnable, long, TimeUnit)}
-       * method over and over and at a fixed rate, that is, the first execution will be after the
-       * {@code initialDelay}, the second after {@code initialDelay + period}, the third after
-       * {@code initialDelay + 2 * period}, and so on.
-       * <p>
-       * Note to implementors: non-positive {@code initialTime} and {@code period} should be regarded as
-       * non-delayed scheduling of the first and any subsequent executions.
-       * In addition, a more specific {@code Worker} implementation should override this method
-       * if it can perform the periodic task execution with less overhead (such as by avoiding the
-       * creation of the wrapper and tracker objects upon each periodic invocation of the
-       * common {@link #schedule(Runnable, long, TimeUnit)} method).
-       *
-       * @param run
-       *            the Runnable to execute periodically
-       * @param initialDelay
-       *            time to wait before executing the action for the first time; non-positive values indicate
-       *            an non-delayed schedule
-       * @param period
-       *            the time interval to wait each time in between executing the action; non-positive values
-       *            indicate no delay between repeated schedules
-       * @param unit
-       *            the time unit of {@code period}
-       * @return a Disposable to be able to unsubscribe the action (cancel it if not executed)
-       */
       @NonNull
       public Disposable schedulePeriodically(@NonNull Runnable run, final long initialDelay, final long period, @NonNull final TimeUnit unit) {
           final SequentialDisposable first = new SequentialDisposable();
@@ -228,32 +162,33 @@
   }
   ```
 
-- ### 2. Observer<T>.subscribe()
-  All These non-static subscribe() methods below will be converted to
-  one final execution method.
-  **The Overload of subscribe()**
+- ### 2. io.reactivex: ***Observable\<T\>***
   ```java
-  public final Subscription subscribe(final Action1<? super T> onNext, final Action1<Throwable> onError) {
-
-      Action0 onCompleted = Actions.empty();
-      return subscribe(new ActionSubscriber<T>(onNext, onError, onCompleted));
-  }
-  ```
-
-  ```java
-  public final Subscription subscribe(final Observer<? super T> observer) {
-      if (observer instanceof Subscriber) {
-          return subscribe((Subscriber<? super T>)observer);
+  public abstract class Observable<T> implements ObservableSource<T> {
+  
+    public final void subscribe(Observer<? super T> observer) {
+      ObjectHelper.requireNonNull(observer, "observer is null");
+      try {
+          observer = RxJavaPlugins.onSubscribe(this, observer);
+  
+          ObjectHelper.requireNonNull(observer, "Plugin returned null Observer");
+  
+          subscribeActual(observer);
+      } catch (NullPointerException e) { // NOPMD
+          throw e;
+      } catch (Throwable e) {
+          Exceptions.throwIfFatal(e);
+          // can't call onError because no way to know if a Disposable has been set or not
+          // can't call onSubscribe because the call might have set a Subscription already
+          RxJavaPlugins.onError(e);
+  
+          NullPointerException npe = new NullPointerException("Actually not, but can't throw other exceptions due to RS");
+          npe.initCause(e);
+          throw npe;
       }
-
-      return subscribe(new ObserverSubscriber<T>(observer));
-  }
-  ```
-
-  ```java
-  public final Subscription subscribe(Subscriber<? super T> subscriber) {
-
-      return Observable.subscribe(subscriber, this);
+    }
+  
+    protected abstract void subscribeActual(Observer<? super T> observer);
   }
   ```
 
