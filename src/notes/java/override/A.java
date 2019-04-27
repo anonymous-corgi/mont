@@ -1,12 +1,6 @@
 package notes.java.override;
 
-import java.util.Random;
-
 public class A {
-
-    static Random RANDOM = new Random();
-
-    int id = RANDOM.nextInt(100);
 
     String name = "A";
 
@@ -16,5 +10,13 @@ public class A {
 
     public String getName2() {
         return name;
+    }
+
+    public String getKey1() {
+        return "A Key";
+    }
+
+    public String getKey2() {
+        return getKey1();
     }
 }
