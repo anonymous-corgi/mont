@@ -5,13 +5,26 @@
   + ##### [Android Unit Test Collection](https://blog.csdn.net/column/details/18260.html)
   + ##### [Android 测试](https://blog.csdn.net/lmj623565791/article/details/79623159)
 
-- ### 1. Test Tools:
+- ### 1. Test Foundation:
+
+  + ##### Testable:
+    + Controllable Input conditions.
+    + Observable Output results.
+    + Dependency
+
+  + ##### Testing and Architecture:
+    + Each class should have a clearly defined purpose
+    + Limit and be explicit about which classes know about other classes
+    + Use constructor injection
+    + Keep Android code out of the view model
+
+- ### 2. Test Tools:
 
   + ##### Junit:
     + Assertion: [Class Assertions](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html)
     + @Test (expected = Exception.class)
     + @BeforeClass –> @Before –> @Test –> @After –> @AfterClass
-    
+
   + ##### Mockito:
     + 4 Ways of Mock:
       1. mock(xxx.class)
@@ -48,11 +61,11 @@
   | argThat(argumentMatcher <T> matcher) |
 
 
-- ### 2. Unit Test:
+- ### 3. Unit Test:
 
   + ##### Dependency Isolation:
 
-- ### 3. Demo:
+- ### 4. Demo:
 
   + ##### Mockito:
 
@@ -76,7 +89,7 @@
       }
     }
     ```
-    
+
     ```
     public class TestDemo {
 
@@ -118,7 +131,7 @@
           TestDemoObj obj = mock(TestDemoObj.class);
 
           when(obj.getName()).thenReturn("Sally");
-          
+
         //  assertEquals("Sally", obj.getName());
 
           verify(obj).getName();
