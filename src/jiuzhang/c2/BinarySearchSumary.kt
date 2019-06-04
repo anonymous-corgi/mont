@@ -30,6 +30,16 @@ class BinarySearchSumary {
         }
     }
 
+    // 1. For start < end, stop situation not only may be start == end also start == end + 1.
+    // 2. If mid = start + 1 or mid = end - 1,
+    //    (May have: INDEX OUT OF BOUNDARY problem)
+    //    need to consider if mid + 1 == nums.length or mid - 1 == -1 ?
+    // 3. If mid = start or mid = end,
+    //    (May have: INFINITE LOOP problem) (Solution: Pick the correct end according to mid)
+    //    need to consider whether next mid will still be equal to start or end?
+    //    So for start < end, if mid = start + (end - start) / 2, must have start = mid + 1.
+    //                        if mid = start + (end - start + 1) / 2, must have end = mid - 1;
+
     // while (start < end)
     class Classic2 : BinarySearch {
 
@@ -76,11 +86,15 @@ class BinarySearchSumary {
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
-                    nums[mid] < target -> start = mid + 1
-                    else -> end = mid
+                    isQualified() -> end = mid
+                    else -> start = mid + 1
                 }
             }
-            return if (nums[end] == target) end else -1
+            return if (nums[start] == target) start else -1
+        }
+
+        private fun isQualified(): Boolean {
+            return true
         }
     }
 
@@ -93,11 +107,15 @@ class BinarySearchSumary {
             while (start < end) {
                 val mid = start + (end - start + 1) / 2
                 when {
-                    nums[mid] > target -> end = mid - 1
-                    else -> start = mid
+                    isQualified() -> start = mid
+                    else -> end = mid - 1
                 }
             }
-            return if (nums[start] == target) end else -1
+            return if (nums[end] == target) end else -1
+        }
+
+        private fun isQualified(): Boolean {
+            return true
         }
     }
 
