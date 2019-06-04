@@ -30,7 +30,9 @@ class BinarySearchSumary {
         }
     }
 
-    // 1. For start < end, stop situation not only may be start == end also start == end + 1.
+    // 1. For start < end, start = mid + 1, end = mid - 1,
+    //    stop situation not only may be start == end also start == end + 1.
+    //    But for start < end, one side is start = mid or end = mid, the find situation is start == end.
     // 2. If mid = start + 1 or mid = end - 1,
     //    (May have: INDEX OUT OF BOUNDARY problem)
     //    need to consider if mid + 1 == nums.length or mid - 1 == -1 ?
@@ -55,6 +57,7 @@ class BinarySearchSumary {
                     else -> return mid
                 }
             }
+            // Actually in the final, start must be equal to end.
             return if (nums[start] == target) start else -1;
         }
     }
@@ -73,6 +76,7 @@ class BinarySearchSumary {
                     else -> return mid
                 }
             }
+            // Actually in the final, start must be equal to end.
             return if (nums[end] == target) end else -1;
         }
     }
