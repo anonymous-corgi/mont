@@ -17,7 +17,7 @@ class BinarySearchSumary {
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start <= end) {
                 val mid = start + (end - start) / 2
                 when {
@@ -48,7 +48,7 @@ class BinarySearchSumary {
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
@@ -58,7 +58,7 @@ class BinarySearchSumary {
                 }
             }
             // Actually in the final, start must be equal to end.
-            return if (nums[start] == target) start else -1;
+            return if (nums[start] == target) start else -1
         }
     }
 
@@ -67,7 +67,7 @@ class BinarySearchSumary {
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start < end) {
                 val mid = start + (end - start + 1) / 2
                 when {
@@ -77,16 +77,17 @@ class BinarySearchSumary {
                 }
             }
             // Actually in the final, start must be equal to end.
-            return if (nums[end] == target) end else -1;
+            return if (nums[end] == target) end else -1
         }
     }
 
+    // Search First and Last
     class SearchFirstTarget : BinarySearch {
 
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
@@ -107,7 +108,7 @@ class BinarySearchSumary {
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start < end) {
                 val mid = start + (end - start + 1) / 2
                 when {
@@ -131,9 +132,9 @@ class BinarySearchSumary {
         override fun search(nums: IntArray, target: Int): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
-            val reference = nums[end]
-            while (start <= end) {
+            var end = nums.lastIndex
+            val reference = nums.last()
+            while (start < end) {
                 val mid = start + (end - start) / 2
                 if (nums[mid] == target) return mid
                 if (nums[mid] > target) {
@@ -144,17 +145,35 @@ class BinarySearchSumary {
                     else start = mid + 1
                 }
             }
-            return -1
+            return if (nums[start] == target) start else -1
         }
     }
 
     // LeetCode 081. Search in Rotated Sorted Array II
-//    class SearchInRotatedArrayWithDuplicates : BinarySearch {
-//
-//        override fun search(nums: IntArray, target: Int): Boolean {
-//
-//        }
-//    }
+    class SearchInRotatedArrayWithDuplicates {
+
+        fun search(nums: IntArray, target: Int): Boolean {
+            if (nums.isEmpty()) return false
+            var start = 0
+            var end = nums.lastIndex
+            val reference = nums.last()
+            while (start < end && nums[start] == reference) {
+                start++
+            }
+            while (start < end) {
+                val mid = start + (end - start) / 2
+                if (nums[mid] == target) return true
+                if (nums[mid] > target) {
+                    if (nums[mid] > reference && target <= reference) start = mid + 1
+                    else end = mid - 1
+                } else {
+                    if (target > reference && nums[mid] <= reference) end = mid - 1
+                    else start = mid + 1
+                }
+            }
+            return nums[start] == target
+        }
+    }
 
     // LeetCode 153. Find Minimum in Rotated Sorted Array I
     class FindMinWithoutDuplicates : BinarySearchFindMin {
@@ -162,8 +181,8 @@ class BinarySearchSumary {
         override fun findMin(nums: IntArray): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
-            val reference = nums[end]
+            var end = nums.lastIndex
+            val reference = nums.last()
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
@@ -171,7 +190,7 @@ class BinarySearchSumary {
                     else -> end = mid
                 }
             }
-            return nums[end]
+            return nums[start]
         }
     }
 
@@ -181,7 +200,7 @@ class BinarySearchSumary {
         override fun findMin(nums: IntArray): Int {
             if (nums.isEmpty()) return -1
             var start = 0
-            var end = nums.size - 1
+            var end = nums.lastIndex
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
@@ -190,7 +209,7 @@ class BinarySearchSumary {
                     else -> end--
                 }
             }
-            return nums[end]
+            return nums[start]
         }
     }
 

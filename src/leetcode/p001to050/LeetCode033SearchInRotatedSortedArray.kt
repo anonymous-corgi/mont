@@ -7,7 +7,7 @@ class LeetCode033SearchInRotatedSortedArray {
         var start = 0
         var end = nums.size - 1
         val reference = nums[end]
-        while (start <= end) {
+        while (start < end) {
             val mid = start + (end - start) / 2
             if (nums[mid] == target) return mid
             if (nums[mid] > target) {
@@ -18,6 +18,6 @@ class LeetCode033SearchInRotatedSortedArray {
                 else start = mid + 1
             }
         }
-        return -1
+        return if (nums[start] == target) start else -1
     }
 }
