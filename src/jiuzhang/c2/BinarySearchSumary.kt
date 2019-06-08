@@ -81,7 +81,9 @@ class BinarySearchSumary {
         }
     }
 
-    // Search First and Last
+
+    // Search First or Last ////////////////////////////////////////////////////////////////////////////////////////////
+
     class SearchFirstTarget : BinarySearch {
 
         override fun search(nums: IntArray, target: Int): Int {
@@ -124,7 +126,8 @@ class BinarySearchSumary {
         }
     }
 
-    // In Rotated Sorted Array
+
+    // Search in Rotated Sorted Array //////////////////////////////////////////////////////////////////////////////////
 
     // LeetCode 033. Search in Rotated Sorted Array
     class SearchInRotatedArray : BinarySearch {
@@ -149,7 +152,10 @@ class BinarySearchSumary {
         }
     }
 
+    // Duplicate makes it hard to tell  if it is in first part or second part.
+    // For example: [2, 2, 3, 4, 1, 2, 2] if we find nums[mid] == 2, we can't tell if mid is in front or tail.
     // LeetCode 081. Search in Rotated Sorted Array II
+    // Solution1: Trim head at first.
     class SearchInRotatedArrayWithDuplicates {
 
         fun search(nums: IntArray, target: Int): Boolean {
@@ -162,18 +168,56 @@ class BinarySearchSumary {
             }
             while (start < end) {
                 val mid = start + (end - start) / 2
-                if (nums[mid] == target) return true
                 if (nums[mid] > target) {
                     if (nums[mid] > reference && target <= reference) start = mid + 1
                     else end = mid - 1
-                } else {
+                } else if (nums[mid] < target) {
                     if (target > reference && nums[mid] <= reference) end = mid - 1
                     else start = mid + 1
+                } else {
+                    return true
                 }
             }
             return nums[start] == target
         }
     }
+
+    // Solution2: Dynamically Moving Reference.
+    class SearchInRotatedArrayWithDuplicates2 {
+
+        fun search(nums: IntArray, target: Int): Boolean {
+            if (nums.isEmpty()) return false
+            var start = 0
+            var end = nums.lastIndex
+            while (start < end) {
+                val reference = nums[end]
+                val mid = start + (end - start) / 2
+                if (nums[mid] > target) {
+                    if (nums[mid] == reference) {
+                        end--
+                    } else if (nums[mid] > reference && target <= reference) {
+                        start = mid + 1
+                    } else {
+                        end = mid - 1
+                    }
+                } else if (nums[mid] < target) {
+                    if (nums[mid] == reference) {
+                        end--
+                    } else if (target > reference && nums[mid] <= reference) {
+                        end = mid - 1
+                    } else {
+                        start = mid + 1
+                    }
+                } else {
+                    return true
+                }
+            }
+            return nums[start] == target
+        }
+    }
+
+
+    // Find Minimum in Rotated Sorted Array ////////////////////////////////////////////////////////////////////////////
 
     // LeetCode 153. Find Minimum in Rotated Sorted Array I
     class FindMinWithoutDuplicates : BinarySearchFindMin {
@@ -186,8 +230,8 @@ class BinarySearchSumary {
             while (start < end) {
                 val mid = start + (end - start) / 2
                 when {
-                    nums[mid] > reference -> start = mid + 1
-                    else -> end = mid
+                    nums[mid] <= reference -> end = mid
+                    else -> start = mid + 1
                 }
             }
             return nums[start]
@@ -202,10 +246,11 @@ class BinarySearchSumary {
             var start = 0
             var end = nums.lastIndex
             while (start < end) {
+                val reference = nums[end]
                 val mid = start + (end - start) / 2
                 when {
-                    nums[mid] > nums[end] -> start = mid + 1
-                    nums[mid] < nums[end] -> end = mid
+                    nums[mid] > reference -> start = mid + 1
+                    nums[mid] < reference -> end = mid
                     else -> end--
                 }
             }
