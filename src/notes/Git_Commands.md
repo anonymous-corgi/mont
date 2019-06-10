@@ -28,29 +28,29 @@ git # Git Commands
     `$ git config -e [--global]`
 
   + ##### 设置提交代码时的用户信息
-    `$ git config [--global] user.name "[name]"`  
+    `$ git config [--global] user.name "[name]"`
     `$ git config [--global] user.email "[email address]"`
 
   + ##### 生成 ssh
-    `$ ssh-keygen -t rsa`  
-    
+    `$ ssh-keygen -t rsa`
+
   + ##### 列出 ssh 并查看
-    `$ ls -al ~/.ssh`  
-  
+    `$ ls -al ~/.ssh`
+
   + ##### 查看或复制id_rsa.pub
-    `$ cat ~/.ssh/id_rsa.pub`  
-    `$ cat ~/.ssh/id_rsa.pub | pbcopy`  
-  
+    `$ cat ~/.ssh/id_rsa.pub`
+    `$ cat ~/.ssh/id_rsa.pub | pbcopy`
+
   + ##### 在后台启动 ssh-agent
     `eval $(ssh-agent -s)`
 
   + ##### 将SSH私钥添加到 ssh-agent
     `ssh-add /c/Users/USER_NAME/.ssh/id_rsa`
-    
+
   + ##### 测试密钥是否工作
-    `$ ssh -T git@github.com`  
-    `$ ssh -T git@gitlab.com`  
-    `$ ssh -T git@bitbucket.org`  
+    `$ ssh -T git@github.com`
+    `$ ssh -T git@gitlab.com`
+    `$ ssh -T git@bitbucket.org`
 
 ### 三、增加/删除文件
 
@@ -67,11 +67,11 @@ git # Git Commands
     `$ git add –p`
 
   + ##### 重置缓存区文件的基准（以指定commit为基准）
-    `$ git reset HEAD [file]`  
+    `$ git reset HEAD [file]`
     `$ git reset commit [file]`
 
   + ##### 重置工作区文件（到指定commit）
-    `$ git checkout HEAD [file]`  
+    `$ git checkout HEAD [file]`
     `$ git checkout commit [file]`
 
   + ##### 删除工作区文件，并且将这次删除放入暂存区
@@ -145,16 +145,16 @@ git # Git Commands
     `$ git branch --track [local-branch] [remote-branch]`
 
   + ##### 新建一个本地分支，与指定的远程分支建立追踪关系，并切换到该分支
-    `$ git checkout -b [local-branch] [remote-branch]`  
-    `= $ git branch [local-branch]`  
-    `+ $ git branch --track [local-branch] [remote-branch]`  
+    `$ git checkout -b [local-branch] [remote-branch]`
+    `= $ git branch [local-branch]`
+    `+ $ git branch --track [local-branch] [remote-branch]`
     `+ $ git checkout [local-branch]`
 
   + ##### 根据本地分支新建一个远端分支
     `$ git push --set-upstream [remote-repository] [remote-branch]`
 
   + ##### 建立追踪关系，在现有分支与指定的远程分支之间
-    `$ git branch --set-upstream-to [remote-branch]`  
+    `$ git branch --set-upstream-to [remote-branch]`
     `$ git branch --set-upstream-to [remote-branch] [local-branch]`
 
   + ##### 取消追踪关系，在现有分支与指定的远程分支之间
@@ -170,10 +170,10 @@ git # Git Commands
     `$ git branch -d [branch-name]`
 
   + ##### 删除远程分支
-    `$ git push origin --delete [branch-name]`  
+    `$ git push origin --delete [branch-name]`
 
   + ##### 删除远程分支在本地的显示。可被git fetch寻回
-    `$ git branch -dr [remote/branch]`  
+    `$ git branch -dr [remote/branch]`
 
 ### 六、标签
 
@@ -225,7 +225,7 @@ git # Git Commands
     `$ git log [tag] HEAD --grep feature`
 
   + ##### 显示某个文件的版本历史，包括文件改名
-    `$ git log --follow [file]`  
+    `$ git log --follow [file]`
     `$ git whatchanged [file]`
 
   + ##### 显示指定文件相关的每一次diff
@@ -275,8 +275,11 @@ git # Git Commands
 
 ### 八、远程同步
 
-  + ##### 下载远程仓库的所有变动
+  + ##### 下载远程仓库的所有Commit变动
     `$ git fetch [remote]`
+
+  + ##### 下载远程仓库的所有Branch以及其本地引用变动
+    `$ git remote update [remote] --prune`
 
   + ##### 显示所有远程仓库名和url
     `$ git remote -v`
@@ -309,7 +312,7 @@ git # Git Commands
     `$ git push [remote] –all`
 
   + ##### 删除远程分支
-    `$ git push [repo-name] --delete [remote-branch]`  
+    `$ git push [repo-name] --delete [remote-branch]`
     `$ git branch -dr [remote/branch]`
 
 ### 九、撤销
@@ -346,7 +349,7 @@ git # Git Commands
     `$ git revert [commit]`
 
   + ##### 暂时将未提交的变化移除，稍后再移入
-    `$ git stash`  
+    `$ git stash`
     `$ git stash pop`
 
 ### 十、其他
