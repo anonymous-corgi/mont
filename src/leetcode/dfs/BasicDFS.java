@@ -99,9 +99,11 @@ public class BasicDFS {
         return results;
       }
 
+      /**
+       * Use subResult as a prefix to create a subset of numbers, which is from nums[start],...,nums[nums.length].
+       */
       private void dfs(int[] nums, int start, List<Integer> subResult,
-          List<List<Integer>> results) {
-        results.add(new ArrayList<>(subResult));
+                       List<List<Integer>> results) {
         for (int i = start; i < nums.length; i++) {
           if (i > start && nums[i] == nums[i - 1]) {
             continue; // Skip duplicates
@@ -110,6 +112,7 @@ public class BasicDFS {
           dfs(nums, i + 1, subResult, results);
           subResult.remove(subResult.size() - 1);
         }
+        results.add(new ArrayList<>(subResult));
       }
     }
   }
