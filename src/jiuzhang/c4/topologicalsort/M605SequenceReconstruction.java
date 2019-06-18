@@ -1,82 +1,146 @@
 package jiuzhang.c4.topologicalsort;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 public class M605SequenceReconstruction {
-	
-    public boolean sequenceReconstruction(int[] org, int[][] seqs) {
-        // write your code here
-        if(org == null) {
-            return false;
-        }
-        if(seqs == null || seqs.length == 0 || seqs[0].length == 0) {
-            return false;
-        }
-        
-        Map<Integer, Integer> indegree = new HashMap<>();
-        Map<Integer, Set<Integer>> successors = new HashMap<>();
-        
-        for(int each : org) {
-            indegree.put(each, 0);
-            successors.put(each, new HashSet<Integer>());
-        }
-        
-        for(int i = 0; i < seqs.length; i++) {
-            if(!successors.containsKey(seqs[i][0])) {
+
+    // Actually, you need to check two things:
+    // 1. seqs contains all the elements in org, but doesn't contain number not in org
+    // 2. The number order of seqs is consistent with org
+    interface SequenceReconstruction {
+        boolean sequenceReconstruction(int[] org, int[][] seqs);
+    }
+
+    static class BFS_Method implements SequenceReconstruction {
+
+        @Override
+        public boolean sequenceReconstruction(int[] org, int[][] seqs) {
+            if (org == null || seqs == null) {
                 return false;
             }
-            for(int j = 1; j < seqs[0].length; j++) {
-                int p = seqs[i][j - 1];
-                int s = seqs[i][j];
-                if(!successors.containsKey(s)) {
+            if (org.length == 0) {
+                return true;
+            }
+
+            int[] inDegrees = new int[org.length + 1];
+            inDegrees[0] = Integer.MAX_VALUE;
+            Map<Integer, Set<Integer>> successors = new HashMap<>();
+            List<Integer> taskList = new ArrayList<>();
+
+            for (int[] seq : seqs) {
+                // seq might contains number that isn't in org, we need to verify it.
+                for (int num : seq) {
+                    if (num < 1 || num > org.length) {
+                        return false;
+                    }
+                    successors.putIfAbsent(num, new HashSet<>());
+                }
+                for (int j = seq.length - 2; j >= 0; j--) {
+                    if (successors.get(seq[j]).add(seq[j + 1])) {
+                        inDegrees[seq[j + 1]]++;
+                    }
+                }
+            }
+
+            if (successors.size() != org.length) {
+                return false;
+            }
+
+            for (int i = 1; i <= org.length; i++) {
+                if (inDegrees[i] == 0) {
+                    taskList.add(i);
+                }
+            }
+
+            int index = 0;
+            while (taskList.size() == 1) {
+                Integer cursor = taskList.remove(0);
+                if (cursor != org[index++]) {
                     return false;
                 }
-                if(successors.get(p).add(s)) {
-                    indegree.put(s, indegree.get(s) + 1);
+                for (Integer successor : successors.getOrDefault(cursor, Collections.emptySet())) {
+                    if (--inDegrees[successor] == 0) {
+                        taskList.add(successor);
+                    }
                 }
             }
+            return (index == org.length);
         }
-        // if(indegree.size() != org.length) {
-        //     return false;
-        // }
-        
-        Queue<Integer> taskList = new LinkedList<>();
-        
-        for(Integer each : indegree.keySet()) {
-            if(indegree.get(each) == 0){
-                taskList.offer(each);
-            }
-        }
-        
-        int index = 0;
-        while(taskList.size() == 1) {
-            Integer current = taskList.poll();
-            if(current != org[index++]) {
-                return false;
-            }
-            for(Integer successor : successors.get(current)) {
-                if(indegree.get(successor) == 1) {
-                    taskList.offer(successor);
-                }
-                indegree.put(successor, indegree.get(successor) - 1);
-            }
-        }
-        return (index == org.length);
     }
-	
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] org = {1,2,3};
-		int[][] seqs ={{1,2}, {1,3},{2,3}};
-		M605SequenceReconstruction one = new M605SequenceReconstruction();
-		one.sequenceReconstruction(org, seqs);
+    static class Verification_Method implements SequenceReconstruction {
 
-	}
+        @Override
+        public boolean sequenceReconstruction(int[] org, int[][] seqs) {
+            if (org.length == 0) {
+                return true;
+            }
+            boolean seqsHasNumber = false;
+            int[] pos = new int[org.length + 1];
+            boolean[] checked = new boolean[org.length + 1];
+            int checkedNum = org.length - 1;
+            for (int i = 0; i < org.length; i++) {
+                pos[org[i]] = i;
+            }
+            for (int[] seq : seqs) {
+                for (int i = 0; i < seq.length; i++) {
+                    if (seq[i] < 1 || seq[i] > org.length) {
+                        return false;
+                    }
+                    seqsHasNumber = true;
+                    if (i == 0) {
+                        continue;
+                    }
+                    if (pos[seq[i - 1]] >= pos[seq[i]]) {
+                        return false;
+                    }
+                    if (!checked[pos[seq[i]]] && pos[seq[i - 1]] + 1 == pos[seq[i]]) {
+                        checked[pos[seq[i]]] = true;
+                        checkedNum--;
+                    }
+                }
+            }
+            return seqsHasNumber && checkedNum == 0;
+        }
+    }
 
+    public static SequenceReconstruction getMethod() {
+        return new BFS_Method();
+    }
+
+    public static void main(String[] args) {
+        int[] org = {1};
+        int[][] seqs = {};
+//        int[] org = {1, 2, 3};
+//        int[][] seqs = {{1, 2}, {1, 3}, {2, 3}};
+        SequenceReconstruction method = getMethod();
+        method.sequenceReconstruction(org, seqs);
+    }
+
+    @Test
+    public void testCase1() {
+        int[] org = {1};
+        int[][] seqs = {};
+        SequenceReconstruction method = getMethod();
+        Assert.assertFalse(method.sequenceReconstruction(org, seqs));
+    }
+
+    @Test
+    public void testCase2() {
+        int[] org = {1, 2, 3};
+        int[][] seqs = {{3, 2}, {2, 1}};
+        SequenceReconstruction method = getMethod();
+        Assert.assertFalse(method.sequenceReconstruction(org, seqs));
+    }
 }
