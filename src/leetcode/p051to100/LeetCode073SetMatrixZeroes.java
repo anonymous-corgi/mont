@@ -1,6 +1,6 @@
 package leetcode.p051to100;
 
-public class LeetCod073SetMatrixZeroes {
+public class LeetCode073SetMatrixZeroes {
   //This method is tricky: Uses the first row and the first column 
   //to record which row or column to be set zero.
   public void setZeroes(int[][] matrix) {
