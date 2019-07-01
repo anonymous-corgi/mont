@@ -1,58 +1,41 @@
 package jiuzhang.c6.arraylist;
 
 public class M617MaximumAverageSubarray {
-	
+
     public double maxAverage(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k > nums.length) {
             throw new IllegalArgumentException("Invalid input");
         }
-        
-        double max = (double) Integer.MIN_VALUE;
-        double min = (double) Integer.MAX_VALUE;
-        
-        int n = nums.length;
-        
-        for (int i = 0; i < n; i++) {
-            max = Math.max(max, (double) nums[i]);
-            min = Math.min(min, (double) nums[i]);
+
+        double max = Double.MIN_VALUE;
+        double min = Double.MAX_VALUE;
+
+        for (int num : nums) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
         }
-        
+
         while (max - min > 1e-6d) {
-            // set the bar
-            double bar = (max + min) / 2.0d;
-            if (evaluate(nums, k, bar)) {
-                // raise the bar
-                min = bar;
+            double guessAvg = (max + min) / 2.0d;
+            if (evaluate(nums, k, guessAvg)) {
+                min = guessAvg;
             } else {
-                // lower the bar
-                max = bar;
+                max = guessAvg;
             }
         }
-        
+
         return max;
     }
-    
-    public int counter = 0;
-    
-    private boolean evaluate(int[] nums, int k, double bar) {
-    	counter++;
-        int n = nums.length;
-        double[] sums = new double[n + 1];
-        sums[0] = 0.0d;
-        for (int i = 1; i <= n; i++) {
-            // aggregate the differences between bar and element
-            sums[i] = sums[i - 1] + (nums[i - 1] - bar);
-            
-            if (i >= k && sums[i] >= 0.0d) {
-                // first ith elements average is above the bar
-                return true;
-            }
-            
+
+    private boolean evaluate(int[] nums, int k, double guessAvg) {
+        int len = nums.length;
+        double min = 0;
+        double[] sums = new double[len + 1];
+        for (int i = 1; i <= len; i++) {
+            sums[i] = sums[i - 1] + (nums[i - 1] - guessAvg);
             if (i >= k) {
-                // use sums[0] to track the min value
-                sums[0] = Math.min(sums[0], sums[i - k]);
-                if (sums[i] - sums[0] >= 0.0d) {
-                    // elements could close the largest gap
+                min = Math.min(min, sums[i - k]);
+                if (sums[i] - min >= 0.0d) {
                     return true;
                 }
             }
@@ -60,13 +43,10 @@ public class M617MaximumAverageSubarray {
         return false;
     }
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		M617MaximumAverageSubarray one = new M617MaximumAverageSubarray();
-		int[] nums = {1, 12, -5, -6, 50, 3};
-		int k = 3;
-		one.maxAverage(nums, k);
-		System.out.println(one.counter);
-	}
-
+    public static void main(String[] args) {
+        M617MaximumAverageSubarray one = new M617MaximumAverageSubarray();
+        int[] nums = {1, 12, -5, -6, 50, 3};
+        int k = 3;
+        one.maxAverage(nums, k);
+    }
 }
