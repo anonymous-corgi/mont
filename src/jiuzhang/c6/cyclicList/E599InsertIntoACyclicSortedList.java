@@ -3,41 +3,30 @@ package jiuzhang.c6.cyclicList;
 import basicclass.ListNode;
 
 public class E599InsertIntoACyclicSortedList {
-	
-    public ListNode insert(ListNode node, int x) {
-        // write your code here
-        ListNode newNode = new ListNode(x);
-        ListNode head = node;
-        ListNode nextNode;
-        if(node == null){
-            nextNode = newNode;
-        }else{
-            do{
-            	if(node.val <= x && x <= node.next.val){
-            		break;
-            	}
-            	if(node.val > node.next.val && x >= node.val){
-            		break;
-            	}
-            	if(node.val > node.next.val && x <= node.next.val){
-            		break;
-            	}
-            	node = node.next;
-            }while(node != head);
-            nextNode = node.next;
-            node.next = newNode;
-        }
 
-            // while((node.val < node.next.val && (x > node.next.val || x < node.val))){
-            //     node = node.next;
-            // }
-        newNode.next = nextNode;
+    public ListNode insert(ListNode node, int x) {
+        ListNode cursor = node;
+        ListNode newNode = new ListNode(x);
+        if (cursor == null) {
+            newNode.next = newNode;
+        } else {
+            do {
+                // When node and node.next are ascending.
+                if (cursor.val <= x && x <= cursor.next.val) {
+                    break;
+                }
+                // When node is max and node.next is min.
+                if (cursor.val > cursor.next.val) {
+                    // When x is smaller than min or x is larger than max.
+                    if (cursor.val <= x || x <= cursor.next.val) {
+                        break;
+                    }
+                }
+                cursor = cursor.next;
+            } while (cursor != node);
+            newNode.next = cursor.next;
+            cursor.next = newNode;
+        }
         return newNode;
     }
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
