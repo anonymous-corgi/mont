@@ -1,10 +1,12 @@
-package jiuzhang.sort;
+package algorithm.sort.arraylist;
 
+import algorithm.sort.Sort;
 import utils.Print;
 
-public class HeapSort {
+public class HeapSort implements Sort.Array{
 
-    public void heapsort(int[] nums) {
+    @Override
+    public void sort(int[] nums) {
         int len = nums.length;
 
         // Build a MaxHeap
@@ -55,9 +57,9 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        HeapSort one = new HeapSort();
+        Sort.Array one = new HeapSort();
         int[] array = new int[]{8, 6, 7, 5, 3, 1, 4, 2, 9};
-        one.heapsort(array);
+        one.sort(array);
         Print.printArray(array);
     }
 }
