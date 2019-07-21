@@ -1,9 +1,25 @@
 package jiuzhang.dp.coinschange;
 
+/**
+ * LeetCode 279. Perfect Squares
+ * Medium
+ * <p>
+ * Given a positive integer n, find the least number of perfect square numbers
+ * (for example, 1, 4, 9, 16, ...) which sum to n.
+ * <p>
+ * Example 1:
+ * Input: n = 12
+ * Output: 3
+ * Explanation: 12 = 4 + 4 + 4.
+ * <p>
+ * Example 2:
+ * Input: n = 13
+ * Output: 2
+ * Explanation: 13 = 4 + 9.
+ */
 public class LeetCode279PerfectSquares {
 
     public int numSquares(int n) {
-        // write your code here
         if (n < 1) {
             return 0;
         }
@@ -18,25 +34,16 @@ public class LeetCode279PerfectSquares {
         }
         for (int i = 2; i <= n; i++) {
             if (record[i] == 1) {
-            	continue;
+                continue;
             }
             int sourceIndex = 1;
             while (sourceIndex < sourceLen && source[sourceIndex] < i) {
-            	int prevRecord = record[i - source[sourceIndex++]] + 1;
-            	if (record[i] == 0 || record[i] > prevRecord) {
-            		record[i] =  prevRecord;
-            	}
+                int prevRecord = record[i - source[sourceIndex++]] + 1;
+                if (record[i] == 0 || record[i] > prevRecord) {
+                    record[i] = prevRecord;
+                }
             }
         }
         return record[n];
     }
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		LeetCode279PerfectSquares one = new LeetCode279PerfectSquares();
-		int n = 15;
-		System.out.println(one.numSquares(n));
-
-	}
-
 }
