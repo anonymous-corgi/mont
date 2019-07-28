@@ -253,13 +253,16 @@ git # Git Commands
     `$ git diff [first-branch] [second-branch]`
 
   + ##### 显示两次提交之间的文件差异
-    `$ git diff --name-only [first-commit] [second-comit]`
+    `$ git diff --name-only [first-commit] [second-commit]`
 
   + ##### 显示两次提交之间，某一文件的差异
-    `$ git diff [first-commit] [second-comit] [file]`
+    `$ git diff [first-commit] [second-commit] [file]`
 
   + ##### 显示今天你写了多少行代码
     `$ git diff --shortstat "@{0 day ago}"`
+
+  + ##### 显示两个commit之间的改动行数
+    `$ git diff --shortstat [first-commit] [second-commit]`
 
   + ##### 显示某次提交的元数据和内容变化
     `$ git show [commit]`
