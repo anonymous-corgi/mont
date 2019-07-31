@@ -1,4 +1,4 @@
-package leetcode.dfs;
+package subjects.dfs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
