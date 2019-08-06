@@ -16,3 +16,20 @@
     + [LintCode 394. Coins in A Line I](/src/lintcode/p351to400/LintCode394CoinsInALineI.java)
     + [LintCode 395. Coins in A Line II](/src/lintcode/p351to400/LintCode395CoinsInALineII.java)
     + [LintCode 396. Coins in A Line III](/src/lintcode/p351to400/LintCode396CoinsInALineIII.java)
+
++ ### Backpack
+  + [BackPack I](/src/jiuzhang/dp/backpack/BackPackI.java)
+  + [BackPack II](/src/jiuzhang/dp/backpack/BackPackII.java)
+  + [BackPack III](/src/jiuzhang/dp/backpack/BackPackIII.java)
+  + [BackPack V](/src/jiuzhang/dp/backpack/BackPackV.java)
+  + [BackPack VI](/src/jiuzhang/dp/backpack/BackPackVI.java)
+  + [BackPack VII](/src/jiuzhang/dp/backpack/BackPackVII.java)
+
+  |            | 0 -> capacity                    | 0 <- capacity                        | CAPACITY |
+  |:-----------|:---------------------------------|:-------------------------------------|:---------|
+  | items      | Reuse, Fix-Order(Combination)    | NO Reuse, Fix-Order(Combination) |          |
+  | capacity   | Reuse, Multi-Order(Permutations) |                                      |          |
+  | LOOP_FIRST |                                  |                                      |          |
+
+  CAPACITY loops capacity -> 0: Avoids reuse  
+  Loop items firstly: Avoids Permutations.
