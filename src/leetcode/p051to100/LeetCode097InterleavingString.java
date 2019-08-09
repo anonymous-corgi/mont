@@ -1,72 +1,86 @@
 package leetcode.p051to100;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
+/**
+ * LeetCode 097. Interleaving String
+ * Hard
+ * <p>
+ * Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+ * <p>
+ * Example 1:
+ * Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
+ * Output: true
+ * <p>
+ * Example 2:
+ * Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
+ * Output: false
+ */
 public class LeetCode097InterleavingString {
-  
-  public boolean isInterleave(String s1, String s2, String s3) {
-    int LEN1 = s1.length();
-    int LEN2 = s2.length();
-    if (LEN1 + LEN2 != s3.length()) { return false; }
-    char[] chs1 = s1.toCharArray();
-    char[] chs2 = s2.toCharArray();
-    char[] chs3 = s3.toCharArray();
-    boolean[][] dp = new boolean[LEN1 + 1][LEN2 + 1];
-    dp[0][0] = true;
-    for (int i = 1; i <= LEN1; i++) {
-      if (!dp[i - 1][0]) { break; }
-      dp[i][0] = chs1[i - 1] == chs3[i - 1];
-    }
-    for (int j = 1; j <= LEN2; j++) {
-      if (!dp[0][j - 1]) { break; }
-      dp[0][j] = chs2[j - 1] == chs3[j - 1];
-    }
-    for (int i = 1; i <= LEN1; i++) {
-      for (int j = 1; j <= LEN2; j++) {
-        dp[i][j] = (dp[i - 1][j] && chs1[i - 1] == chs3[i + j - 1]) 
-                  || (dp[i][j - 1] && chs2[j - 1] == chs3[i + j - 1]);
-      }
-    }
-    return dp[LEN1][LEN2];
-  }
-  
-  
-  @Test
-  public void testIsInterleave1() {
-    String s1 = "aabcc";
-    String s2 = "dbbca";
-    String s3 = "aadbbcbcac";
-    assertTrue(isInterleave(s1, s2, s3));
-  }
-  
-  @Test
-  public void testIsInterleave2() {
-    String s1 = "aabcc";
-    String s2 = "dbbca";
-    String s3 = "aadbbbaccc";
-    assertFalse(isInterleave(s1, s2, s3));
-  }
-  
-  @Test
-  public void testIsInterleave3() {
-    String s1 = "";
-    String s2 = "";
-    String s3 = "";
-    assertTrue(isInterleave(s1, s2, s3));
-  }
-  
-  
 
-  public static void main(String[] args) {
-    String s1 = "";
-    String s2 = "";
-    String s3 = "";
-    
-    LeetCode097InterleavingString one =
-        new LeetCode097InterleavingString();
-    
-    System.out.println(one.isInterleave(s1, s2, s3));
-  }
+    private interface Method {
+        boolean isInterleave(String s1, String s2, String s3);
+    }
 
+    private static class DP implements Method {
+
+        @Override
+        public boolean isInterleave(String s1, String s2, String s3) {
+            if (s1.length() + s2.length() != s3.length()) {
+                return false;
+            }
+            int sLen1 = s1.length();
+            int sLen2 = s2.length();
+            boolean[][] f = new boolean[sLen1 + 1][sLen2 + 1];
+            f[0][0] = true;
+            for (int i = 1; i <= sLen1 && f[i - 1][0]; i++) {
+                f[i][0] = (f[i - 1][0] && s1.charAt(i - 1) == s3.charAt(i - 1));
+            }
+            for (int j = 1; j <= sLen2 && f[0][j - 1]; j++) {
+                f[0][j] = (f[0][j - 1] && s2.charAt(j - 1) == s3.charAt(j - 1));
+            }
+            for (int i = 1; i <= sLen1; i++) {
+                for (int j = 1; j <= sLen2; j++) {
+                    int index = i + j - 1;
+                    f[i][j] = (f[i - 1][j] && s1.charAt(i - 1) == s3.charAt(index))
+                            || (f[i][j - 1] && s2.charAt(j - 1) == s3.charAt(index));
+                }
+            }
+            return f[sLen1][sLen2];
+        }
+    }
+
+    private static Method getMethod() {
+        return new DP();
+    }
+
+    private boolean isInterleave(String s1, String s2, String s3) {
+        return getMethod().isInterleave(s1, s2, s3);
+    }
+
+    @Test
+    public void testIsInterleave1() {
+        String s1 = "aabcc";
+        String s2 = "dbbca";
+        String s3 = "aadbbcbcac";
+        assertTrue(isInterleave(s1, s2, s3));
+    }
+
+    @Test
+    public void testIsInterleave2() {
+        String s1 = "aabcc";
+        String s2 = "dbbca";
+        String s3 = "aadbbbaccc";
+        assertFalse(isInterleave(s1, s2, s3));
+    }
+
+    @Test
+    public void testIsInterleave3() {
+        String s1 = "";
+        String s2 = "";
+        String s3 = "";
+        assertTrue(isInterleave(s1, s2, s3));
+    }
 }
