@@ -36,5 +36,6 @@
   Loop items firstly: Avoids Permutations.
 
 + ### Two Range(Two Subsequence)
+  + [LeetCode 072. Edit Distance](/src/leetcode/p051to100/LeetCode072EditDistance.java)
   + [LeetCode 097. Interleaving String](/src/leetcode/p051to100/LeetCode097InterleavingString.java)
   + [*LeetCode 1143. Longest Common Subsequence](/src/leetcode/p1101to1150/LeetCode1143LongestCommonSubsequence.java)
