@@ -4,6 +4,7 @@
 
   + ##### [Android Unit Test Collection](https://blog.csdn.net/column/details/18260.html)
   + ##### [Android 测试](https://blog.csdn.net/lmj623565791/article/details/79623159)
+  + ##### [Write Once, Run Everywhere](https://medium.com/androiddevelopers/write-once-run-everywhere-tests-on-android-88adb2ba20c5)
 
 - ### 1. Test Foundation:
 
@@ -17,6 +18,11 @@
     + Limit and be explicit about which classes know about other classes
     + Use constructor injection
     + Keep Android code out of the view model
+
+  + #### Note:
+    1. Android Component is hard to test.
+    2. Asynchronized
+    3. static fields and methods
 
 - ### 2. Test Tools:
 
