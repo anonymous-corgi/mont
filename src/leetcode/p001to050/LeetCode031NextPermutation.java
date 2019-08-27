@@ -1,52 +1,70 @@
 package leetcode.p001to050;
 
-import utils.Print;
+import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+@SuppressWarnings("unused")
 public class LeetCode031NextPermutation {
-	
-  private int[] nextPermutation(int[] nums){
-    if (nums == null || nums.length == 0) {
-      return new int[0];
-    }
-    int largestHead = nums.length - 1;
-    //Find the toBeChanged that make subArray[largestHead, nums.length - 1] 
-    //is the largest permutation of the subArray.
-    while (largestHead > 0 && nums[largestHead - 1] >= nums[largestHead]) {
-      largestHead--;
-    }
-    if (largestHead == 0) {
-      swapRange(nums, 0, nums.length - 1);
-    } else {
-      swapRange(nums, largestHead, nums.length - 1);
-      int pivot = nums[largestHead - 1];
-      //Find the smallest number that is larger than nums[toBeChanged - 1]
-      //and swap their positions.
-      int firstLarger = largestHead;
-      while (nums[firstLarger] <= pivot) {
-        firstLarger++;
-      }
-      swap(nums, largestHead - 1, firstLarger);
-    }
-    return nums;
-  }
-  
-  private void swapRange(int[] nums, int start, int end) {
-    while (start < end) {
-      swap(nums, start++, end--);
-    }
-  }
-  
-  private void swap(int[] nums, int start, int end) {
-    int temp = nums[start];
-    nums[start] = nums[end];
-    nums[end] = temp;
-  }
-  
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    LeetCode031NextPermutation one = new LeetCode031NextPermutation();
-    int[] nums = {3, 2, 4, 1};
-    Print.printArray(one.nextPermutation(nums));
-  }
 
+    private interface Method {
+        void nextPermutation(int[] nums);
+    }
+
+    private static class Normal implements Method {
+
+        @Override
+        public void nextPermutation(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return;
+            }
+            int largestHead = nums.length - 1;
+            //Find the largestHead that makes subArray[largestHead, nums.length - 1]
+            // the largest permutation of that subArray() - the longest descending subarray in the tail.
+            while (largestHead > 0 && nums[largestHead - 1] >= nums[largestHead]) {
+                largestHead--;
+            }
+
+            swapRange(nums, largestHead, nums.length - 1);
+            if (largestHead != 0) {
+                int pivot = nums[largestHead - 1];
+                //Find the smallest number that is larger than nums[toBeChanged - 1]
+                // and swap their positions.
+                int firstLarger = largestHead;
+                while (nums[firstLarger] <= pivot) {
+                    firstLarger++;
+                }
+                swap(nums, largestHead - 1, firstLarger);
+            }
+        }
+
+        private void swapRange(int[] nums, int start, int end) {
+            while (start < end) {
+                swap(nums, start++, end--);
+            }
+        }
+
+        private void swap(int[] nums, int start, int end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+        }
+    }
+
+    private static Method getMethod() {
+        return new Normal();
+    }
+
+    @Test
+    public void testcase1() {
+        int[] nums = new int[]{1, 2, 3};
+        int[] expected = new int[]{1, 3, 2};
+        test(nums, expected);
+    }
+
+    private void test(int[] nums, int[] expected) {
+        getMethod().nextPermutation(nums);
+        assertThat(nums, is(expected));
+    }
 }
