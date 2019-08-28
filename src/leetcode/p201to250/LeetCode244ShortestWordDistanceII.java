@@ -25,6 +25,7 @@ import java.util.Map;
  * Note:
  * You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
  */
+@SuppressWarnings("unused")
 public class LeetCode244ShortestWordDistanceII {
 
     private interface Method {
@@ -38,11 +39,7 @@ public class LeetCode244ShortestWordDistanceII {
         Greedy(String[] words) {
             for (int i = 0; i < words.length; i++) {
                 String word = words[i];
-                List<Integer> list = cache.get(word);
-                if (list == null) {
-                    list = new ArrayList<>();
-                    cache.put(word, list);
-                }
+                List<Integer> list = cache.computeIfAbsent(word, k -> new ArrayList<>());
                 list.add(i);
             }
         }

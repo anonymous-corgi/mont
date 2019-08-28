@@ -14,6 +14,7 @@ package leetcode.p201to250;
  * Note:
  * You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
  */
+@SuppressWarnings("unused")
 public class LeetCode243ShortestWordDistance {
 
     private interface Method {
