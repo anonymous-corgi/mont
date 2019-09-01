@@ -1,49 +1,80 @@
 package algorithm;
 
-import utils.Print;
+import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class Prime {
-	
-	public int[] getPrime1(int n) {
-		if (n < 2) {
-			return new int[0];
-		}
-		long start = System.nanoTime();
-		boolean[] isEliminated = new boolean[n + 1];
-		int primeCount = 0;
-		int index = 2;
-		while (index <= n) {
-			primeCount++;
-			int countIndex = index;
-			int countProduct = index * countIndex;
-			while (countProduct <= n) {
-				isEliminated[countProduct] = true;
-				countIndex++;
-				countProduct = index * countIndex;
-			}
-			do {
-				index++;
-			} while (index <= n && isEliminated[index]);
-		}
-		int[] result = new int[primeCount];
-		int resultIndex = 0;
-		for (int i = 2; i < n + 1; i++) {
-			if (!isEliminated[i]) {
-				result[resultIndex] = i;
-				resultIndex++;
-			}
-		}
-		long end = System.nanoTime();
-		System.out.println("The time consumption is: " + (end - start));
-		return result;
-	}
-	//
 
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Prime one = new Prime();
-		Print.printArray(one.getPrime1(31));		
-	}
+    private interface Method {
+        // n is inclusive (1, n]
+        int[] getPrime(int n);
+    }
 
+    private static class O_N implements Method {
+
+        @Override
+        public int[] getPrime(int n) {
+            // Count the number of prime within n.
+            int primeCount = 0;
+            boolean[] isEliminated = new boolean[n + 1];
+            for (int cursor = 2; cursor < isEliminated.length; cursor++) {
+                if (isEliminated[cursor]) {
+                    continue;
+                }
+                primeCount++;
+                // Avoid (cursor * cursor) overflows Integer.MAX_VALUE
+                long eliminationIndex = (long) cursor * cursor;
+                // Eliminate all the numbers that has a factor as cursor.
+                while (eliminationIndex < isEliminated.length) {
+                    isEliminated[(int) eliminationIndex] = true;
+                    eliminationIndex += cursor;
+                }
+            }
+
+            int[] result = new int[primeCount];
+            int resultIndex = 0;
+            for (int i = 2; i < isEliminated.length; i++) {
+                if (!isEliminated[i]) {
+                    result[resultIndex] = i;
+                    resultIndex++;
+                }
+            }
+            return result;
+        }
+    }
+
+    private static Method getMethod() {
+        return new O_N();
+    }
+
+    @Test
+    public void testcase1() {
+        test(31, 11);
+    }
+
+    @Test
+    public void testcase2() {
+        test(499979, 41538);
+    }
+
+    private void test(int n, int expected) {
+        int actual = getMethod().getPrime(n).length;
+        assertThat(actual, equalTo(expected));
+    }
+
+    private static void testSpeed(int n) {
+        long start = System.nanoTime();
+        int[] primes = getMethod().getPrime(n);
+        long end = System.nanoTime();
+        System.out.println("The time consumption is: " + (end - start) + "ns.");
+        System.out.println(Arrays.toString(primes));
+    }
+
+    public static void main(String[] args) {
+        testSpeed(1);
+    }
 }
