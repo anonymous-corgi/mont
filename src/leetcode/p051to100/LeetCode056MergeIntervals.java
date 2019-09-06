@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Similar to {@link LeetCode057InsertInterval}
+ */
 @SuppressWarnings("unused")
 public class LeetCode056MergeIntervals {
 
@@ -20,18 +23,18 @@ public class LeetCode056MergeIntervals {
             }
             Arrays.sort(intervals, (a, b) -> a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]);
             int[] last = intervals[0];
-            List<int[]> res = new ArrayList<>();
+            List<int[]> builder = new ArrayList<>();
             for (int i = 1; i < intervals.length; i++) {
                 if (Math.max(last[0], intervals[i][0]) <= Math.min(last[1], intervals[i][1])) {
                     last[0] = Math.min(last[0], intervals[i][0]);
                     last[1] = Math.max(last[1], intervals[i][1]);
                 } else {
-                    res.add(last);
+                    builder.add(last);
                     last = intervals[i];
                 }
             }
-            res.add(last);
-            return res.toArray(new int[0][]);
+            builder.add(last);
+            return builder.toArray(new int[0][]);
         }
     }
 }

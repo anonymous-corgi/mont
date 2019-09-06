@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 
+/**
+ * Similar to {@link LeetCode056MergeIntervals}
+ */
 public class LeetCode057InsertInterval {
 
     private interface Method {
