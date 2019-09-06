@@ -1,74 +1,37 @@
 package leetcode.p051to100;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import basicclass.Interval;
 
+@SuppressWarnings("unused")
 public class LeetCode056MergeIntervals {
-  //Method 1:
-  public List<Interval> merge(List<Interval> intervals) {
-    List<Interval> res = new ArrayList<>();
-    if (intervals == null || intervals.size() == 0) {
-      return res;
-    }
-    intervals.sort((a, b) -> {return a.start == b.start 
-        ? a.end - b.end : a.start - b.start;});
-    Interval last = intervals.get(0);
-    for (int i = 1, len = intervals.size(); i < len; i++) {
-      last = helper(last, intervals.get(i), res);
-    }
-    res.add(last);
-    return res;
-  }
-  
-  private Interval helper(Interval last, Interval neo, List<Interval> res) {
-    if (last.end < neo.start) {
-      res.add(last);
-      return neo;
-    }
-    last.end = Math.max(last.end, neo.end);
-    return last;
-  }
-	
-  //Method 2:
-//  public List<Interval> merge(List<Interval> intervals) {
-//    List<Interval> res = new ArrayList<Interval>();
-//    if (intervals == null || intervals.size() == 0) {
-//      return res;
-//    }
-//    intervals.sort((a, b) -> {return a.start == b.start 
-//        ? a.end - b.end : a.start - b.start;});
-//    int neoCursor = 0;
-//    res.add(intervals.get(0));
-//    for (int preCursor = 1; preCursor < intervals.size(); preCursor++) {
-//      Interval neo = res.get(neoCursor);
-//      Interval pre = intervals.get(preCursor);
-//      if (neo.end < pre.start) {
-//        res.add(pre);
-//        neoCursor++;
-//      } else {
-//        mergeTwoIntervals(neo, pre);
-//      }
-//    }
-//    return res;
-//  }
-//  
-//  private Interval mergeTwoIntervals(Interval a, Interval b) {
-//    if (a.end < b.end) {
-//      a.end = b.end;
-//    }
-//    return a;
-//  }
 
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    int[][] arrs = {{1,3},{2,6},{8,10},{15,18}};
-    List<Interval> list = new ArrayList<>();
-    for (int i = 0; i < arrs.length; i++) {
-      list.add(new Interval(arrs[i][0], arrs[i][1]));
+    private interface Method {
+        int[][] merge(int[][] intervals);
     }
-    LeetCode056MergeIntervals one = new LeetCode056MergeIntervals();
-    one.merge(list);
-  }
-  
+
+    private static class Last implements Method {
+
+        @Override
+        public int[][] merge(int[][] intervals) {
+            if (intervals == null || intervals.length == 0) {
+                return new int[0][];
+            }
+            Arrays.sort(intervals, (a, b) -> a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]);
+            int[] last = intervals[0];
+            List<int[]> res = new ArrayList<>();
+            for (int i = 1; i < intervals.length; i++) {
+                if (Math.max(last[0], intervals[i][0]) <= Math.min(last[1], intervals[i][1])) {
+                    last[0] = Math.min(last[0], intervals[i][0]);
+                    last[1] = Math.max(last[1], intervals[i][1]);
+                } else {
+                    res.add(last);
+                    last = intervals[i];
+                }
+            }
+            res.add(last);
+            return res.toArray(new int[0][]);
+        }
+    }
 }
