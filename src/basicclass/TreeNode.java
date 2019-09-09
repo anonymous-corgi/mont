@@ -1,137 +1,134 @@
 package basicclass;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class TreeNode implements Iterable<TreeNode> {	
-  public int val;
-  public TreeNode left, right;
-  public TreeNode(int val) {
-    this.val = val;
-    this.left = this.right = null;
-  }
-  
-  public static String serialize(TreeNode root) {
-    if (root == null) {
-      return "{}";
+public class TreeNode implements Iterable<TreeNode> {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(int val) {
+        this.val = val;
+        this.left = this.right = null;
     }
-    StringBuilder sb = new StringBuilder();
-    sb.append('{');
-    
-    Queue<TreeNode> taskList = new LinkedList<>();
-    taskList.offer(root);
-    while (!taskList.isEmpty()) {
-      TreeNode current = taskList.poll();
-      if (current != null) {
-        sb.append(current.val + ",");
-        taskList.offer(current.left);
-        taskList.offer(current.right);				
-      } else {
-        sb.append("#,");
-      }
+
+    public static String serialize(TreeNode root) {
+        if (root == null) {
+            return "[]";
+        }
+        int nullTailIndex = 0;
+        StringBuilder sb = new StringBuilder().append('[');
+        Queue<TreeNode> taskQueue = new LinkedList<>();
+        taskQueue.offer(root);
+        while (!taskQueue.isEmpty()) {
+            TreeNode cursor = taskQueue.poll();
+            if (cursor != null) {
+                nullTailIndex = 0;
+                sb.append(cursor.val).append(',');
+                taskQueue.offer(cursor.left);
+                taskQueue.offer(cursor.right);
+            } else {
+                sb.append("null,");
+                nullTailIndex++;
+            }
+        }
+        sb.delete(sb.length() - nullTailIndex * 5 - 1, sb.length()).append(']');
+        return sb.toString();
     }
-    int len;
-    while (sb.charAt((len = sb.length()) - 2) == '#') {
-      sb.delete(len - 2, len);
+
+    public static TreeNode deserialize(String data) {
+        if (data == null || data.length() < 3) {
+            return null;
+        }
+        String[] values = data.substring(1, data.length() - 1).split(",");
+        int childIndex = 1;
+        Queue<TreeNode> taskList = new LinkedList<>();
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        taskList.offer(root);
+        while (!taskList.isEmpty()) {
+            TreeNode cursor = taskList.poll();
+            int end = Math.min(childIndex + 2, values.length);
+            while (childIndex < end) {
+                String childData = values[childIndex];
+                if (!"null".equals(childData)) {
+                    TreeNode child = new TreeNode(Integer.parseInt(childData));
+                    if (childIndex % 2 == 1) {
+                        cursor.left = child;
+                    } else {
+                        cursor.right = child;
+                    }
+                    taskList.offer(child);
+                }
+                childIndex++;
+            }
+        }
+        return root;
     }
-    sb.setCharAt(len - 1, '}');
-    
-    return sb.toString();
-  }
-  
-  public static TreeNode deserialize(String data) {
-    if (data == null || data.length() < 3) {
-      return null;
+
+    public static TreeNode deserializeSortedArray(String data) {
+        if (data == null || data.length() < 3) {
+            return null;
+        }
+        String[] values = data.substring(1, data.length() - 1).split(",");
+        int[] nums = new int[values.length];
+        for (int i = 0; i < values.length; i++) {
+            nums[i] = Integer.parseInt(values[i]);
+        }
+        return buildTree(nums);
     }
-    String[] datas = data.substring(1, data.length() - 1).split(",");
-    int index = 1;
-    int len = datas.length;
-    Queue<TreeNode> taskList = new LinkedList<>();		
-    TreeNode root = new TreeNode(Integer.parseInt(datas[0]));
-    taskList.offer(root);
-    
-    while (index < len) {
-      TreeNode current = taskList.poll();
-      
-      String nextData = datas[index++];			
-      if (!"#".equals(nextData)) {
-        TreeNode left = new TreeNode(Integer.parseInt(nextData));
-        current.left = left;
-        taskList.offer(left);
-      }
-      if (index >= len) {
-        break;
-      }
-      nextData = datas[index++];
-      if (!"#".equals(nextData)) {
-        TreeNode right = new TreeNode(Integer.parseInt(nextData));
-        current.right = right;
-        taskList.offer(right);
-      }
+
+    public static TreeNode buildTree(int[] nums) {
+        return buildTree(nums, 0, nums.length);
     }
-    return root;
-  }
-  
-  public static TreeNode deserializeSortedArray(String data) {
-    if (data == null || data.length() < 3) {
-      return null;
+
+    private static TreeNode buildTree(int[] nums, int start, int end) {
+        if (start >= end) {
+            return null;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode cursor = new TreeNode(nums[mid]);
+        cursor.left = buildTree(nums, start, mid - 1);
+        cursor.right = buildTree(nums, mid + 1, end);
+        return cursor;
     }
-    String[] datas = data.substring(1, data.length() - 1).split(",");
-    int len = datas.length;
-    int[] nums = new int[len];
-    for (int i = 0; i < len; i++) {
-      nums[i] = Integer.parseInt(datas[i]);
-    }
-    return buildTree(nums, 0, len - 1);
-  }
-  
-  private static TreeNode buildTree(int[] nums, int start, int end) {
-    if (start > end) {
-      return null;
-    }
-    int mid = start + (end - start) / 2;
-    TreeNode cursor = new TreeNode(nums[mid]);
-    cursor.left = buildTree(nums, start, mid - 1);
-    cursor.right = buildTree(nums, mid + 1, end);
-    return cursor;
-  }
-  
-  @Override
-  public Iterator<TreeNode> iterator() {
-    // TODO Auto-generated method stub
-    return new TreeNodeIterator(this);
-  }
-  
-  public class TreeNodeIterator implements Iterator<TreeNode>  {
-    
-    Stack<TreeNode> stack;
-    
-    private TreeNodeIterator(TreeNode root) {
-      stack = new Stack<>();
-      while (root != null) {
-        stack.push(root);
-        root = root.left;
-      }
-    }
-    
+
+    @NotNull
     @Override
-    public boolean hasNext() {
-      return !stack.isEmpty();
+    public Iterator<TreeNode> iterator() {
+        return new TreeNodeIterator(this);
     }
-    
-    @Override
-    public TreeNode next() {
-      TreeNode cursor = stack.pop();
-      TreeNode root = cursor.right;
-      while (root != null) {
-        stack.push(root);
-        root = root.left;
-      }
-      return cursor;
+
+    public static class TreeNodeIterator implements Iterator<TreeNode> {
+
+        Stack<TreeNode> stack;
+
+        private TreeNodeIterator(TreeNode root) {
+            stack = new Stack<>();
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public TreeNode next() {
+            TreeNode cursor = stack.pop();
+            TreeNode root = cursor.right;
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            return cursor;
+        }
     }
-    
-  }
-  
 }
