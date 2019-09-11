@@ -6,7 +6,6 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,14 +13,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
 public class LeetCode215KthLargestElementInAnArray {
 
-    private int res;
     private int[] nums;
     private int k;
+    private int expected;
 
-    public LeetCode215KthLargestElementInAnArray(int res, int[] nums, int k) {
-        this.res = res;
+    public LeetCode215KthLargestElementInAnArray(int[] nums, int k, int expected) {
         this.nums = nums;
         this.k = k;
+        this.expected = expected;
     }
 
     private interface Method {
@@ -65,11 +64,12 @@ public class LeetCode215KthLargestElementInAnArray {
 
     @Test
     public void test() {
-        assertThat(getMethod().findKthLargest(nums, k), is(res));
+        int actual = getMethod().findKthLargest(nums, k);
+        assertThat(actual, is(expected));
     }
 
     @Parameterized.Parameters
     public static Collection primeNumbers() {
-        return Arrays.asList(new Object[][]{{5, new int[]{3, 2, 1, 5, 6, 4}, 2}});
+        return Arrays.asList(new Object[][]{{new int[]{3, 2, 1, 5, 6, 4}, 2, 5}, {new int[]{3, 2}, 1, 3}});
     }
 }
