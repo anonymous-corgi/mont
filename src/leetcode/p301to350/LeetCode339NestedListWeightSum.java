@@ -1,5 +1,7 @@
 package leetcode.p301to350;
 
+import basicclass.NestedInteger;
+
 import java.util.List;
 
 /**
@@ -14,23 +16,8 @@ import java.util.List;
  *
  * Same as: LintCode 551. Nested List Weight Sum
  */
+@SuppressWarnings("unused")
 public class LeetCode339NestedListWeightSum {
-
-    private interface NestedInteger {
-        // @return true if this NestedInteger holds a single integer,
-        // rather than a nested list.
-        boolean isInteger();
-
-        // @return the single integer that this NestedInteger holds,
-        // if it holds a single integer
-        // Return null if this NestedInteger holds a nested list
-        public Integer getInteger();
-
-        // @return the nested list that this NestedInteger holds,
-        // if it holds a nested list
-        // Return null if this NestedInteger holds a single integer
-        List<NestedInteger> getList();
-    }
 
     private interface Method {
         int depthSum(List<NestedInteger> nestedList);
