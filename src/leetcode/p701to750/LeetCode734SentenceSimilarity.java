@@ -2,8 +2,11 @@ package leetcode.p701to750;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -42,20 +45,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class LeetCode734SentenceSimilarity {
 
     private interface Method {
-        boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs);
+        boolean areSentencesSimilar(String[] words1, String[] words2, List<List<String>> pairs);
     }
 
     private static final class Normal implements Method {
 
         @Override
-        public boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs) {
-            if (words1.length == 0 || words1.length != words2.length) {
+        public boolean areSentencesSimilar(String[] words1, String[] words2, List<List<String>> pairs) {
+            if (words1.length != words2.length) {
                 return false;
             }
             HashMap<String, Set<String>> map = new HashMap<>();
-            for (String[] pair : pairs) {
-                String w1 = pair[0];
-                String w2 = pair[1];
+            for (List<String> pair : pairs) {
+                String w1 = pair.get(0);
+                String w2 = pair.get(1);
                 if (!map.containsKey(w1)) {
                     map.put(w1, new HashSet<>());
                     map.get(w1).add(w1);
@@ -80,7 +83,7 @@ public class LeetCode734SentenceSimilarity {
         return new Normal();
     }
 
-    private void test(String[] words1, String[] words2, String[][] pairs, boolean expected) {
+    private void test(String[] words1, String[] words2, List<List<String>> pairs, boolean expected) {
         Method method = getMethod();
         boolean actual = method.areSentencesSimilar(words1, words2, pairs);
         assertThat(actual, is(expected));
@@ -90,7 +93,7 @@ public class LeetCode734SentenceSimilarity {
     public void testcase1() {
         String[] words1 = new String[]{"great", "acting", "skills",};
         String[] words2 = new String[]{"fine", "drama", "talent",};
-        String[][] pairs = new String[][]{{"great", "fine"}, {"acting", "drama"}, {"skills", "talent"},};
+        List<List<String>> pairs = Arrays.asList(Arrays.asList("great", "fine"), Arrays.asList("acting", "drama"), Arrays.asList("skills", "talent"));
         test(words1, words2, pairs, true);
     }
 
@@ -98,7 +101,7 @@ public class LeetCode734SentenceSimilarity {
     public void testcase2() {
         String[] words1 = new String[]{"great",};
         String[] words2 = new String[]{"good",};
-        String[][] pairs = new String[][]{{"great", "fine"}, {"fine", "good"},};
+        List<List<String>> pairs = Arrays.asList(Arrays.asList("great", "fine"), Arrays.asList("fine", "good"));
         test(words1, words2, pairs, false);
     }
 
@@ -106,7 +109,7 @@ public class LeetCode734SentenceSimilarity {
     public void testcase3() {
         String[] words1 = new String[]{"great",};
         String[] words2 = new String[]{"good",};
-        String[][] pairs = new String[][]{{"great", "good"},};
+        List<List<String>> pairs = Collections.singletonList(Arrays.asList("great", "good"));
         test(words1, words2, pairs, true);
         test(words2, words1, pairs, true);
     }
@@ -115,7 +118,7 @@ public class LeetCode734SentenceSimilarity {
     public void testcase4() {
         String[] words1 = new String[]{"great",};
         String[] words2 = new String[]{"great",};
-        String[][] pairs = new String[][]{};
+        List<List<String>> pairs = Collections.emptyList();
         test(words1, words2, pairs, true);
     }
 
@@ -123,7 +126,7 @@ public class LeetCode734SentenceSimilarity {
     public void testcase5() {
         String[] words1 = new String[]{"great",};
         String[] words2 = new String[]{"doubleplus", "good",};
-        String[][] pairs = new String[][]{{"great", "good"},};
+        List<List<String>> pairs = Collections.singletonList(Arrays.asList("great", "good"));
         test(words1, words2, pairs, false);
     }
 }
