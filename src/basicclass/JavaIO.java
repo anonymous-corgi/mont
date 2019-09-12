@@ -1,158 +1,288 @@
 package basicclass;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import org.junit.Test;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class JavaIO {
 
-  interface TxtEditable {
+    public interface TxtEditor {
 
-    String read(String filepath);
+        String read(String filePath) throws IOException;
 
-    boolean write(String filepath, String[] content);
-  }
-
-  public static class Buffer implements TxtEditable {
-
-    @Override
-    public String read(String filepath) {
-      StringBuilder sb = new StringBuilder();
-      try {
-        File file = new File(filepath);
-        FileReader reader = new FileReader(file);
-        BufferedReader br = new BufferedReader(reader);
-
-        String str = null;
-        sb.append("---File Starts---\n");
-        while ((str = br.readLine()) != null) {
-          sb.append(str + "\n");
+        default boolean write(String filePath, String[] content) throws IOException {
+            return write(filePath, content, true);
         }
-        sb.append("\n---File Ends---");
 
-        br.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-      return sb.toString();
+        boolean write(String filePath, String[] content, boolean append) throws IOException;
     }
 
-    @Override
-    public boolean write(String filepath, String[] content) {
-      boolean isSuccessful = false;
-      try {
-        File file = new File(filepath);
-        if (!file.exists()) {
-          file.createNewFile();
-        }
-        FileWriter writer = new FileWriter(file, true);
-        BufferedWriter bw = new BufferedWriter(writer);
+    // FileInputStream and FileOutputStream are 'Byte Based'.
+    public static class FileStream implements TxtEditor {
 
-        for (String str : content) {
-          bw.write(str);
-          bw.newLine();
-          bw.flush();
+        @Override
+        public String read(String filePath) throws IOException {
+            File file = new File(filePath);
+            StringBuilder sb = new StringBuilder();
+            try (FileInputStream stream = new FileInputStream(file)) {
+                int length;
+                byte[] bytes = new byte[1024];
+                while ((length = stream.read(bytes)) != -1) {
+                    sb.append(new String(bytes, 0, length, StandardCharsets.UTF_8));
+                }
+            }
+            return sb.toString();
         }
-        bw.close();
-        isSuccessful = true;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
 
-      return isSuccessful;
+        @Override
+        public boolean write(String filePath, String[] content, boolean append) throws IOException {
+            File file = new File(filePath);
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            try (FileOutputStream stream = new FileOutputStream(file, append)) {
+                int count = 0;
+                for (String line : content) {
+                    if (count++ != 0) {
+                        stream.write('\n');
+                    }
+                    stream.write(line.getBytes(StandardCharsets.UTF_8));
+                    stream.flush();
+                }
+            }
+            return true;
+        }
     }
 
-  }
+    // BufferedInputStream and BufferedOutputStream are 'Byte Based'.
+    public static class BufferedFileStream implements TxtEditor {
 
-  public static class FileStream implements TxtEditable {
-
-    @Override
-    public String read(String filepath) {
-      StringBuilder sb = new StringBuilder();
-      try {
-        File file = new File(filepath);
-        FileInputStream stream = new FileInputStream(file);
-
-        byte[] bytes = new byte[1024];
-        int length = 0;
-
-        sb.append("---File Starts---\n");
-        while ((length = stream.read(bytes)) != -1) {
-          sb.append(new String(bytes, 0, length));
+        @Override
+        public String read(String filePath) throws IOException {
+            File file = new File(filePath);
+            StringBuilder sb = new StringBuilder();
+            try (FileInputStream stream = new FileInputStream(file)) {
+                try (BufferedInputStream bufferStream = new BufferedInputStream(stream)) {
+                    int length;
+                    byte[] bytes = new byte[1024];
+                    while ((length = bufferStream.read(bytes)) != -1) {
+                        sb.append(new String(bytes, 0, length, StandardCharsets.UTF_8));
+                    }
+                }
+            }
+            return sb.toString();
         }
-        sb.append("\n---File Ends---");
 
-        stream.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-      return sb.toString();
+        @Override
+        public boolean write(String filePath, String[] content, boolean append) throws IOException {
+            File file = new File(filePath);
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            try (FileOutputStream stream = new FileOutputStream(file, append)) {
+                try (BufferedOutputStream bufferStream = new BufferedOutputStream(stream)) {
+                    int count = 0;
+                    for (String line : content) {
+                        if (count++ != 0) {
+                            stream.write('\n');
+                        }
+                        bufferStream.write(line.getBytes(StandardCharsets.UTF_8));
+                        bufferStream.flush();
+                    }
+                }
+            }
+            return true;
+        }
     }
 
-    @Override
-    public boolean write(String filepath, String[] content) {
-      // TODO Auto-generated method stub
-      return false;
+    // FileReader and FileWriter are 'Character Based'
+    public static class ReaderWriter implements TxtEditor {
+
+        @Override
+        public String read(String filePath) throws IOException {
+            File file = new File(filePath);
+            StringBuilder sb = new StringBuilder();
+            try (FileReader reader = new FileReader(file)) {
+                int length;
+                char[] chars = new char[1024];
+                while ((length = reader.read(chars)) != -1) {
+                    sb.append(chars, 0, length);
+                }
+            }
+            return sb.toString();
+        }
+
+        @Override
+        public boolean write(String filePath, String[] content, boolean append) throws IOException {
+            File file = new File(filePath);
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            try (FileWriter writer = new FileWriter(file, append)) {
+                int count = 0;
+                for (String line : content) {
+                    if (count++ != 0) {
+                        writer.write('\n');
+                    }
+                    writer.write(line);
+                    writer.flush();
+                }
+            }
+            return true;
+        }
     }
 
-  }
+    // BufferedReader and BufferedWriter are 'Character Based'
+    public static class BufferReaderWriter implements TxtEditor {
 
-  public static class ScannerPrintWriter implements TxtEditable {
-
-    @Override
-    public String read(String filepath) {
-      StringBuilder sb = new StringBuilder();
-
-      try {
-        File file = new File(filepath);
-        Scanner sc = new Scanner(file);
-
-        sb.append("---File Starts---\n");
-        while (sc.hasNext()) {
-          sb.append(sc.nextLine() + "\n");
+        @Override
+        public String read(String filePath) throws IOException {
+            File file = new File(filePath);
+            StringBuilder sb = new StringBuilder();
+            try (FileReader reader = new FileReader(file)) {
+                try (BufferedReader bufferedReader = new BufferedReader(reader)) {
+                    String line;
+                    int count = 0;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        if (count++ != 0) {
+                            sb.append('\n');
+                        }
+                        sb.append(line);
+                    }
+                }
+            }
+            return sb.toString();
         }
-        sb.append("\n---File Ends---");
 
-        sc.close();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-
-      return sb.toString();
+        @Override
+        public boolean write(String filePath, String[] content, boolean append) throws IOException {
+            File file = new File(filePath);
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            try (FileWriter writer = new FileWriter(file, append)) {
+                try (BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+                    int count = 0;
+                    for (String line : content) {
+                        if (count++ != 0) {
+                            bufferedWriter.newLine();
+                        }
+                        bufferedWriter.write(line);
+                        bufferedWriter.flush();
+                    }
+                }
+            }
+            return true;
+        }
     }
 
-    @Override
-    public boolean write(String filepath, String[] content) {
-      boolean isSuccessful = false;
-      try {
-        File file = new File(filepath);
-        if (!file.exists()) {
-          file.createNewFile();
+    // Scanner and PrintWriter are 'Character Based'
+    public static class ScannerPrintWriter implements TxtEditor {
+
+        @Override
+        public String read(String filePath) throws IOException {
+            File file = new File(filePath);
+            StringBuilder sb = new StringBuilder();
+            try (FileInputStream stream = new FileInputStream(file)) {
+                try (Scanner scanner = new Scanner(stream)) {
+                    int count = 0;
+                    while (scanner.hasNext()) {
+                        if (count++ != 0) {
+                            sb.append('\n');
+                        }
+                        sb.append(scanner.nextLine());
+                    }
+                }
+            }
+            return sb.toString();
         }
-        PrintWriter pw = new PrintWriter(file);
 
-        for (String str : content) {
-          pw.write(str + "\n");
-          pw.flush();
+        @Override
+        public boolean write(String filePath, String[] content, boolean append) throws IOException {
+            File file = new File(filePath);
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            try (FileOutputStream stream = new FileOutputStream(file, append)) {
+                try (PrintWriter printWriter = new PrintWriter(stream)) {
+                    int count = 0;
+                    for (String line : content) {
+                        if (count++ != 0) {
+                            printWriter.write('\n');
+                        }
+                        printWriter.write(line);
+                        printWriter.flush();
+                    }
+                }
+            }
+
+            return true;
         }
-        pw.close();
-
-        isSuccessful = true;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-      return isSuccessful;
     }
 
-  }
+    private static TxtEditor getEditor() {
+        return new BufferedFileStream();
+    }
+
+    @Test
+    public void testcase1() throws IOException {
+        test(new FileStream());
+    }
+
+    @Test
+    public void testcase2() throws IOException {
+        test(new BufferedFileStream());
+    }
+
+    @Test
+    public void testcase3() throws IOException {
+        test(new ReaderWriter());
+    }
+
+    @Test
+    public void testcase4() throws IOException {
+        test(new BufferReaderWriter());
+    }
+
+    @Test
+    public void testcase5() throws IOException {
+        test(new ScannerPrintWriter());
+    }
+
+    private void test(TxtEditor editor) throws IOException {
+        final String[][] SOURCES = new String[][]{{""}, {"Hello"}, {" World"}, {"Hello\nWorld"}, {"Hello", "World!"}};
+        final boolean[] APPEND = new boolean[]{false, true, true, false, false};
+        final String[] EXPECTED = new String[]{"", "Hello", "Hello World", "Hello\nWorld", "Hello\nWorld!"};
+        String testFilepath = "/Users/jingzeh/Documents/script/test.txt";
+        String content;
+        for (int i = 0; i < 5; i++) {
+            editor.write(testFilepath, SOURCES[i], APPEND[i]);
+            content = editor.read(testFilepath);
+            assertThat(content, equalTo(EXPECTED[i]));
+        }
+    }
+
+    public static void main(String[] args) {
+        final String filepath = "/Users/jingzeh/Documents/script/test.txt";
+        TxtEditor editor = getEditor();
+        try {
+            editor.write(filepath, new String[]{"Hello World!"}, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String doc;
+        try {
+            doc = editor.read(filepath);
+            System.out.println("---   File Starts   ---");
+            System.out.println(doc);
+            System.out.println("---    File Ends    ---");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
