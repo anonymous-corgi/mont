@@ -177,16 +177,36 @@ public class DFS {
                 return result;
             }
 
-            abstract void dfs(int[] nums, int start, int remain, List<Integer> builder, List<List<Integer>> result);
+            abstract void dfs(int[] nums, int start, int target, List<Integer> builder, List<List<Integer>> result);
         }
 
+        // 039. Combination Sum
+        class ReusableWithoutDuplicates extends AbstractCombinationSum {
+
+            @Override
+            void dfs(int[] nums, int start, int target, List<Integer> builder, List<List<Integer>> result) {
+                if (target < 0) {
+                    return;
+                } else if (target == 0) {
+                    result.add(new ArrayList<>(builder));
+                    return;
+                }
+                for (int i = start; i < nums.length; i++) {
+                    builder.add(nums[i]);
+                    dfs(nums, i, target - nums[i], builder, result);
+                    builder.remove(builder.size() - 1);
+                }
+            }
+        }
+
+        // 040. Combination Sum II
         class WithDuplicates extends AbstractCombinationSum {
 
             @Override
-            void dfs(int[] nums, int start, int remain, List<Integer> builder, List<List<Integer>> result) {
-                if (remain < 0) {
+            void dfs(int[] nums, int start, int target, List<Integer> builder, List<List<Integer>> result) {
+                if (target < 0) {
                     return;
-                } else if (remain == 0) {
+                } else if (target == 0) {
                     result.add(new ArrayList<>(builder));
                     return;
                 }
@@ -195,7 +215,7 @@ public class DFS {
                         continue; // Skip duplicates
                     }
                     builder.add(nums[i]);
-                    dfs(nums, i + 1, remain - nums[i], builder, result);
+                    dfs(nums, i + 1, target - nums[i], builder, result);
                     builder.remove(builder.size() - 1);
                 }
             }
