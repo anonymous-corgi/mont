@@ -13,4 +13,5 @@
 ##### 3. [LeetCode 099. Recover Binary Search Tree](/src/leetcode/p051to100/LeetCode099RecoverBinarySearchTree.java)
 ##### 4. [LeetCode 101. Symmetric Tree](/src/leetcode/p101to150/LeetCode101SymmetricTree.java)
 ##### 5. [*LeetCode 114. Flatten Binary Tree to Linked List](/src/leetcode/p101to150/LeetCode114FlattenBinaryTreeToLinkedList.java)
-##### 6. [LeetCode 669. Trim a Binary Search Tree](/src/leetcode/p651to700/LeetCode669TrimABinarySearchTree.java)
+##### 6. [LeetCode 366. Find Leaves of Binary Tree](/src/leetcode/p351to400/LeetCode366FindLeavesOfBinaryTree.java)
+##### 7. [LeetCode 669. Trim a Binary Search Tree](/src/leetcode/p651to700/LeetCode669TrimABinarySearchTree.java)
