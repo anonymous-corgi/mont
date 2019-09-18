@@ -4,17 +4,26 @@ import basicclass.TreeNode;
 
 public class LeetCode114FlattenBinaryTreeToLinkedList {
 
-  private TreeNode prev = null;
-
-  public void flatten(TreeNode root) {
-    if (root == null) {
-      return;
+    private interface Method {
+        void flatten(TreeNode root);
     }
-    flatten(root.right);
-    flatten(root.left);
-    root.right = prev;
-    root.left = null;
-    prev = root;
-  }
 
+    private static final class LastPointer implements Method {
+
+        @Override
+        public void flatten(TreeNode root) {
+            flatten(root, new TreeNode[1]);
+        }
+
+        private void flatten(TreeNode root, TreeNode[] last) {
+            if (root == null) {
+                return;
+            }
+            flatten(root.right, last);
+            flatten(root.left, last);
+            root.right = last[0];
+            root.left = null;
+            last[0] = root;
+        }
+    }
 }
