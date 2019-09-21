@@ -1,7 +1,5 @@
 package basicclass;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -97,7 +95,6 @@ public class TreeNode implements Iterable<TreeNode> {
         return cursor;
     }
 
-    @NotNull
     @Override
     public Iterator<TreeNode> iterator() {
         return new TreeNodeIterator(this);
