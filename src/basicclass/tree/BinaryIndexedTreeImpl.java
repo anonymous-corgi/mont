@@ -9,6 +9,12 @@ import org.junit.Test;
  */
 public class BinaryIndexedTreeImpl implements BinaryIndexedTree {
 
+    /**
+     * bit[0b0001_0100] = sum of (stub[0b0001_0001], stub[0b0001_0010], stub[0b0001_0011], stub[0b0001_0100])
+     * The sum is of (i & -i) numbers.
+     *
+     * stub[0b0001_0010] will be added to (bit[0b0001_0010], bit[0b0001_0100], bit[0b0001_1000], ...)
+     */
     private final int[] bit;
     private final int[] stub;
 
@@ -32,12 +38,17 @@ public class BinaryIndexedTreeImpl implements BinaryIndexedTree {
 
     @Override
     public int getSum(int i) {
-        int res = 0;
+        int sum = 0;
         int index = i + 1;
         for (; index > 0; index -= (index & -index)) {
-            res += bit[index];
+            sum += bit[index];
         }
-        return res;
+        return sum;
+    }
+
+    @Override
+    public int getRangeSum(int i, int j) {
+        return getSum(j) - getSum(i - 1);
     }
 
     private static BinaryIndexedTree getImpl(int[] nums) {
@@ -50,11 +61,6 @@ public class BinaryIndexedTreeImpl implements BinaryIndexedTree {
         for (int i = 0; i < nums.length; i++) {
             System.out.println(impl.getSum(i));
         }
-    }
-
-    @Override
-    public int getRangeSum(int i, int j) {
-        return getSum(j) - getSum(i - 1);
     }
 
     @Test
