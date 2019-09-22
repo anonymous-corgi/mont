@@ -16,25 +16,24 @@ public class LeetCode126WordLadderII {
 
     private static class Normal implements Method {
 
-        @Override
         public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
             if (!wordList.contains(endWord)) {
                 return Collections.emptyList();
             }
             boolean reachEnd = false;
             List<List<String>> result = new ArrayList<>();
-            Set<String> wordSet = new HashSet<>(wordList);
+            Set<String> nextWordList = new HashSet<>(wordList);
             Queue<List<String>> taskQueue = new ArrayDeque<>();
             taskQueue.offer(Collections.singletonList(beginWord));
             while (!taskQueue.isEmpty()) {
-                wordList = new ArrayList<>(wordSet);
+                wordList = new ArrayList<>(nextWordList);
                 for (int i = 0, len = taskQueue.size(); i < len; i++) {
-                    List<String> res = taskQueue.poll();
-                    String begin = res.get(res.size() - 1);
+                    List<String> candidate = taskQueue.poll();
+                    String begin = candidate.get(candidate.size() - 1);
                     for (String next : wordList) {
                         if (isNextWord(begin, next)) {
-                            List<String> newRes = new ArrayList<>(res.size() + 1);
-                            newRes.addAll(res);
+                            List<String> newRes = new ArrayList<>(candidate.size() + 1);
+                            newRes.addAll(candidate);
                             newRes.add(next);
                             if (endWord.equals(next)) {
                                 reachEnd = true;
@@ -42,7 +41,7 @@ public class LeetCode126WordLadderII {
                             } else {
                                 taskQueue.offer(newRes);
                             }
-                            wordSet.remove(next);
+                            nextWordList.remove(next);
                         }
                     }
                 }
