@@ -1,0 +1,76 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Test Case Individual ////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class ${NAME} {
+
+    private interface Method {
+    }
+
+    private static final class Impl implements Method {
+    }
+
+    private static Method getMethod() {
+        return new Impl();
+    }
+
+    private void test() {
+//        actual = getMethod()
+//        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void testcase1() {
+        test();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Test Case Suite /////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@RunWith(Parameterized.class)
+public class ${NAME} {
+
+    private interface Method {
+    }
+
+    private static final class Impl implements Method {
+    }
+
+    private static Method getMethod() {
+        return new Impl();
+    }
+
+    private void test() {
+//        actual = getMethod()
+//        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void testcase() {
+        test();
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] parameters() {
+        return new Object[][]{
+        };
+    }
+}
