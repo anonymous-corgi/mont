@@ -72,7 +72,7 @@ public class LeetCode410SplitArrayLargestSum {
         abstract int findMin(long[] prefix, long[] dp, int share, int total);
     }
 
-    private static class DP_Binary extends DP {
+    private static final class DP_Binary extends DP {
 
         @Override
         int findMin(long[] prefix, long[] dp, int share, int total) {
@@ -96,7 +96,7 @@ public class LeetCode410SplitArrayLargestSum {
         }
     }
 
-    private static class DP_Pro extends DP {
+    private static final class DP_Pro extends DP {
 
         @Override
         int findMin(long[] prefix, long[] dp, int share, int total) {
@@ -113,7 +113,7 @@ public class LeetCode410SplitArrayLargestSum {
         }
     }
 
-    private static class BinarySearch implements Method {
+    private static final class BinaryTrial implements Method {
 
         @Override
         public int splitArray(int[] nums, int m) {
