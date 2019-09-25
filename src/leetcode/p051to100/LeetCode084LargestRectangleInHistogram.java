@@ -8,9 +8,8 @@ public class LeetCode084LargestRectangleInHistogram {
         int largestRectangleArea(int[] heights);
     }
 
-    private static class Greedy implements Method {
+    private static final class Greedy implements Method {
 
-        @Override
         public int largestRectangleArea(int[] heights) {
             if (heights == null || heights.length == 0) {
                 return 0;
@@ -19,6 +18,9 @@ public class LeetCode084LargestRectangleInHistogram {
             Stack<Integer> stack = new Stack<>();
             for (int i = 0; i <= heights.length; ) {
                 if (stack.isEmpty() || i < heights.length && heights[i] >= heights[stack.peek()]) {
+                    // The design is that we push i into stack.
+                    // And only pop the stack when the cursor move to j, where heights[i] > heights[j]
+                    // In this case, we find that all heights between i and j are not lower than height[i]
                     stack.push(i++);
                 } else {
                     int hIndex = stack.pop();
@@ -26,9 +28,8 @@ public class LeetCode084LargestRectangleInHistogram {
                     int length = stack.isEmpty() ? i : i - 1 - stack.peek();
                     // area = height x length
                     // We pop and get a hIndex.
-                    // hIndex may be contiguous or discontiguous to stack.peek(),
-                    // because [stack.peek(), hIndex].length may larger than 2,
-                    // there might be some n (stack.peek() < n && n < hIndex), heights[n] > heights[hIndex],
+                    // hIndex may be discontiguous to stack.peek(),
+                    // because there might be an n (stack.peek() < n && n < hIndex), heights[n] > heights[hIndex],
                     // and n has already been popped.
                     // Also, n (hIndex < n && i < n) must have heights[n] >= heights[hIndex].
                     // All in all, for hIndex, stack.peek() is the first index whose height is lower than hIndex,
