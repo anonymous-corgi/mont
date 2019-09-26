@@ -5,24 +5,29 @@ import java.util.TreeMap;
 
 public class LeetCode729MyCalendarI {
 
-    private interface Method {
-        boolean book(int start, int end);
+    private static abstract class MyCalendar {
+
+        public MyCalendar() {
+        }
+
+        abstract public boolean book(int start, int end);
     }
 
-    private static class TreeMap_Method implements Method {
+    private static final class TreeMapImpl extends MyCalendar {
 
-        private final TreeMap<Integer, Integer> timeline = new TreeMap<>();
+        private final TreeMap<Integer, Integer> events = new TreeMap<>();
 
-        @Override
         public boolean book(int start, int end) {
-            Map.Entry<Integer, Integer> prev = timeline.floorEntry(start);
-            Map.Entry<Integer, Integer> next = timeline.ceilingEntry(start);
-            if ((prev == null || prev.getValue() <= start)
-                    && (next == null || next.getKey() >= end)) {
-                timeline.put(start, end);
-                return true;
+            Map.Entry<Integer, Integer> prev = events.floorEntry(start);
+            if (prev != null && start < prev.getValue()) {
+                return false;
             }
-            return false;
+            Map.Entry<Integer, Integer> next = events.ceilingEntry(start);
+            if (next != null && end > next.getKey()) {
+                return false;
+            }
+            events.put(start, end);
+            return true;
         }
     }
 }
