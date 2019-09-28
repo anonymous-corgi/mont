@@ -10,6 +10,9 @@ import java.util.Deque;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * Similar to {@link leetcode.p051to100.LeetCode084LargestRectangleInHistogram}
+ */
 @RunWith(Parameterized.class)
 public class LeetCode862ShortestSubarrayWithSumAtLeastK {
 
@@ -31,7 +34,6 @@ public class LeetCode862ShortestSubarrayWithSumAtLeastK {
     // Under this situation, moving right pointer forward might not increase the subarray sum.
     private static final class Dequeue implements Method {
 
-        @Override
         public int shortestSubarray(int[] A, int K) {
             // Must initiate as Integer.MAX_VALUE, otherwise error while length == 1.
             int res = Integer.MAX_VALUE;
