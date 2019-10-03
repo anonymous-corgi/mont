@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Similar to {@link leetcode.p951to1000.LeetCode974SubarraySumsDivisibleByK}
  * Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.
  *
  * Example 1:
@@ -15,22 +16,26 @@ import java.util.Map;
  */
 public class LeetCode560SubarraySumEqualsK {
 
-    public int subarraySum(int[] nums, int k) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int sum = 0;
-        int res = 0;
-        Map<Integer, Integer> sums = new HashMap<>();
-        sums.put(0, 1);
-        for (int num : nums) {
-            sum += num;
-            if (sums.containsKey(sum - k)) {
-                res += sums.get(sum - k);
+    private interface Method {
+        int subarraySum(int[] nums, int k);
+    }
+
+    private static final class ProcessingMap implements Method {
+
+        public int subarraySum(int[] nums, int k) {
+            if (nums == null || nums.length == 0) {
+                return 0;
             }
-            Integer count = sums.getOrDefault(sum, 0) + 1;
-            sums.put(sum, count);
+            int prefix = 0;
+            int res = 0;
+            Map<Integer, Integer> sumsCount = new HashMap<>();
+            sumsCount.put(0, 1);
+            for (int num : nums) {
+                prefix += num;
+                res += sumsCount.getOrDefault(prefix - k, 0);
+                sumsCount.compute(prefix, (key, value) -> value != null ? value + 1 : 1);
+            }
+            return res;
         }
-        return res;
     }
 }
