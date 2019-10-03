@@ -32,9 +32,9 @@ public class GCD_LCM {
         @Override
         public int getGCD(int a, int b) {
             while (b != 0) {
-                int temp = b;
-                b = a % b;
-                a = temp;
+                int remainder = a % b;
+                a = b;
+                b = remainder;
             }
             return a;
         }
@@ -64,7 +64,7 @@ public class GCD_LCM {
         GCD method1 = new Recursive_GCD_Method();
         GCD method2 = new NonRecursive_GCD_Method();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             int a = random.nextInt(Integer.MAX_VALUE);
             int b = random.nextInt(Integer.MAX_VALUE);
             int r1 = method1.getGCD(a, b);
