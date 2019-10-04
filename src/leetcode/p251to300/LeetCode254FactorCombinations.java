@@ -58,7 +58,6 @@ public class LeetCode254FactorCombinations {
 
     private static final class Memorization implements Method {
 
-        @Override
         public List<List<Integer>> getFactors(int n) {
             return getFactors(n, new HashMap<>());
         }
@@ -70,13 +69,14 @@ public class LeetCode254FactorCombinations {
             List<List<Integer>> res = new ArrayList<>();
             for (int i = 2; i * i <= n; i++) {
                 if (n % i == 0) {
-                    List<List<Integer>> sub = getFactors(n / i, cache);
+                    List<List<Integer>> remainderFactors = getFactors(n / i, cache);
                     res.add(Arrays.asList(i, n / i));
-                    for (List<Integer> list : sub) {
-                        if (list.get(0) >= i) {
+                    for (List<Integer> factors : remainderFactors) {
+                        // Important step to avoid duplication. make all the results ascending.
+                        if (factors.get(0) >= i) {
                             List<Integer> neo = new ArrayList<>();
                             neo.add(i);
-                            neo.addAll(list);
+                            neo.addAll(factors);
                             res.add(neo);
                         }
                     }
