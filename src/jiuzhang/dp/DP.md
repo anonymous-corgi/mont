@@ -7,7 +7,7 @@
 
 + ### Subset Partition
   + [LeetCode 465. Optimal Account Balancing](/src/leetcode/p451to500/LeetCode465OptimalAccountBalancing.java)
-  + [LeetCode 1066. Campus Bikes II](/src/leetcode/p1051to1100/LeetCode1066CampusBikesII.java)
+  + [LeetCode 1066. Campus Bikes II](/src/leetcode/p1051to1100/LeetCode1066CampusBikesII.java) - Background Similar: [LeetCode 765. Couples Holding Hands](/src/leetcode/p751to800/LeetCode765CouplesHoldingHands.java)
 
 + ### Partition
   + [LeetCode 132. Palindrome Partitioning II](/src/leetcode/p101to150/LeetCode132PalindromePartitioningII.java)
