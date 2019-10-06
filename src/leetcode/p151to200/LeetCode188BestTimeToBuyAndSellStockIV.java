@@ -29,9 +29,8 @@ public class LeetCode188BestTimeToBuyAndSellStockIV {
         int maxProfit(int k, int[] prices);
     }
 
-    private static class DP1 implements Method {
+    private static final class DP1 implements Method {
 
-        @Override
         public int maxProfit(int k, int[] prices) {
             if (k >= prices.length / 2) {
                 return quickSolve(prices);
@@ -63,9 +62,8 @@ public class LeetCode188BestTimeToBuyAndSellStockIV {
         }
     }
 
-    private static class DP2 implements Method {
+    private static final class DP2 implements Method {
 
-        @Override
         public int maxProfit(int k, int[] prices) {
             if (prices == null || prices.length == 0) {
                 return 0;
@@ -101,7 +99,24 @@ public class LeetCode188BestTimeToBuyAndSellStockIV {
             }
             return pre[1][len];
         }
+    }
 
+    // Time Limit Exceeded
+    private static final class DP3 implements Method {
+
+        public int maxProfit(int k, int[] prices) {
+            int[] dp = new int[prices.length + 1];
+            for (int t = 1; t <= k; t++) {
+                for (int d = prices.length; d > 0; d--) {
+                    int highest = 0;
+                    for (int l = d; l > 0; l--) {
+                        highest = Math.max(highest, prices[l - 1]);
+                        dp[d] = Math.max(dp[d], highest - prices[l - 1] + dp[l - 1]);
+                    }
+                }
+            }
+            return dp[prices.length];
+        }
     }
 
     private static Method getMethod() {
