@@ -5,6 +5,10 @@
   + [LeetCode 213. House Robber II](/src/leetcode/p201to250/LeetCode213HouseRobberII.java)
   + [LeetCode 337. House Robber III](/src/leetcode/p301to350/LeetCode337HouseRobberIII.java)
 
++ ### Subset Partition
+  + [LeetCode 465. Optimal Account Balancing](/src/leetcode/p451to500/LeetCode465OptimalAccountBalancing.java)
+  + [LeetCode 1066. Campus Bikes II](/src/leetcode/p1051to1100/LeetCode1066CampusBikesII.java)
+
 + ### Partition
   + [LeetCode 132. Palindrome Partitioning II](/src/leetcode/p101to150/LeetCode132PalindromePartitioningII.java)
   + [LeetCode 188. Best Time to Buy and Sell Stock IV](/src/leetcode/p151to200/LeetCode188BestTimeToBuyAndSellStockIV.java)
@@ -27,11 +31,11 @@
   + [BackPack VI](/src/jiuzhang/dp/backpack/BackPackVI.java)
   + [BackPack VII](/src/jiuzhang/dp/backpack/BackPackVII.java)
 
-  |            | 0 -> capacity                    | 0 <- capacity                        | CAPACITY |
-  |:-----------|:---------------------------------|:-------------------------------------|:---------|
+  |            | 0 -> capacity                    | 0 <- capacity                    | CAPACITY |
+  |:---------- |:-------------------------------- |:-------------------------------- |:-------- |
   | items      | Reuse, Fix-Order(Combination)    | NO Reuse, Fix-Order(Combination) |          |
-  | capacity   | Reuse, Multi-Order(Permutations) |                                      |          |
-  | LOOP_FIRST |                                  |                                      |          |
+  | capacity   | Reuse, Multi-Order(Permutations) |                                  |          |
+  | LOOP_FIRST |                                  |                                  |          |
 
   CAPACITY loops capacity -> 0: Avoids reuse  
   Loop items firstly: Avoids Permutations.
