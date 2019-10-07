@@ -15,8 +15,9 @@
 
 + ### Partition
   + [LeetCode 132. Palindrome Partitioning II](/src/leetcode/p101to150/LeetCode132PalindromePartitioningII.java)
-  + [LeetCode 188. Best Time to Buy and Sell Stock IV](/src/leetcode/p151to200/LeetCode188BestTimeToBuyAndSellStockIV.java)
+  + [*LeetCode 188. Best Time to Buy and Sell Stock IV](/src/leetcode/p151to200/LeetCode188BestTimeToBuyAndSellStockIV.java)
   + [LeetCode 410. Split Array Largest Sum](/src/leetcode/p401to450/LeetCode410SplitArrayLargestSum.java)
+  + [**LeetCode 871. Minimum Number Of Refueling Stops](/src/leetcode/p851to900/LeetCode871MinimumNumberOfRefuelingStops.java)
 
 + ### Range Properties
   + [**LeetCode 312. Burst Balloons](/src/leetcode/p301to350/LeetCode312BurstBalloons.java)
@@ -55,3 +56,6 @@
   + [LeetCode 097. Interleaving String](/src/leetcode/p051to100/LeetCode097InterleavingString.java)
   + [LeetCode 115. Distinct Subsequences](/src/leetcode/p101to150/LeetCode115DistinctSubsequences.java)
   + [*LeetCode 1143. Longest Common Subsequence](/src/leetcode/p1101to1150/LeetCode1143LongestCommonSubsequence.java)
+
++ ### Others
+  + [LeetCode 403. Frog Jump](/src/leetcode/p401to450/LeetCode403FrogJump.java)
