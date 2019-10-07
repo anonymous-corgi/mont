@@ -4,6 +4,10 @@
   + [LeetCode 198. House Robber I](/src/leetcode/p151to200/LeetCode198HouseRobberI.java)
   + [LeetCode 213. House Robber II](/src/leetcode/p201to250/LeetCode213HouseRobberII.java)
   + [LeetCode 337. House Robber III](/src/leetcode/p301to350/LeetCode337HouseRobberIII.java)
+  + [LeetCode 746. Min Cost Climbing Stairs](/src/leetcode/p701to750LeetCode746MinCostClimbingStairs.java)
+
++ ### Longest Increasing Subsequence
+  + [LeetCode 300. Longest Increasing Subsequence](/src/leetcode/p251to300/LeetCode300LongestIncreasingSubsequence.java)
 
 + ### Subset Partition
   + [LeetCode 465. Optimal Account Balancing](/src/leetcode/p451to500/LeetCode465OptimalAccountBalancing.java)
