@@ -18,7 +18,7 @@
   + [**LeetCode 312. Burst Balloons](/src/leetcode/p301to350/LeetCode312BurstBalloons.java)
   + [*LeetCode 516. Longest Palindromic Subsequence](/src/leetcode/p501to550/LeetCode516LongestPalindromicSubsequence.java)
 
-  + ##### Game
+  ##### Game
     + [LintCode 394. Coins in A Line I](/src/lintcode/p351to400/LintCode394CoinsInALineI.java)
     + [LintCode 395. Coins in A Line II](/src/lintcode/p351to400/LintCode395CoinsInALineII.java)
     + [LintCode 396. Coins in A Line III](/src/lintcode/p351to400/LintCode396CoinsInALineIII.java)
@@ -30,6 +30,11 @@
   + [BackPack V](/src/jiuzhang/dp/backpack/BackPackV.java)
   + [BackPack VI](/src/jiuzhang/dp/backpack/BackPackVI.java)
   + [BackPack VII](/src/jiuzhang/dp/backpack/BackPackVII.java)
+
+  ##### Coin Change
+    + [LeetCode 322. Coin Change](/src/leetcode/p301to350/LeetCode322CoinChange.java)
+    + [LeetCode 518. Coin Change 2](/src/leetcode/p501to550/LeetCode518CoinChange2.java)
+
 
   |            | 0 -> capacity                    | 0 <- capacity                    | CAPACITY |
   |:---------- |:-------------------------------- |:-------------------------------- |:-------- |
