@@ -1,93 +1,162 @@
 package leetcode.p251to300;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+/**
+ * 269. Alien Dictionary
+ * Hard
+ * 
+ * There is a new alien language which uses the latin alphabet.
+ * However, the order among letters are unknown to you.
+ * You receive a list of non-empty words from the dictionary,
+ * where words are sorted lexicographically by the rules of this new language.
+ * Derive the order of letters in this language.
+ * 
+ * 
+ * Example 1:
+ * Input:
+ * [
+ * "wrt",
+ * "wrf",
+ * "er",
+ * "ett",
+ * "rftt"
+ * ]
+ * Output: "wertf"
+ * 
+ * 
+ * Example 2:
+ * Input:
+ * [
+ * "z",
+ * "x"
+ * ]
+ * Output: "zx"
+ * 
+ * 
+ * Example 3:
+ * Input:
+ * [
+ * "z",
+ * "x",
+ * "z"
+ * ]
+ * Output: ""
+ * 
+ * Explanation: The order is invalid, so return "".
+ * Note:
+ * 
+ * You may assume all letters are in lowercase.
+ * You may assume that if a is a prefix of b, then a must appear before b in the given dictionary.
+ * If the order is invalid, return an empty string.
+ * There may be multiple valid order of letters, return any one of them is fine.
+ */
+@RunWith(Parameterized.class)
 public class LeetCode269AlienDictionary {
-	
-  private class Node {
-    public int ins;
-    public Set<Integer> next;
-    public Node () {
-      ins = 0;
-      next = new HashSet<>();
-    }
-  }
-  
-  public String alienOrder(String[] words) {
-    // Write your code here
-    if (words == null || words.length == 0) {
-      return "";
-    }
-    Node[] nodes = new Node[26];
-    int size = 0;
-    
-    for (int i = 0, wLen = words.length; i < wLen; i++) {
-      for (int j = 0, sLen = words[i].length(); j < sLen; j++) {
-        int cursor = toInt(words[i].charAt(j));
-        if (nodes[cursor] == null) {
-          nodes[cursor] = new Node();
-          size++;
-        }
-      }
-    }
-    
-    for (int i = 0, wLen = words.length - 1; i < wLen; i++) {
-      char[] s1 = words[i].toCharArray();
-      char[] s2 = words[i + 1].toCharArray();
-      int minLen = Math.min(s1.length , s2.length);
-      for (int j = 0; j < minLen; j++) {
-        if (s1[j] != s2[j]) {
-          int i1 = toInt(s1[j]);
-          int i2 = toInt(s2[j]);
-          if (nodes[i1].next.add(i2)) {
-            nodes[i2].ins++;
-          }
-          break;
-        }
-      }
-    }
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //Using PriorityQueue can get the smallest in lexicographical order!
-    Queue<Integer> taskList = new PriorityQueue<>();
-    StringBuilder res = new StringBuilder();
-    for (int i = 0; i < 26; i++) {
-      if (nodes[i] != null && nodes[i].ins == 0) {
-        taskList.offer(i);
-      }
-    }
-    
-    while (!taskList.isEmpty()) {
-      Integer cursor = taskList.poll();
-      res.append(toChar(cursor));
-      for (Integer nei : nodes[cursor].next) {
-        if (nodes[nei].ins-- == 1) {
-          taskList.offer(nei);
-        }
-      }
-    }
-    return res.length() == size ? res.toString() : "";
-  }
-  
-  private int toInt(char c) {
-    return c - 'a';
-  }
-  
-  private char toChar(int n) {
-    return (char) (n + 'a');
-  }
+    private final String[] words;
+    private final String expected;
 
-  public static void main(String[] args) {
-    LeetCode269AlienDictionary one = new LeetCode269AlienDictionary();
-//    //"wertf"
-//    String[] words = {"wrt","wrf","er","ett","rftt"};
-//    //"yxz"
-//    String[] words = {"zy","zx"};
-//    //"abcd"
-    String[] words = {"ab","adc"};
-    System.out.println(one.alienOrder(words));
-  }
+    public LeetCode269AlienDictionary(String[] words, String expected) {
+        this.words = words;
+        this.expected = expected;
+    }
 
+    private interface Method {
+        String alienOrder(String[] words);
+    }
+
+    private static final class BFS implements Method {
+
+        public String alienOrder(String[] words) {
+            Map<Character, Set<Character>> successors = new HashMap<>();
+            Map<Character, Integer> inDegrees = new HashMap<>();
+            Queue<Character> taskQueue = new PriorityQueue<>();
+            StringBuilder res = new StringBuilder();
+
+            // Collect all the Characters shown.
+            for (String word : words) {
+                for (char ch : word.toCharArray()) {
+                    inDegrees.putIfAbsent(ch, 0);
+                    successors.putIfAbsent(ch, new HashSet<>());
+                }
+            }
+
+            // Build connection: successors and inDegrees.
+            for (int i = 1; i < words.length; i++) {
+                String f = words[i - 1];
+                String b = words[i];
+                for (int j = 0, jLen = Math.min(f.length(), b.length()); j < jLen; j++) {
+                    if (f.charAt(j) != b.charAt(j)) {
+                        if (successors.get(b.charAt(j)).contains(f.charAt(j))) {
+                            return "";
+                        }
+                        // Important: Avoid Duplication.
+                        if (successors.get(f.charAt(j)).add(b.charAt(j))) {
+                            inDegrees.compute(b.charAt(j), (k, v) -> v == null ? 1 : v + 1);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // Find initial characters.
+            for (Map.Entry<Character, Integer> inDegree : inDegrees.entrySet()) {
+                if (inDegree.getValue() == 0) {
+                    taskQueue.offer(inDegree.getKey());
+                }
+            }
+
+            while (!taskQueue.isEmpty()) {
+                Character cursor = taskQueue.poll();
+                res.append(cursor);
+                for (Character successor : successors.get(cursor)) {
+                    int inDegree = inDegrees.compute(successor, (k, v) -> v - 1);
+                    if (inDegree == 0) {
+                        taskQueue.offer(successor);
+                    }
+                }
+                successors.remove(cursor);
+            }
+
+            // Important: Make sure that all characters are processed.
+            return successors.isEmpty() ? res.toString() : "";
+        }
+    }
+
+    private static Method getMethod() {
+        return new BFS();
+    }
+
+    private void test(String[] words, String expected) {
+        String actual = getMethod().alienOrder(words);
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void testcase() {
+        test(words, expected);
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] parameters() {
+        return new Object[][]{
+                {new String[]{"wrt", "wrf", "er", "ett", "rftt"}, "wertf"},
+                {new String[]{"zy", "zx"}, "yxz"},
+                {new String[]{"ab", "adc"}, "abcd"},
+                {new String[]{"za", "zb", "ca", "cb"}, "abzc"},
+                {new String[]{"bsusz", "rhn", "gfbrwec", "kuw", "qvpxbexnhx", "gnp", "laxutz", "qzxccww"}, ""},
+        };
+    }
 }
