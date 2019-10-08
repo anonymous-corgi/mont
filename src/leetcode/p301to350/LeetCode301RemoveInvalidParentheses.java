@@ -1,36 +1,94 @@
 package leetcode.p301to350;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@RunWith(Parameterized.class)
 public class LeetCode301RemoveInvalidParentheses {
-  
-  public List<String> removeInvalidParentheses(String s) {
-    List<String> ans = new ArrayList<>();
-    remove(s, ans, 0, 0, new char[]{'(', ')'});
-    return ans;
-  }
-  
-  public void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
-    for (int stack = 0, i = last_i; i < s.length(); ++i) {
-      if (s.charAt(i) == par[0]) stack++;
-      if (s.charAt(i) == par[1]) stack--;
-      if (stack >= 0) continue;
-      for (int j = last_j; j <= i; ++j)
-        if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1]))
-          remove(s.substring(0, j) + s.substring(j + 1, s.length()), ans, i, j, par);
-      return;
+    private final String s;
+    private final List<String> expected;
+
+    public LeetCode301RemoveInvalidParentheses(String s, List<String> expected) {
+        this.s = s;
+        this.expected = expected;
     }
-    String reversed = new StringBuilder(s).reverse().toString();
-    if (par[0] == '(') // finished left to right
-      remove(reversed, ans, 0, 0, new char[]{')', '('});
-    else // finished right to left
-      ans.add(reversed);
-  }
 
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    
-  }
+    private interface Method {
+        List<String> removeInvalidParentheses(String s);
+    }
 
+    private static final class DFS implements Method {
+
+        public List<String> removeInvalidParentheses(String s) {
+            List<String> res = new ArrayList<>();
+            remove(s, 0, 0, new char[]{'(', ')'}, res);
+            return res;
+        }
+
+        private void remove(String s, int start, int lastDelete, char[] pair, List<String> res) {
+            int balance = 0;
+            int index = start;
+            // Find the index of the first unbalanced ')'
+            for (; index < s.length(); index++) {
+                if (s.charAt(index) == pair[0]) {
+                    balance++;
+                } else if (s.charAt(index) == pair[1]) {
+                    balance--;
+                }
+                if (balance < 0) {
+                    break;
+                }
+            }
+            if (balance < 0) {
+                // Has more pair[1] than pair[0]
+                for (int delete = lastDelete; delete <= index; delete++) {
+                    if (s.charAt(delete) == pair[1] && (delete == lastDelete || s.charAt(delete - 1) != pair[1])) {
+                        remove(s.substring(0, delete) + s.substring(delete + 1), index, delete, pair, res);
+                    }
+                }
+            } else if (balance > 0) {
+                // Has more pair[0] than pair[1]
+                s = new StringBuilder(s).reverse().toString();
+                remove(s, 0, 0, new char[]{')', '('}, res);
+            } else {
+                // Fully balanced. But still need to determine whether s is reversed.
+                res.add(pair[0] == '(' ? s : new StringBuilder(s).reverse().toString());
+            }
+        }
+    }
+
+    private static Method getMethod() {
+        return new DFS();
+    }
+
+    private void test(String s, List<String> expected) {
+        List<String> actual = getMethod().removeInvalidParentheses(s);
+        Collections.sort(actual);
+        Collections.sort(expected);
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    public void testcase() {
+        test(s, expected);
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] parameters() {
+        return new Object[][]{
+                {"()())()", Arrays.asList("(())()", "()()()")},
+                {"(a)())()", Arrays.asList("(a)()()", "(a())()")},
+                {")(", Arrays.asList("")},
+                {"(()", Arrays.asList("()")},
+        };
+    }
 }
