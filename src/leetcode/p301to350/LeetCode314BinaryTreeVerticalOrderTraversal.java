@@ -1,67 +1,133 @@
 package leetcode.p301to350;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import basicclass.TreeNode;
-import utils.Print;
 
+/**
+ * 314. Binary Tree Vertical Order Traversal
+ * Medium
+ *
+ * Given a binary tree, return the vertical order traversal of its nodes' values.
+ * (ie, from top to bottom, column by column).
+ *
+ * If two nodes are in the same row and column, the order should be from left to right.
+ *
+ * Examples 1:
+ * Input: [3,9,20,null,null,15,7]
+ *
+ *    3
+ *   /\
+ *  /  \
+ *  9  20
+ *     /\
+ *    /  \
+ *   15   7
+ *
+ * Output:
+ *
+ * [
+ *   [9],
+ *   [3,15],
+ *   [20],
+ *   [7]
+ * ]
+ *
+ *
+ * Examples 2:
+ * Input: [3,9,8,4,0,1,7]
+ *
+ *      3
+ *     /\
+ *    /  \
+ *    9   8
+ *   /\  /\
+ *  /  \/  \
+ *  4  01   7
+ *
+ * Output:
+ *
+ * [
+ *   [4],
+ *   [9],
+ *   [3,0,1],
+ *   [8],
+ *   [7]
+ * ]
+ *
+ *
+ * Examples 3:
+ * Input: [3,9,8,4,0,1,7,null,null,null,2,5] (0's right child is 2 and 1's left child is 5)
+ *
+ *      3
+ *     /\
+ *    /  \
+ *    9   8
+ *   /\  /\
+ *  /  \/  \
+ *  4  01   7
+ *     /\
+ *    /  \
+ *    5   2
+ *
+ * Output:
+ * [
+ *   [4],
+ *   [9,5],
+ *   [3,0,1],
+ *   [8,2],
+ *   [7]
+ * ]
+ */
 public class LeetCode314BinaryTreeVerticalOrderTraversal {
-  
-  private int lBias = 0;
-  private int rBias = 0;
-  
-  public List<List<Integer>> verticalOrder(TreeNode root) {
-    // write your code here
-    List<List<Integer>> results = new ArrayList<>();
-    if (root == null) {
-      return results;
-    }
-    getBias(root, 0);
-    for (int i = 0, len = rBias - lBias  + 1; i < len; i++) {
-      results.add(new ArrayList<Integer>());
-    }
-    
-    Queue<TreeNode> taskList = new LinkedList<>();
-    Queue<Integer> posiList = new LinkedList<>();
-    taskList.offer(root);
-    posiList.offer(-lBias);
-    while (!taskList.isEmpty()) {
-      TreeNode cursor = taskList.poll();
-      int posi = posiList.poll();
-      results.get(posi).add(cursor.val);
-      if (cursor.left != null) {
-        taskList.offer(cursor.left);
-        posiList.offer(posi - 1);
-      }
-      if (cursor.right != null) {
-        taskList.offer(cursor.right);
-        posiList.offer(posi + 1);
-      }
-    }
-    return results;
-  }
-  
-  private void getBias(TreeNode root, int posi) {
-    if (root == null) {
-      return;
-    }
-    lBias = Math.min(lBias, posi);
-    rBias = Math.max(rBias, posi);
-    getBias(root.left, posi - 1);
-    getBias(root.right, posi + 1);
-  }
 
+    private interface Method {
+        List<List<Integer>> verticalOrder(TreeNode root);
+    }
 
-  public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    LeetCode314BinaryTreeVerticalOrderTraversal one =
-        new LeetCode314BinaryTreeVerticalOrderTraversal();
-    String treenodeString = "{3,9,20,#,#,15,7}";
-    TreeNode root = TreeNode.deserialize(treenodeString);
-    List<List<Integer>> list = one.verticalOrder(root);
-    Print.printListList(list);
-  }
+    private static final class BFS implements Method {
 
+        public List<List<Integer>> verticalOrder(TreeNode root) {
+            List<List<Integer>> results = new ArrayList<>();
+            if (root == null) {
+                return results;
+            }
+            int[] bias = new int[2];
+            getBias(root, 0, bias);
+            for (int i = 0, len = bias[1] - bias[0] + 1; i < len; i++) {
+                results.add(new ArrayList<>());
+            }
+
+            Queue<Integer> posList = new ArrayDeque<>();
+            Queue<TreeNode> taskList = new ArrayDeque<>();
+            taskList.offer(root);
+            posList.offer(-bias[0]);
+            while (!taskList.isEmpty()) {
+                TreeNode cursor = taskList.poll();
+                int pos = posList.poll();
+                results.get(pos).add(cursor.val);
+                if (cursor.left != null) {
+                    taskList.offer(cursor.left);
+                    posList.offer(pos - 1);
+                }
+                if (cursor.right != null) {
+                    taskList.offer(cursor.right);
+                    posList.offer(pos + 1);
+                }
+            }
+            return results;
+        }
+
+        private void getBias(TreeNode root, int pos, int[] bias) {
+            if (root == null) {
+                return;
+            }
+            bias[0] = Math.min(bias[0], pos);
+            bias[1] = Math.max(bias[1], pos);
+            getBias(root.left, pos - 1, bias);
+            getBias(root.right, pos + 1, bias);
+        }
+    }
 }
