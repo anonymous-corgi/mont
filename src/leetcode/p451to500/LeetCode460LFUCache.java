@@ -68,9 +68,8 @@ public class LeetCode460LFUCache {
                 return;
             }
 
-            Node newNode;
             Node oldNode = map.get(key);
-            // First, evict the least frequency node if we reach max capacity.
+            // First, evict the least frequency node if we get a new key and reach max capacity.
             if (oldNode == null && size++ == CAPACITY) {
                 int keyToEvict = HEAD.next.keys.keySet().iterator().next();
                 removeKeyFromNode(keyToEvict, HEAD.next);
@@ -79,6 +78,7 @@ public class LeetCode460LFUCache {
             }
 
             // Second, find or create newNode
+            Node newNode;
             Node frontNode = oldNode != null ? oldNode : HEAD;
             if (frontNode.next.freq == frontNode.freq + 1) {
                 newNode = frontNode.next;
@@ -89,7 +89,7 @@ public class LeetCode460LFUCache {
             // And then put key into newNode's keys.
             newNode.keys.put(key, value);
 
-            // Second, determine if we need to update oldNode.
+            // Third, determine if we need to update oldNode.
             oldNode = map.get(key);
             if (oldNode != null) {
                 removeKeyFromNode(key, oldNode);
