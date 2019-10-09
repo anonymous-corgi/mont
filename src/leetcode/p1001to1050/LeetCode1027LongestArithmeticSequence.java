@@ -10,6 +10,9 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * Similar to {@link leetcode.p401to450.LeetCode403FrogJump}
+ */
 @RunWith(Parameterized.class)
 public class LeetCode1027LongestArithmeticSequence {
     private final int[] A;

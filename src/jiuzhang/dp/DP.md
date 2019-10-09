@@ -59,3 +59,4 @@
 
 + ### Others
   + [LeetCode 403. Frog Jump](/src/leetcode/p401to450/LeetCode403FrogJump.java)
+  + [LeetCode src/leetcode/p1001to1050/LeetCode1027LongestArithmeticSequence.java](/src/leetcode/p1001to1050/LeetCode1027LongestArithmeticSequence.java)
