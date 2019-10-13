@@ -1,7 +1,7 @@
 package algorithm.classic.sort.arraylist;
 
 import algorithm.classic.sort.Sort;
-import utils.Print;
+import algorithm.base.utils.Print;
 
 public class HeapSort implements Sort.Array{
 

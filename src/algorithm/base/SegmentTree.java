@@ -97,10 +97,4 @@ public class SegmentTree {
 			return lSum + rSum;
 		}
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

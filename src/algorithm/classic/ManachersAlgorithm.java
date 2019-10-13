@@ -1,7 +1,7 @@
 package algorithm.classic;
 
 /**
- * @see leetcode.p001to050.LeetCode005LongestPalindromicSubstring
+ * @see algorithm.leetcode.p001to050.LeetCode005LongestPalindromicSubstring
  */
 public class ManachersAlgorithm {
 

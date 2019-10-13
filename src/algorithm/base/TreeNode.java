@@ -12,7 +12,6 @@ public class TreeNode implements Iterable<TreeNode> {
 
     public TreeNode(int val) {
         this.val = val;
-        this.left = this.right = null;
     }
 
     public static String serialize(TreeNode root) {
