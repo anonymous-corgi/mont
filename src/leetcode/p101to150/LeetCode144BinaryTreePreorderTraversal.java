@@ -3,7 +3,7 @@ package leetcode.p101to150;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode144BinaryTreePreorderTraversal {
   

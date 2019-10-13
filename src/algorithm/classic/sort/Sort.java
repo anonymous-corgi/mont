@@ -1,6 +1,6 @@
 package algorithm.classic.sort;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public interface Sort {
 

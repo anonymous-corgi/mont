@@ -1,7 +1,7 @@
 package leetcode.p101to150;
 
-import basicclass.ListNode;
-import basicclass.TreeNode;
+import algorithm.base.ListNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode109ConvertSortedListToBinarySearchTree {
   

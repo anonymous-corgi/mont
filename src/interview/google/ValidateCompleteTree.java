@@ -1,6 +1,6 @@
 package interview.google;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class ValidateCompleteTree {
 

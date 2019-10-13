@@ -3,7 +3,7 @@ package leetcode.p351to400;
 import java.util.ArrayList;
 import java.util.List;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 /**
  * 366. Find Leaves of Binary Tree

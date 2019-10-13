@@ -1,6 +1,6 @@
 package leetcode.p151to200;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode160IntersectionOfTwoLinkedLists {
 

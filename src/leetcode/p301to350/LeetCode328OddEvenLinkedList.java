@@ -1,6 +1,6 @@
 package leetcode.p301to350;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode328OddEvenLinkedList {
 

@@ -1,6 +1,6 @@
 package jiuzhang.sort;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class QuickSort {
 	

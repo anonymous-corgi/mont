@@ -1,4 +1,4 @@
-package base.tree;
+package algorithm.base.tree;
 
 import org.junit.Assert;
 import org.junit.Test;

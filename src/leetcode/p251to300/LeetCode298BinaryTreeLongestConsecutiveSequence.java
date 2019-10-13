@@ -1,6 +1,6 @@
 package leetcode.p251to300;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 import org.junit.Test;
 

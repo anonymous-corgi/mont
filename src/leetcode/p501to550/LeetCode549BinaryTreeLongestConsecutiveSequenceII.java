@@ -2,7 +2,7 @@ package leetcode.p501to550;
 
 import org.junit.Test;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

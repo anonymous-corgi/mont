@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 @SuppressWarnings("unused")
 public class LeetCode257BinaryTreePaths {

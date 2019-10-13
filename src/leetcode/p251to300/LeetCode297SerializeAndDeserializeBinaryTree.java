@@ -2,7 +2,7 @@ package leetcode.p251to300;
 
 import org.junit.Test;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;

@@ -2,7 +2,7 @@ package leetcode.p851to900;
 
 import java.util.HashMap;
 import java.util.Map;
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode889ConstructBinaryTreeFromPreorderAndPostorderTraversal {
   

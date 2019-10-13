@@ -1,4 +1,4 @@
-package base;
+package algorithm.base;
 
 public class Robot {
   private final String[] DIRS_SYMBOL = {"↑","→","↓","←"};

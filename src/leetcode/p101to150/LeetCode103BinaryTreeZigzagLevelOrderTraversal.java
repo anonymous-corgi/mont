@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode103BinaryTreeZigzagLevelOrderTraversal {
 

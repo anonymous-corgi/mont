@@ -1,6 +1,6 @@
 package leetcode.p101to150;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 import java.util.ArrayDeque;
 import java.util.Deque;
 

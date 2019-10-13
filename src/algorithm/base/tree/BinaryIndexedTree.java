@@ -1,4 +1,4 @@
-package base.tree;
+package algorithm.base.tree;
 
 public interface BinaryIndexedTree {
 

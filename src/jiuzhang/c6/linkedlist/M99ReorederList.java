@@ -1,6 +1,6 @@
 package jiuzhang.c6.linkedlist;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class M99ReorederList {
 	

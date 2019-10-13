@@ -2,7 +2,7 @@ package leetcode.p301to350;
 
 import java.util.ArrayList;
 import java.util.List;
-import basicclass.Point;
+import algorithm.base.Point;
 
 public class LeetCode305NumberOfIslandsII {
   

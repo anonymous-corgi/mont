@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode652FindDuplicateSubtrees {
   

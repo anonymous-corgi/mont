@@ -1,6 +1,6 @@
 package interview.fb;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode525ContiguousArray {
 	

@@ -1,6 +1,6 @@
 package leetcode.p301to350;
 
-import basicclass.NestedInteger;
+import algorithm.base.NestedInteger;
 
 import java.util.Iterator;
 import java.util.List;

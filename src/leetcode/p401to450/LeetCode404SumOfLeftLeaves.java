@@ -1,6 +1,6 @@
 package leetcode.p401to450;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode404SumOfLeftLeaves {
   

@@ -1,6 +1,6 @@
 package leetcode.p301to350;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 /**
  * LeetCode 337. House Robber III

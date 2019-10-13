@@ -2,7 +2,7 @@ package leetcode.p151to200;
 
 import java.util.Stack;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode173BinarySearchTreeIterator {
 

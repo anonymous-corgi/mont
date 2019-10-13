@@ -1,7 +1,7 @@
 package interview.fb;
 
 import java.util.List;
-import basicclass.Interval;
+import algorithm.base.Interval;
 
 public class LeetCode435NonOverlappingIntervals {
   

@@ -1,10 +1,10 @@
 package interview.google;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class BSTCountInRange {
-  //Ò»¸öBSTÀïÃæ´æ×ÅÕûÊı£¬ÒªÇóĞ´Ò»¸öËã·¨£¬¼ÆËãÊ÷ÀïÃæÔÚ(low, high)Ö®¼äµÄÊı×ÖµÄºÍ
-  //(low < val <= high)¡£
+  //Ò»ï¿½ï¿½BSTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ğ´Ò»ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(low, high)Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄºï¿½
+  //(low < val <= high)ï¿½ï¿½
   
   public int count(TreeNode root, int low, int high) {
     if (root == null) {

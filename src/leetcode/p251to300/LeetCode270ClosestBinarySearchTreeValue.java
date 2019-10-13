@@ -1,6 +1,6 @@
 package leetcode.p251to300;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 /**
  * LeetCode 270. Closest Binary Search Tree Value

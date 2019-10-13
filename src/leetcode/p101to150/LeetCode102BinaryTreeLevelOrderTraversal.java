@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode102BinaryTreeLevelOrderTraversal {
 

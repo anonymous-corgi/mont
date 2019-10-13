@@ -1,6 +1,6 @@
 package leetcode.p651to700;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode687LongestUnivaluePath {
   

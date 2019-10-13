@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 /**
  * 314. Binary Tree Vertical Order Traversal

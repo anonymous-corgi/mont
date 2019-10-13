@@ -3,7 +3,7 @@ package leetcode.p101to150;
 import java.util.HashMap;
 import java.util.Map;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 @SuppressWarnings("unused")
 public class LeetCode106ConstructBinaryTreeFromInorderAndPostorderTraversal {

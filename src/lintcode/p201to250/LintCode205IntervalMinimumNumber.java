@@ -3,7 +3,7 @@ package lintcode.p201to250;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import basicclass.Interval;
+import algorithm.base.Interval;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

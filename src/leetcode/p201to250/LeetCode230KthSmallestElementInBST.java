@@ -1,6 +1,6 @@
 package leetcode.p201to250;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 import java.util.Stack;
 

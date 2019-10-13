@@ -1,6 +1,6 @@
 package leetcode.p701to750;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 /**
  * Given a node from a cyclic linked list which has been sorted,

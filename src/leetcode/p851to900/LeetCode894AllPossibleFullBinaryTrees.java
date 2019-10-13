@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 public class LeetCode894AllPossibleFullBinaryTrees {
   

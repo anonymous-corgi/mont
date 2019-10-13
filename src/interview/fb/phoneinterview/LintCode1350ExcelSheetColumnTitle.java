@@ -1,7 +1,7 @@
 package interview.fb.phoneinterview;
 
 public class LintCode1350ExcelSheetColumnTitle {
-  //This problem is hard because the start index is different: A-Z is 0-base But 1-26 is 1-base
+  //This problem is hard because the start index is different: A-Z is 0-algorithm.base But 1-26 is 1-algorithm.base
   public String convertToTitle(int n) {
     // write your code here
     if (n < 1) {

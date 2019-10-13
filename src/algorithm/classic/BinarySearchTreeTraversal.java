@@ -1,6 +1,6 @@
 package algorithm.classic;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 import java.util.*;
 

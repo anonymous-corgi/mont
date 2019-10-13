@@ -1,4 +1,4 @@
-package base;
+package algorithm.base;
 
 public class ListNode {
 		public int val;

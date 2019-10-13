@@ -2,7 +2,7 @@ package leetcode.p051to100;
 
 import java.util.Stack;
 
-import basicclass.TreeNode;
+import algorithm.base.TreeNode;
 
 @SuppressWarnings("unused")
 public class LeetCode099RecoverBinarySearchTree {

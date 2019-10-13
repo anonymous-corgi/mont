@@ -1,6 +1,6 @@
 package leetcode.p101to150;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode148SortList {
 

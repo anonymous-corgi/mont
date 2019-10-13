@@ -1,6 +1,6 @@
 package leetcode.p051to100;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode092ReverseLinkedListII {
   

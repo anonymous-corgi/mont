@@ -1,6 +1,6 @@
 package leetcode.p001to050;
 
-import basicclass.ListNode;
+import algorithm.base.ListNode;
 
 public class LeetCode023MergeKSortedLists {
 

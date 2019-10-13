@@ -10,7 +10,7 @@ public class LeetCode005LongestPalindromicSubstring {
 
         @Override
         public String longestPalindrome(String s) {
-            return algorithm.ManachersAlgorithm.longestPalindrome(s);
+            return algorithm.classic.ManachersAlgorithm.longestPalindrome(s);
         }
     }
 }
