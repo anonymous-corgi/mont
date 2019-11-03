@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import algorithm.base.utils.Print;
-
 /**
  * LeetCode 131. Palindrome Partitioning
  * Medium
@@ -110,12 +108,5 @@ public class LeetCode131PalindromePartitioningI {
             }
             return res;
         }
-    }
-
-    public static void main(String[] args) {
-        String s = "aab";
-        LeetCode131PalindromePartitioningI.Manachers_method one =
-                new LeetCode131PalindromePartitioningI.Manachers_method();
-        Print.printListList(one.partition(s));
     }
 }
