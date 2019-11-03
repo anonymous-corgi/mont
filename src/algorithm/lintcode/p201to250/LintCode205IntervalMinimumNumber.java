@@ -3,16 +3,13 @@ package algorithm.lintcode.p201to250;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import algorithm.base.Interval;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 
 /**
  * 205. Interval Minimum Number
@@ -48,6 +45,16 @@ public class LintCode205IntervalMinimumNumber {
         this.A = A;
         this.queries = queries;
         this.expected = expected;
+    }
+
+    private static class Interval {
+        public int start;
+        public int end;
+
+        private Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
     }
 
     private interface Method {
