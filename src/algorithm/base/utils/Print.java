@@ -152,7 +152,4 @@ public class Print {
 		  System.out.print(iterator.next());
 		}
 	}
-
-	
-	
 }

@@ -1,4 +1,4 @@
-package thread;
+package algorithm.classic.java.thread;
 
 public class MyThreadPrinter implements Runnable {     
   

@@ -1,4 +1,4 @@
-package algorithm.base.tree;
+package algorithm.classic.tree;
 
 public class TrieTreeImpl implements TrieTree {
 

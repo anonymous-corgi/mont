@@ -1,4 +1,4 @@
-package algorithm.base;
+package algorithm.classic.tree;
 
 import java.util.Iterator;
 import java.util.Stack;

@@ -1,4 +1,4 @@
-package algorithm.base;
+package algorithm.classic.tree;
 
 public class BinarySearchTree<E extends Comparable<? super E>> {
 	

@@ -1,9 +1,8 @@
 package algorithm.classic.sort.arraylist;
 
 import algorithm.classic.sort.Sort;
-import algorithm.base.utils.Print;
 
-public class HeapSort implements Sort.Array{
+public class HeapSort implements Sort.Array {
 
     @Override
     public void sort(int[] nums) {
@@ -60,6 +59,5 @@ public class HeapSort implements Sort.Array{
         Sort.Array one = new HeapSort();
         int[] array = new int[]{8, 6, 7, 5, 3, 1, 4, 2, 9};
         one.sort(array);
-        Print.printArray(array);
     }
 }

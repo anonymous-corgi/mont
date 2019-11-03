@@ -3,9 +3,7 @@ package algorithm.base.utils;
 public class FileName {
 
     public static void main(String[] args) {
-
         String nameWithNumber = "";
-
         getBothDir(nameWithNumber);
     }
 
@@ -17,7 +15,6 @@ public class FileName {
     private static void getBothDir(String numberandname) {
         if (numberandname != null && numberandname.length() > 0) {
             String[] nnns = numberandname.split("\\.");
-            ;
             getBothDir(Integer.parseInt(nnns[0]), nnns[1]);
         }
     }

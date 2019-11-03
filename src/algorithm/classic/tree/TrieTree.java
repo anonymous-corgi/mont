@@ -1,4 +1,4 @@
-package algorithm.base.tree;
+package algorithm.classic.tree;
 
 public interface TrieTree {
 

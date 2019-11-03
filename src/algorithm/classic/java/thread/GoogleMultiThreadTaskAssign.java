@@ -1,4 +1,4 @@
-package thread;
+package algorithm.classic.java.thread;
 
 import java.lang.ref.WeakReference;
 import java.util.Random;
