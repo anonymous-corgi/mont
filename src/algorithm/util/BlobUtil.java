@@ -1,4 +1,4 @@
-package algorithm.base.utils;
+package algorithm.util;
 
 public class BlobUtil {
 
@@ -13,7 +13,4 @@ public class BlobUtil {
     public static int[][][] parseArray3D(String json) {
         return ParserUtil.fromJson(json, int[][][].class);
     }
-//    public static <T> List<T> parseList(String json) {
-//
-//    }
 }

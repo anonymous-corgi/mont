@@ -1,4 +1,4 @@
-package algorithm.base.utils;
+package algorithm.util;
 
 public class FileName {
 

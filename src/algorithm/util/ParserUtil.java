@@ -1,4 +1,4 @@
-package algorithm.base.utils;
+package algorithm.util;
 
 import com.google.gson.Gson;
 
