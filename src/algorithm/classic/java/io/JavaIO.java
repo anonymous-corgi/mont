@@ -1,4 +1,4 @@
-package algorithm.classic.java;
+package algorithm.classic.java.io;
 
 import org.junit.Test;
 
