@@ -53,13 +53,16 @@ public class BinarySearch {
      * the stop state is only start == end.
      * 2. INDEX OUT OF BOUNDARY:
      * At stop state, (mid = start + 1) or (mid = end - 1) may have INDEX OUT OF BOUNDARY Exception.
-     * It happen when 1. mid = start + (end - start) / 2, then (mid - 1) might be -1.
-     * 2. mid = start + (end - start + 1) / 2, then (mid - 1) might be nums.length.
-     * 3. INFINITE LOOP problem
-     * It happen when 1. mid = start + (end - start) / 2,  mid is EQUAL TO start. start = mid will cause INFINITE LOOP.
-     * 2. mid = start + (end - start + 1) / 2,  mid is EQUAL TO end, end = mid will cause INFINITE LOOP.
-     * So for start < end, if mid = start + (end - start) / 2, must have start = mid + 1.
-     * if mid = start + (end - start + 1) / 2, must have end = mid - 1;
+     * It happens when 
+     *   2.1. mid = start + (end - start) / 2, then (mid - 1) might be -1.
+     *   2.2. mid = start + (end - start + 1) / 2, then (mid + 1) might be nums.length.
+     * 3. INFINITE LOOP:
+     * It happens when 
+     *   3.1. mid = start + (end - start) / 2,  mid is EQUAL TO start. start = mid will cause INFINITE LOOP.
+     *   3.2. mid = start + (end - start + 1) / 2,  mid is EQUAL TO end, end = mid will cause INFINITE LOOP.
+     * So for start < end, 
+     *   if mid = start + (end - start) / 2, must have start = mid + 1;
+     *   if mid = start + (end - start + 1) / 2, must have end = mid - 1;
      */
     private static class Classic implements SearchTarget {
 
