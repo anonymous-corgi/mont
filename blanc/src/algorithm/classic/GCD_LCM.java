@@ -19,7 +19,7 @@ public class GCD_LCM {
     }
 
     // It needs a wrapper method to handler corner cases like: a or b is 0;
-    private static class Recursive_GCD_Method implements GCD {
+    private static final class Recursive_GCD implements GCD {
 
         @Override
         public int getGCD(int a, int b) {
@@ -27,7 +27,7 @@ public class GCD_LCM {
         }
     }
 
-    private static class NonRecursive_GCD_Method implements GCD {
+    private static final class NonRecursive_GCD implements GCD {
 
         @Override
         public int getGCD(int a, int b) {
@@ -40,7 +40,7 @@ public class GCD_LCM {
         }
     }
 
-    private static class Recursive_LCM_Method implements LCM {
+    private static final class Recursive_LCM implements LCM {
 
         @Override
         public int getLCM(int a, int b) {
@@ -52,17 +52,17 @@ public class GCD_LCM {
     }
 
     private static GCD getGCDMethod() {
-        return new Recursive_GCD_Method();
+        return new Recursive_GCD();
     }
 
     private static LCM getLCMMethod() {
-        return new Recursive_LCM_Method();
+        return new Recursive_LCM();
     }
 
     @Test
     public void testGCD() {
-        GCD method1 = new Recursive_GCD_Method();
-        GCD method2 = new NonRecursive_GCD_Method();
+        GCD method1 = new Recursive_GCD();
+        GCD method2 = new NonRecursive_GCD();
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
             int a = random.nextInt(Integer.MAX_VALUE);

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.PriorityQueue;
 
-import algorithm.base.utils.BlobUtil;
+import algorithm.util.BlobUtil;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
