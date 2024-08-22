@@ -1,3 +1,4 @@
+include 'base'
 include 'kb:kb0050'
 findProject(':kb:kb0050')?.name = 'kb0050'
 
