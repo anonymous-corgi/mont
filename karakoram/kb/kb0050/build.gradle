@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-group 'com.rayhuang.karakoram.kb'
+group 'com.anonymouscorgi.karakoram.kb'
 version 'unspecified'
 
 repositories {

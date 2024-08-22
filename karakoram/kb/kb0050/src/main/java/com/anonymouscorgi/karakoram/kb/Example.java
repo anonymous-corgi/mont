@@ -1,4 +1,4 @@
-package com.rayhuang.karakoram.kb;
+package com.anonymouscorgi.karakoram.kb;
 
 public class Example {
 
