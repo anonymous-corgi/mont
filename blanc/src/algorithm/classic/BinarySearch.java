@@ -47,12 +47,13 @@ public class BinarySearch {
      * while (start < end)
      * <p>
      * 1. STOP STATE:
-     * For start < end, start = mid + 1, end = mid - 1,
-     * the stop state not only happens at (start == end), but also (start == end + 1).
-     * But for start < end, one side is start = mid or end = mid,
-     * the stop state is only start == end.
+     * For the scenario where start < end, start = mid + 1, end = mid - 1,
+     * the stop state is reached not only when (start == end), but also when (end == start - 1).
+     * But for the scenario where start < end, start = mid + 1, end = mid,
+     * And for the scenario where start < end, start = mid, end = mid - 1,
+     * only one side is start = mid or end = mid, the stop state is only when start == end.
      * 2. INDEX OUT OF BOUNDARY:
-     * At stop state, (mid = start + 1) or (mid = end - 1) may have INDEX OUT OF BOUNDARY Exception.
+     * At stop state, (start = mid + 1) or (end = mid - 1) may cause INDEX OUT OF BOUNDARY Exception.
      * It happens when 
      *   2.1. mid = start + (end - start) / 2, then (mid - 1) might be -1.
      *   2.2. mid = start + (end - start + 1) / 2, then (mid + 1) might be nums.length.
@@ -72,7 +73,6 @@ public class BinarySearch {
             int end = nums.length - 1;
             while (start < end) {
                 int mid = start + (end - start) / 2;
-             // int mid = start + (end - start + 1) / 2;
                 if (nums[mid] < target) {
                     start = mid + 1;
                 } else if (nums[mid] > target) {
@@ -82,7 +82,6 @@ public class BinarySearch {
                 }
             }
             return nums[start] == target ? start : -1;
-         // return nums[end] == target ? end : -1;
         }
     }
 
@@ -112,7 +111,8 @@ public class BinarySearch {
                     start = mid + 1;
                 }
             }
-            return isQualified(nums, end) ? end : -1;
+            // In STOP STATE, definitely have start == end.
+            return isQualified(nums, start) ? start : -1;
         }
 
         private boolean isQualified(int[] nums, int mid) {
@@ -134,7 +134,7 @@ public class BinarySearch {
                     end = mid - 1;
                 }
             }
-            return isQualified(nums, start) ? start : -1;
+            return isQualified(nums, end) ? end : -1;
         }
 
         private boolean isQualified(int[] nums, int mid) {
