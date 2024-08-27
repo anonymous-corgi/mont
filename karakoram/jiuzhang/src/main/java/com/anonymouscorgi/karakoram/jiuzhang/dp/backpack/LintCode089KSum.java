@@ -1,4 +1,6 @@
-package algorithm.jiuzhang.dp.backpack;
+package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
+
+import java.util.Arrays;
 
 /**
  * Description Given n distinct positive integers, integer k (k <= n) and a number target.
@@ -14,25 +16,29 @@ package algorithm.jiuzhang.dp.backpack;
  */
 interface LintCode089KSum {
 
-  int kSum(int[] A, int k, int target);
+  interface Algorithm {
 
-  class Method implements LintCode089KSum {
+    int kSum(int[] A, int k, int target);
+  }
+
+  class Method implements Algorithm {
 
     @Override
     public int kSum(int[] A, int k, int target) {
       if (A == null || A.length == 0 || target == 0) {
         return 0;
       }
+
       int[][] dp = new int[k + 1][target + 1];
       dp[0][0] = 1;
       for (int i = 0; i < A.length; i++) {
         if (A[i] > target) {
           continue;
         }
-        int mEnd = i + 1 >= k ? k : i + 1;
-        for (int m = mEnd; m > 0; m--) {
-          for (int n = target; n >= A[i]; n--) {
-            dp[m][n] += dp[m - 1][n - A[i]];
+        int numOfNumberMax = Math.min(i + 1, k);
+        for (int numOfNumber = numOfNumberMax; numOfNumber > 0; numOfNumber--) {
+          for (int sum = target; sum >= A[i]; sum--) {
+            dp[numOfNumber][sum] += dp[numOfNumber - 1][sum - A[i]];
           }
         }
       }
