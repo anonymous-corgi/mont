@@ -31,7 +31,7 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
  * The length of the input string will fit in range [1, 105].
  * The input string will only contain the character '*' and digits '0' - '9'.
  */
-public class LeetCode639DecodeWaysII {
+final class LeetCode639DecodeWaysII {
 
     private static final long MOD = (long) (1E9 + 7);
 

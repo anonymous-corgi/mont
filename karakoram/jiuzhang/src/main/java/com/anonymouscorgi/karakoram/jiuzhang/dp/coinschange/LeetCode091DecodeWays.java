@@ -13,14 +13,14 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
  * Example 2: Input: "226" Output: 3 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6),
  * or "BBF" (2 2 6).
  */
-interface LeetCode091DecodeWays {
+final class LeetCode091DecodeWays {
 
   interface Algorithm {
 
     int numDecodings(String s);
   }
 
-  class SubmittedBackward implements Algorithm {
+  static final class SubmittedBackward implements Algorithm {
 
     @Override
     public int numDecodings(String s) {
@@ -46,7 +46,7 @@ interface LeetCode091DecodeWays {
   }
 
 
-  class Forward implements Algorithm {
+  static final class Forward implements Algorithm {
 
     @Override
     public int numDecodings(String s) {

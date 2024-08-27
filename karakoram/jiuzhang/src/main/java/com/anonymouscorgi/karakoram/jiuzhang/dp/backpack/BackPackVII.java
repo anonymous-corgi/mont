@@ -9,7 +9,7 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
  * Example Given nums = [1, 2, 4], target = 4 The possible combination ways are: [1, 1, 1, 1] [1, 1,
  * 2] [2, 2] [4] return 4
  */
-interface BackPackVII {
+final class BackPackVII {
 
   /**
    * The solution will return combination. Because the n-1 situation in here is the result made by
@@ -22,7 +22,7 @@ interface BackPackVII {
     int backPackVII(int[] weights, int capacity);
   }
 
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPackVII(int[] weights, int capacity) {

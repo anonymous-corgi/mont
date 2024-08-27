@@ -12,14 +12,14 @@ import java.util.Arrays;
  * <p>
  * Example 2: Input: n = 13 Output: 2 Explanation: 13 = 4 + 9.
  */
-interface LeetCode279PerfectSquares {
+final class LeetCode279PerfectSquares {
 
   interface Algorithm {
 
     int numSquares(int n);
   }
 
-  class SubmittedMethod1 implements Algorithm {
+  static final class SubmittedMethod1 implements Algorithm {
 
     @Override
     public int numSquares(int n) {

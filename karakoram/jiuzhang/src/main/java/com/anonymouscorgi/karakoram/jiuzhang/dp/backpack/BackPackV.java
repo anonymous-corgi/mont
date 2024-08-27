@@ -1,6 +1,6 @@
 package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
 
-interface BackPackV {
+final class BackPackV {
 
   //Count How many ways can get to target without repeated use
   interface Algorithm {
@@ -8,7 +8,7 @@ interface BackPackV {
     int backPackV(int[] weights, int capacity);
   }
 
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPackV(int[] weights, int capacity) {

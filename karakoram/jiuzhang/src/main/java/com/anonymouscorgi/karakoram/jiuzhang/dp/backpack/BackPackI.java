@@ -12,7 +12,7 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
  * <p>
  * You function should return the max size we can fill in the given backpack.
  */
-interface BackPackI {
+final class BackPackI {
 
   //Count Max weight can be stored in m capacity without repeated use
   interface Algorithm {
@@ -21,7 +21,7 @@ interface BackPackI {
   }
 
   //This is the optimal way to count the maximum capacity
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPack(int capacity, int[] weights) {
@@ -41,7 +41,7 @@ interface BackPackI {
 
   //This solution is mostly used for count number of possibilities.
   //Similar to BackPackVI
-  class Method2 implements Algorithm {
+  static final class Method2 implements Algorithm {
 
     @Override
     public int backPack(int capacity, int[] weights) {

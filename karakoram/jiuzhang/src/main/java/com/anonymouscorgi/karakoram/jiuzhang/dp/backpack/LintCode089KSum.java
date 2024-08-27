@@ -1,7 +1,5 @@
 package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
 
-import java.util.Arrays;
-
 /**
  * Description Given n distinct positive integers, integer k (k <= n) and a number target.
  * <p>
@@ -14,14 +12,14 @@ import java.util.Arrays;
  * <p>
  * Return 2.
  */
-interface LintCode089KSum {
+final class LintCode089KSum {
 
   interface Algorithm {
 
     int kSum(int[] A, int k, int target);
   }
 
-  class Method implements Algorithm {
+  static final class Method implements Algorithm {
 
     @Override
     public int kSum(int[] A, int k, int target) {

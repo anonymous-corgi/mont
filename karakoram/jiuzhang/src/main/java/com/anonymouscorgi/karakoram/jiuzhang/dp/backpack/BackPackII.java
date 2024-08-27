@@ -18,7 +18,7 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
  * Notice A[i], V[i], n, m are all integers. You can not split an item. The sum size of the items
  * you want to put into backpack can not exceed m. Each item can only be picked up once
  */
-interface BackPackII {
+final class BackPackII {
 
   //Count Max value can be stored in m capacity WITHOUT repeated use
   interface Algorithm {
@@ -26,7 +26,7 @@ interface BackPackII {
     int backPackII(int capacity, int[] weights, int[] values);
   }
 
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPackII(int capacity, int[] weights, int[] values) {

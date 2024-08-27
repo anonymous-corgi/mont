@@ -1,7 +1,7 @@
 package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
 
 //BackPackII doesn't contain repeated object
-interface BackPackIII {
+final class BackPackIII {
 
   //Count Max value can be stored in m capacity WITH repeated use
   interface Algorithm {
@@ -10,7 +10,7 @@ interface BackPackIII {
   }
 
   //Method1: Loop from items first.
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPackIII(int capacity, int[] weights, int[] values) {
@@ -29,7 +29,7 @@ interface BackPackIII {
   }
 
   //Method2: Loop from weight first.
-  class Method2 implements Algorithm {
+  static final class Method2 implements Algorithm {
 
     @Override
     public int backPackIII(int capacity, int[] weights, int[] values) {

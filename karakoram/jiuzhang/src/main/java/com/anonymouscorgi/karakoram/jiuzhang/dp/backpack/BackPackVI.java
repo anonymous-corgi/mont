@@ -9,7 +9,7 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
  * Example Given nums = [1, 2, 4], target = 4 The possible combination ways are: [1, 1, 1, 1] [1, 1,
  * 2] [1, 2, 1] [2, 1, 1] [2, 2] [4] return 6
  */
-interface BackPackVI {
+final class BackPackVI {
 
   //Count How many ways can get to target with repeated use. Permutation of coins matters.
   interface Algorithm {
@@ -17,7 +17,7 @@ interface BackPackVI {
     int backPackVI(int[] weights, int capacity);
   }
 
-  class Method1 implements Algorithm {
+  static final class Method1 implements Algorithm {
 
     @Override
     public int backPackVI(int[] weights, int capacity) {

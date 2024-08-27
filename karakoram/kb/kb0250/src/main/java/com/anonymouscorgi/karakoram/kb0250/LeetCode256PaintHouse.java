@@ -23,7 +23,7 @@ final class LeetCode256PaintHouse {
     int minCost(int[][] costs);
   }
 
-   static final class DP implements Algorithm {
+  static final class DP implements Algorithm {
 
     @Override
     public int minCost(int[][] costs) {
