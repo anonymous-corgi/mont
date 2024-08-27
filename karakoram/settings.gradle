@@ -1,6 +1,8 @@
 include 'base'
 include 'classic'
-include 'kb:kb0050'
-findProject(':kb:kb0050')?.name = 'kb0050'
 include 'jiuzhang'
+include 'kb:kb0050'
+include 'kb:kb0250'
+findProject(':kb:kb0050')?.name = 'kb0050'
+findProject(':kb:kb0250')?.name = 'kb0250'
 

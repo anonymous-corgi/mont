@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
 
-group 'com.anonymouscorgi.karakoram.kb0050'
+group 'com.anonymouscorgi.karakoram.kb0250'
 version 'unspecified'
 
 repositories {
