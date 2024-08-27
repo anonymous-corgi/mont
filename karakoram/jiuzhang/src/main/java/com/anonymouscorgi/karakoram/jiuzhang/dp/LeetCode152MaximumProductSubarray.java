@@ -23,7 +23,7 @@ final class LeetCode152MaximumProductSubarray {
     int maxProduct(int[] nums);
   }
 
-  class Normal implements Algorithm {
+  static class Normal implements Algorithm {
 
     @Override
     public int maxProduct(int[] nums) {

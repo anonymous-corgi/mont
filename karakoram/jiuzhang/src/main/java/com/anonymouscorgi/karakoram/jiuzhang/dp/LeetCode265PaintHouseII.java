@@ -37,35 +37,35 @@ final class LeetCode265PaintHouseII {
       }
       int K = costs[0].length;
 
-      int[] pMin = new int[K];
-      int[] cMin = new int[K];
-      int i1 = 0;
-      int i2 = 0;
-      for (int i = 0, len = costs.length; i < len; i++) {
-        int m1 = -1;
-        int m2 = -1;
+      int[] prevCost = new int[K];
+      int[] currCost = new int[K];
+      int minCostPrevHouse1 = 0;
+      int minCostPrevHouse2 = 0;
+      for (int i = 0; i < costs.length; i++) {
+        int minCostCurrHouse1 = -1;
+        int minCostCurrHouse2 = -1;
         for (int j = 0; j < K; j++) {
-          if (j != i1) {
-            cMin[j] = pMin[i1] + costs[i][j];
+          if (j != minCostPrevHouse1) {
+            currCost[j] = prevCost[minCostPrevHouse1] + costs[i][j];
           } else {
-            cMin[j] = pMin[i2] + costs[i][j];
+            currCost[j] = prevCost[minCostPrevHouse2] + costs[i][j];
           }
 
-          if (m1 == -1 || cMin[j] < cMin[m1]) {
-            m2 = m1;
-            m1 = j;
-          } else if (m2 == -1 || cMin[j] < cMin[m2]) {
-            m2 = j;
+          if (minCostCurrHouse1 == -1 || currCost[j] < currCost[minCostCurrHouse1]) {
+            minCostCurrHouse2 = minCostCurrHouse1;
+            minCostCurrHouse1 = j;
+          } else if (minCostCurrHouse2 == -1 || currCost[j] < currCost[minCostCurrHouse2]) {
+            minCostCurrHouse2 = j;
           }
         }
-        i1 = m1;
-        i2 = m2;
-        int[] temp = pMin;
-        pMin = cMin;
-        cMin = temp;
+        minCostPrevHouse1 = minCostCurrHouse1;
+        minCostPrevHouse2 = minCostCurrHouse2;
+        int[] temp = prevCost;
+        prevCost = currCost;
+        currCost = temp;
       }
 
-      return pMin[i1];
+      return prevCost[minCostPrevHouse1];
     }
   }
 }
