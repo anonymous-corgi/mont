@@ -1,4 +1,4 @@
-package algorithm.jiuzhang.c4.matrix;
+package com.anonymouscorgi.karakoram.jiuzhang.c4.matrix;
 
 final class LeetCode200NumberOfIslands {
 	
