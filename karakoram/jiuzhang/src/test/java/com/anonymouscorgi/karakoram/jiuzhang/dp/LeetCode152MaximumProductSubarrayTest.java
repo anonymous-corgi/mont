@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LeetCode152MaximumProductSubarrayTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream() {
     return Stream.of(
         arguments(/* nums= */ new int[]{-4}, /* expected= */ -4),
         arguments( /* nums= */ new int[]{2, 3, -2, 4}, /* expected= */ 6)
@@ -20,7 +20,7 @@ class LeetCode152MaximumProductSubarrayTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void maxProduct(int[] nums, int expected) {
     Algorithm algorithm = new Normal();
 

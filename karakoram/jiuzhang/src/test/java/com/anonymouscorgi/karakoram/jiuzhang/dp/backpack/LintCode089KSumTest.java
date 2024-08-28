@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LintCode089KSumTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream()  {
     return Stream.of(arguments(
         /* A= */ new int[]{1, 2, 3, 4},
         /* k= */ 2,
@@ -22,7 +22,7 @@ class LintCode089KSumTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void kSum_method1(int[] A, int k, int target, int expected) {
     Algorithm algorithms = new Method();
 

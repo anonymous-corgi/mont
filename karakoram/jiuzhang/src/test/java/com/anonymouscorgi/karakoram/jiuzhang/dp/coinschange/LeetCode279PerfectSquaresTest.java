@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LeetCode279PerfectSquaresTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream()  {
     return Stream.of(
         arguments(/* n= */ "12", /* expected= */ 3),
         arguments( /* n= */ "13", /* expected= */ 2)
@@ -20,7 +20,7 @@ class LeetCode279PerfectSquaresTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void numSquares(int n, int expected) {
     Algorithm algorithm = new SubmittedMethod1();
 

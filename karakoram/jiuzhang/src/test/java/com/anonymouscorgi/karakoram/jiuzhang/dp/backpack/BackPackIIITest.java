@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class BackPackIIITest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream()  {
     return Stream.of(arguments(
         /* capacity= */ 30,
         /* weights= */ new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
@@ -23,7 +23,7 @@ class BackPackIIITest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void backPackIII_method1(int capacity, int[] weights, int[] values, int expected) {
     Algorithm algorithm = new Method1();
 
@@ -31,7 +31,7 @@ class BackPackIIITest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void backPackIII_method2(int capacity, int[] weights, int[] values, int expected) {
     Algorithm algorithm = new Method2();
 

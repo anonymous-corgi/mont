@@ -37,17 +37,14 @@ import java.util.Set;
  * <p>
  * Input:org = [4,1,5,2,6,3], seqs = [[5,2,6,3],[4,1,5,2]] Output:true
  */
-final class LintCode605SequenceReconstruction {
+interface LintCode605SequenceReconstruction {
 
   // Actually, you need to check two things:
   // 1. seqs contains all the elements in org, but doesn't contain number not in org
   // 2. The number order of seqs is consistent with org
-  interface Algorithm {
+  boolean sequenceReconstruction(int[] org, int[][] seqs);
 
-    boolean sequenceReconstruction(int[] org, int[][] seqs);
-  }
-
-  static Algorithm UniqueTopologicalOrdering_Method = new Algorithm()  {
+  LintCode605SequenceReconstruction UniqueTopologicalOrdering_Method = new LintCode605SequenceReconstruction() {
 
     @Override
     public boolean sequenceReconstruction(int[] org, int[][] seqs) {
@@ -103,7 +100,7 @@ final class LintCode605SequenceReconstruction {
     }
   };
 
-  static Algorithm Verification_Method = new Algorithm() {
+  LintCode605SequenceReconstruction Verification_Method = new LintCode605SequenceReconstruction() {
 
     @Override
     public boolean sequenceReconstruction(int[] org, int[][] seqs) {

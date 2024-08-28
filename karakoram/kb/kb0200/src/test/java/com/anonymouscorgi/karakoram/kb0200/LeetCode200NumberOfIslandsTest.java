@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LeetCode200NumberOfIslandsTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream()  {
     return Stream.of(
         arguments(/* grid= */
             new boolean[][]{{true, true, true, true, true, true},
@@ -35,7 +35,7 @@ class LeetCode200NumberOfIslandsTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void numIslands(boolean[][] grip, int expected) {
     Algorithm algorithm = new UnionFind();
 

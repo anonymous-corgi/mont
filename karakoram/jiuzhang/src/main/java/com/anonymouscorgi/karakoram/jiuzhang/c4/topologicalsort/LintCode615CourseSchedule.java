@@ -23,14 +23,11 @@ import java.util.Set;
  * <p>
  * Input: n = 2, prerequisites = [[1,0],[0,1]] Output: false
  */
-final class LintCode615CourseSchedule {
+interface LintCode615CourseSchedule {
 
-  interface Algorithm {
+  boolean canFinish(int numCourses, int[][] prerequisites);
 
-    boolean canFinish(int numCourses, int[][] prerequisites);
-  }
-
-  static class UniqueTopologicalOrdering_Method implements Algorithm {
+  LintCode615CourseSchedule UniqueTopologicalOrdering_Method = new LintCode615CourseSchedule() {
 
     @Override
     public boolean canFinish(int numCourses, int[][] prerequisites) {
@@ -74,11 +71,5 @@ final class LintCode615CourseSchedule {
       }
       return checkList.size() == numCourses;
     }
-  }
-
-  public static void main(String[] args) {
-    Algorithm algorithm = new UniqueTopologicalOrdering_Method();
-    int[][] prerequisites = {{5, 8}, {3, 5}, {1, 9}, {4, 5}, {0, 2}, {1, 9}, {7, 8}, {4, 9}};
-    System.out.println(algorithm.canFinish(10, prerequisites));
-  }
+  };
 }

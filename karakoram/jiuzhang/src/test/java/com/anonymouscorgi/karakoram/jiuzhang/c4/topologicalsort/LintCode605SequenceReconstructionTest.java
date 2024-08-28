@@ -1,8 +1,8 @@
 package com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort;
 
+import static com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort.LintCode605SequenceReconstruction.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort.LintCode605SequenceReconstruction.*;
 
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LintCode605SequenceReconstructionTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream() {
     return Stream.of(
         arguments(
             /* org= */ new int[]{1, 2, 3},
@@ -41,14 +41,14 @@ class LintCode605SequenceReconstructionTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void sequenceReconstruction_uto(int[] org, int[][] seqs, boolean expected) {
     assertThat(UniqueTopologicalOrdering_Method.sequenceReconstruction(org, seqs)).isEqualTo(
         expected);
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void sequenceReconstruction_verification(int[] org, int[][] seqs, boolean expected) {
     assertThat(Verification_Method.sequenceReconstruction(org, seqs)).isEqualTo(
         expected);

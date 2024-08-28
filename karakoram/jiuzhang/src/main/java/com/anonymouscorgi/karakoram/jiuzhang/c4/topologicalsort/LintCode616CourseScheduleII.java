@@ -1,6 +1,5 @@
 package com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -24,17 +23,13 @@ import java.util.Set;
  * <p>
  * Example 2:
  * <p>
- * Input: n = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]] Output: [0,1,2,3] or
- * [0,2,1,3]
+ * Input: n = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]] Output: [0,1,2,3] or [0,2,1,3]
  */
-final class LintCode616CourseScheduleII {
+interface LintCode616CourseScheduleII {
 
-  interface Algorithm {
+  int[] findOrder(int numCourses, int[][] prerequisites);
 
-    int[] findOrder(int numCourses, int[][] prerequisites);
-  }
-
-  static class UniqueTopologicalOrdering_Method implements Algorithm {
+  LintCode616CourseScheduleII UniqueTopologicalOrdering_Method = new LintCode616CourseScheduleII() {
 
     @Override
     public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -78,11 +73,5 @@ final class LintCode616CourseScheduleII {
 
       return resultCount == numCourses ? result : new int[0];
     }
-  }
-
-  public static void main(String[] args) {
-    Algorithm algorithm = new UniqueTopologicalOrdering_Method();
-    int[][] prerequisites = {{0, 1}, {1, 2}};
-    System.out.println(Arrays.toString(algorithm.findOrder(3, prerequisites)));
-  }
+  };
 }

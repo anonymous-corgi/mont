@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LeetCode091DecodeWaysTest {
 
-  static Stream<Arguments> factoryMethodWithArguments() {
+  private static Stream<Arguments> generateTestParametersStream()  {
     return Stream.of(
         arguments(/* s= */ "20",/* expected= */ 1),
         arguments(/* s= */ "12",/* expected= */ 2),
@@ -23,7 +23,7 @@ class LeetCode091DecodeWaysTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void numDecodings_method1(String s, int expected) {
     Algorithm algorithm = new SubmittedBackward();
 
@@ -31,7 +31,7 @@ class LeetCode091DecodeWaysTest {
   }
 
   @ParameterizedTest
-  @MethodSource("factoryMethodWithArguments")
+  @MethodSource("generateTestParametersStream")
   void numDecodings_method2(String s, int expected) {
     Algorithm algorithm = new Forward();
 
