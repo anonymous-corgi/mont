@@ -1,26 +1,26 @@
-# Jiuzhang:
+# Jiuzhang - Normal
 
 ### Chapter 2 - Binary Search:
 
 + ##### [LeetCode 278. First Bad Version](/src/leetcode/p251to300/LeetCode278FirstBadVersion.java)
 
-## Chapter 3 X
+### Chapter 3 X
 
-### 3.1 Divide Conquer
+#### 3.1 Divide Conquer
 
 + ##### [LintCode 596. Minimum Subtree](../../../../../../../../../karakoram/kb/kb0500/src/main/java/com/anonymouscorgi/karakoram/kb0500/LintCode596MinimumSubtree.java)
 
 + ##### [LintCode 597. Subtree with Maximum Average](../../../../../../../../../karakoram/kb/kb0500/src/main/java/com/anonymouscorgi/karakoram/kb0500/LintCode597SubtreewithMaximumAverage.java)
 
-### 3.2 Traversal
+#### 3.2 Traversal
 
 + ##### [Lintcode 246. Binary Tree Path Sum II](../../../../../../../../../karakoram/kb/kb0200/src/main/java/com/anonymouscorgi/karakoram/kb0200/Lintcode246BinaryTreePathSumII.java)
 
 Lintcode246BinaryTreePathSumII
 
-## Chapter 4 - Level Order Traversal:
+### Chapter 4 - Level Order Traversal X
 
-### 4.1 Matrix X
+#### 4.1 Matrix
 
 + ##### [LeetCode 200. NumberOfIslands](../../../../../../../../../karakoram/kb/kb0200/src/main/java/com/anonymouscorgi/karakoram/kb0200/LeetCode200NumberOfIslands.java)
 
@@ -28,11 +28,15 @@ Lintcode246BinaryTreePathSumII
 
 + ##### [LintCode 611. Knight Shortest Path](../../../../../../../../../karakoram/kb/kb0600/src/main/java/com/anonymouscorgi/karakoram/kb0600/LintCode611KnightShortestPath.java)
 
-### 4.2 Topological Sort
+#### 4.2 Topological Sort
 
 #####  [LeetCode 261. Graph Valid Tree](/src/leetcode/p251to300/LeetCode261GraphValidTree.java)
 
-### Chapter 5 - Breadth First Search:
+### Chapter 5 - Breadth First Search
+
+#### 5.1 Graph
+
++ ##### [LeetCode 33. N-Queens](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LintCode33NQueens.java)
 
 ##### 1. [LeetCode 127. Word Ladder](/src/leetcode/p101to150/LeetCode127WordLadder.java)
 
