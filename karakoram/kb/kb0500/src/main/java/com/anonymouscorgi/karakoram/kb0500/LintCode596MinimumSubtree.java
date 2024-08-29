@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.c3.divideconquer;
+package com.anonymouscorgi.karakoram.kb0500;
 
 import com.anonymouscorgi.karakoram.base.TreeNode;
 

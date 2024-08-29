@@ -4,13 +4,23 @@
 
 + ##### [LeetCode 278. First Bad Version](/src/leetcode/p251to300/LeetCode278FirstBadVersion.java)
 
-## Chapter 3
+## Chapter 3 X
 
 ### 3.1 Divide Conquer
 
++ ##### [LintCode 596. Minimum Subtree](../../../../../../../../../karakoram/kb/kb0500/src/main/java/com/anonymouscorgi/karakoram/kb0500/LintCode596MinimumSubtree.java)
+
++ ##### [LintCode 597. Subtree with Maximum Average](../../../../../../../../../karakoram/kb/kb0500/src/main/java/com/anonymouscorgi/karakoram/kb0500/LintCode597SubtreewithMaximumAverage.java)
+
+### 3.2 Traversal
+
++ ##### [Lintcode 246. Binary Tree Path Sum II](../../../../../../../../../karakoram/kb/kb0200/src/main/java/com/anonymouscorgi/karakoram/kb0200/Lintcode246BinaryTreePathSumII.java)
+
+Lintcode246BinaryTreePathSumII
+
 ## Chapter 4 - Level Order Traversal:
 
-### 4.1 Matrix
+### 4.1 Matrix X
 
 + ##### [LeetCode 200. NumberOfIslands](../../../../../../../../../karakoram/kb/kb0200/src/main/java/com/anonymouscorgi/karakoram/kb0200/LeetCode200NumberOfIslands.java)
 

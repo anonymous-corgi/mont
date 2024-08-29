@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.c3.traversal;
+package com.anonymouscorgi.karakoram.kb0200;
 
 import com.anonymouscorgi.karakoram.base.TreeNode;
 import java.util.List;
