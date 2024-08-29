@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort;
+package com.anonymouscorgi.karakoram.kb0600;
 
-import static com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort.LintCode616CourseScheduleII.UniqueTopologicalOrdering_Method;
+import static com.anonymouscorgi.karakoram.kb0600.LintCode616CourseScheduleII.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

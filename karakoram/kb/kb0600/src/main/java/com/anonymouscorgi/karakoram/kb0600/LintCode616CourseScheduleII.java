@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.c4.topologicalsort;
+package com.anonymouscorgi.karakoram.kb0600;
 
 import java.util.HashMap;
 import java.util.HashSet;
