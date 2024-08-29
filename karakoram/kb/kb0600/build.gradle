@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
 
-group 'com.anonymouscorgi.karakoram.classic'
+group 'com.anonymouscorgi.karakoram.kb0600'
 version 'unspecified'
 
-apply from: '../dependencies.gradle'
+apply from: '../../dependencies.gradle'
