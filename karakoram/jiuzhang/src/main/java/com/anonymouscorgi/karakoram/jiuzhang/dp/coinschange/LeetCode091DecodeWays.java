@@ -20,7 +20,7 @@ final class LeetCode091DecodeWays {
     int numDecodings(String s);
   }
 
-  static final class SubmittedBackward implements Algorithm {
+  static Algorithm SubmittedBackward = new Algorithm() {
 
     @Override
     public int numDecodings(String s) {
@@ -43,10 +43,10 @@ final class LeetCode091DecodeWays {
       }
       return dp[0];
     }
-  }
+  };
 
 
-  static final class Forward implements Algorithm {
+  static Algorithm Forward = new Algorithm() {
 
     @Override
     public int numDecodings(String s) {
@@ -70,5 +70,5 @@ final class LeetCode091DecodeWays {
 
       return dp[s.length()];
     }
-  }
+  };
 }

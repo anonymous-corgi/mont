@@ -10,11 +10,14 @@ import com.anonymouscorgi.karakoram.base.TreeNode;
  * Notice LintCode will print the subtree which root is your return node. It's guaranteed that there
  * is only one subtree with minimum sum and the given binary tree is not an empty tree.
  */
-interface LintCode596MinimumSubtree {
+final class LintCode596MinimumSubtree {
 
-  TreeNode findSubtree(TreeNode root);
+  interface Algorithm {
 
-  LintCode596MinimumSubtree DivideConquer = new LintCode596MinimumSubtree() {
+    TreeNode findSubtree(TreeNode root);
+  }
+
+  static Algorithm DivideConquer = new Algorithm() {
 
     class Result {
 

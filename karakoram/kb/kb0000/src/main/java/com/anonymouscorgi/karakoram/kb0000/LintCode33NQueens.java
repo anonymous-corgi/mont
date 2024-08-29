@@ -23,11 +23,14 @@ import java.util.Queue;
  * Input: n = 4 Output: [ // Solution 1 [".Q..", "...Q", "Q...", "..Q." ], // Solution 2 ["..Q.",
  * "Q...", "...Q", ".Q.." ] ]
  */
-interface LintCode33NQueens {
+final class LintCode33NQueens {
 
-  List<List<String>> solveNQueens(int n);
+  interface Algorithm {
 
-  LintCode33NQueens DFS = new LintCode33NQueens() {
+    List<List<String>> solveNQueens(int n);
+  }
+
+  static Algorithm DFS = new Algorithm() {
 
     @Override
     public List<List<String>> solveNQueens(int n) {
@@ -83,7 +86,7 @@ interface LintCode33NQueens {
     }
   };
 
-  LintCode33NQueens BFS = new LintCode33NQueens() {
+  static Algorithm BFS = new Algorithm() {
 
     @Override
     public List<List<String>> solveNQueens(int n) {
@@ -147,7 +150,7 @@ interface LintCode33NQueens {
     }
   };
 
-  LintCode33NQueens DFS2 = new LintCode33NQueens() {
+  static Algorithm DFS2 = new Algorithm() {
 
     @Override
     public List<List<String>> solveNQueens(int n) {

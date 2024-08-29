@@ -7,9 +7,8 @@ import com.anonymouscorgi.karakoram.base.TreeNode;
  * <p>
  * Given a binary tree, find the subtree with maximum average. Return the root of the subtree.
  * <p>
- * Notice
- * LintCode will print the subtree which root is your return node.
- * It's guaranteed that there is only one subtree with maximum average.
+ * Notice LintCode will print the subtree which root is your return node. It's guaranteed that there
+ * is only one subtree with maximum average.
  * <p>
  * Example
  * <p>
@@ -22,13 +21,17 @@ import com.anonymouscorgi.karakoram.base.TreeNode;
  * 1   2 4    -2
  * return the node11.
  */
-interface LintCode597SubtreewithMaximumAverage {
+final class LintCode597SubtreewithMaximumAverage {
 
-  TreeNode findSubtree(TreeNode root);
+  interface Algorithm {
 
-  LintCode597SubtreewithMaximumAverage DivideConquer = new LintCode597SubtreewithMaximumAverage() {
+    TreeNode findSubtree(TreeNode root);
+  }
+
+  static Algorithm DivideConquer = new Algorithm() {
 
     class Result {
+
       int sum;
       int nodeCount;
       double maxAve;

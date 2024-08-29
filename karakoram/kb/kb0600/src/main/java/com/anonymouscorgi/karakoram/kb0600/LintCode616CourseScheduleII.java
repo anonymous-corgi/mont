@@ -25,11 +25,14 @@ import java.util.Set;
  * <p>
  * Input: n = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]] Output: [0,1,2,3] or [0,2,1,3]
  */
-interface LintCode616CourseScheduleII {
+final class LintCode616CourseScheduleII {
 
-  int[] findOrder(int numCourses, int[][] prerequisites);
+  interface Algorithm {
 
-  LintCode616CourseScheduleII UniqueTopologicalOrdering_Method = new LintCode616CourseScheduleII() {
+    int[] findOrder(int numCourses, int[][] prerequisites);
+  }
+
+  static Algorithm UniqueTopologicalOrdering_Method = new Algorithm() {
 
     @Override
     public int[] findOrder(int numCourses, int[][] prerequisites) {

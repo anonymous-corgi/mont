@@ -19,7 +19,7 @@ final class LeetCode279PerfectSquares {
     int numSquares(int n);
   }
 
-  static final class SubmittedMethod1 implements Algorithm {
+  static Algorithm SubmittedMethod1 = new Algorithm() {
 
     @Override
     public int numSquares(int n) {
@@ -38,5 +38,5 @@ final class LeetCode279PerfectSquares {
       }
       return minNum[n];
     }
-  }
+  };
 }

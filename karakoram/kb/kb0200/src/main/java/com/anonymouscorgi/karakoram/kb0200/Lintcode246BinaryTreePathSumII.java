@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Lintcode 246. Binary Tree Path Sum II
  * <p>
- * Your are given a binary tree in which each node contains a value. Design an algorithm to get all
+ * You are given a binary tree in which each node contains a value. Design an algorithm to get all
  * paths which sum to a given value. The path does not need to start or end at the root or a leaf,
  * but it must go in a straight line down.
  * <p>
@@ -35,10 +35,14 @@ import java.util.List;
  * for target 10, there is no
  * way to reach it.
  */
-interface Lintcode246BinaryTreePathSumII {
-  List<List<Integer>> binaryTreePathSum2(TreeNode root, int target);
+final class Lintcode246BinaryTreePathSumII {
 
-  Lintcode246BinaryTreePathSumII Traversal = new Lintcode246BinaryTreePathSumII() {
+  interface Algorithm {
+
+    List<List<Integer>> binaryTreePathSum2(TreeNode root, int target);
+  }
+
+  static Algorithm Traversal = new Algorithm() {
     @Override
     public List<List<Integer>> binaryTreePathSum2(TreeNode root, int target) {
       return null;

@@ -1,11 +1,9 @@
 package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
 
+import static com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode091DecodeWays.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode091DecodeWays.Algorithm;
-import com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode091DecodeWays.SubmittedBackward;
-import com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode091DecodeWays.Forward;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class LeetCode091DecodeWaysTest {
 
-  private static Stream<Arguments> generateTestParametersStream()  {
+  private static Stream<Arguments> generateTestParametersStream() {
     return Stream.of(
         arguments(/* s= */ "20",/* expected= */ 1),
         arguments(/* s= */ "12",/* expected= */ 2),
@@ -25,7 +23,7 @@ class LeetCode091DecodeWaysTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void numDecodings_method1(String s, int expected) {
-    Algorithm algorithm = new SubmittedBackward();
+    Algorithm algorithm = SubmittedBackward;
 
     assertThat(algorithm.numDecodings(s)).isEqualTo(expected);
   }
@@ -33,7 +31,7 @@ class LeetCode091DecodeWaysTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void numDecodings_method2(String s, int expected) {
-    Algorithm algorithm = new Forward();
+    Algorithm algorithm = Forward;
 
     assertThat(algorithm.numDecodings(s)).isEqualTo(expected);
   }

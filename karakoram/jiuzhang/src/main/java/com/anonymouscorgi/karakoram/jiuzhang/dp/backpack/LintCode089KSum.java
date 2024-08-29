@@ -19,7 +19,7 @@ final class LintCode089KSum {
     int kSum(int[] A, int k, int target);
   }
 
-  static final class Method implements Algorithm {
+  static Algorithm Method = new Algorithm() {
 
     @Override
     public int kSum(int[] A, int k, int target) {
@@ -42,5 +42,5 @@ final class LintCode089KSum {
       }
       return dp[k][target];
     }
-  }
+  };
 }

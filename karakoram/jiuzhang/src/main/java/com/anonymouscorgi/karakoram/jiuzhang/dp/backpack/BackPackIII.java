@@ -10,7 +10,7 @@ final class BackPackIII {
   }
 
   //Method1: Loop from items first.
-  static final class Method1 implements Algorithm {
+  static Algorithm Method1 = new Algorithm() {
 
     @Override
     public int backPackIII(int capacity, int[] weights, int[] values) {
@@ -26,10 +26,10 @@ final class BackPackIII {
       }
       return maxValueAtCapacity[capacity];
     }
-  }
+  };
 
   //Method2: Loop from weight first.
-  static final class Method2 implements Algorithm {
+  static Algorithm Method2 = new Algorithm() {
 
     @Override
     public int backPackIII(int capacity, int[] weights, int[] values) {
@@ -47,5 +47,5 @@ final class BackPackIII {
       }
       return maxValueAtCapacity[capacity];
     }
-  }
+  };
 }

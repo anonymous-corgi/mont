@@ -23,11 +23,14 @@ import java.util.Set;
  * <p>
  * Input: n = 2, prerequisites = [[1,0],[0,1]] Output: false
  */
-interface LintCode615CourseSchedule {
+final class LintCode615CourseSchedule {
 
-  boolean canFinish(int numCourses, int[][] prerequisites);
+  interface Algorithm {
 
-  LintCode615CourseSchedule UniqueTopologicalOrdering_Method = new LintCode615CourseSchedule() {
+    boolean canFinish(int numCourses, int[][] prerequisites);
+  }
+
+  static Algorithm UniqueTopologicalOrdering_Method = new Algorithm() {
 
     @Override
     public boolean canFinish(int numCourses, int[][] prerequisites) {
