@@ -16,6 +16,8 @@
 
 + ##### [LintCode 458 Last Position Of Target](../../../../../../../../../karakoram/kb/kb0400/src/main/java/com/anonymouscorgi/karakoram/kb0400/LintCode458LastPositionOfTarget.java)
 
++ ##### [LeetCode 034 Find First and Last Position of Elementin Sorted Array](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LeetCode034FindFirstandLastPositionofElementinSortedArray.java)
+
 ### Chapter 3 X
 
 #### 3.1 Divide Conquer
