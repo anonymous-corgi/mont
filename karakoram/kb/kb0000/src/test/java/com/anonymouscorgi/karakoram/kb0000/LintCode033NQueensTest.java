@@ -1,6 +1,6 @@
 package com.anonymouscorgi.karakoram.kb0000;
 
-import static com.anonymouscorgi.karakoram.kb0000.LintCode33NQueens.*;
+import static com.anonymouscorgi.karakoram.kb0000.LintCode033NQueens.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class LintCode33NQueensTest {
+class LintCode033NQueensTest {
 
   private static Stream<Arguments> generateTestParametersStream() {
     return Stream.of(
