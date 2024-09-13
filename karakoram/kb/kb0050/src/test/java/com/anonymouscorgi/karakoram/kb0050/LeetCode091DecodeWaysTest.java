@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
+package com.anonymouscorgi.karakoram.kb0050;
 
-import static com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode091DecodeWays.*;
+import static com.anonymouscorgi.karakoram.kb0050.LeetCode091DecodeWays.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -23,16 +23,6 @@ class LeetCode091DecodeWaysTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void numDecodings_method1(String s, int expected) {
-    Algorithm algorithm = SubmittedBackward;
-
-    assertThat(algorithm.numDecodings(s)).isEqualTo(expected);
-  }
-
-  @ParameterizedTest
-  @MethodSource("generateTestParametersStream")
-  void numDecodings_method2(String s, int expected) {
-    Algorithm algorithm = Forward;
-
-    assertThat(algorithm.numDecodings(s)).isEqualTo(expected);
+    assertThat(SubmittedBackward.numDecodings(s)).isEqualTo(expected);
   }
 }

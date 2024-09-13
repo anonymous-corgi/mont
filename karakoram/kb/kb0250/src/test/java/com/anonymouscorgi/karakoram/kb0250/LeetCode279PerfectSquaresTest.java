@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
+package com.anonymouscorgi.karakoram.kb0250;
 
-import static com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange.LeetCode279PerfectSquares.*;
+import static com.anonymouscorgi.karakoram.kb0250.LeetCode279PerfectSquares.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -21,8 +21,6 @@ class LeetCode279PerfectSquaresTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void numSquares(int n, int expected) {
-    Algorithm algorithm = SubmittedMethod1;
-
-    assertThat(algorithm.numSquares(n)).isEqualTo(expected);
+    assertThat(SubmittedMethod1.numSquares(n)).isEqualTo(expected);
   }
 }

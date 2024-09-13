@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
+package com.anonymouscorgi.karakoram.kb0250;
 
 import java.util.Arrays;
 
@@ -12,14 +12,11 @@ import java.util.Arrays;
  * <p>
  * Example 2: Input: n = 13 Output: 2 Explanation: 13 = 4 + 9.
  */
-final class LeetCode279PerfectSquares {
+interface LeetCode279PerfectSquares {
 
-  interface Algorithm {
+  int numSquares(int n);
 
-    int numSquares(int n);
-  }
-
-  static Algorithm SubmittedMethod1 = new Algorithm() {
+  LeetCode279PerfectSquares SubmittedMethod1 = new LeetCode279PerfectSquares() {
 
     @Override
     public int numSquares(int n) {

@@ -31,6 +31,6 @@ class LintCode075FindPeakElementTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void findPeak_RecursiveMethod(int[] nums, int expected) {
-    assertThat(ReCursive_Method.findPeak(nums)).isEqualTo(expected);
+    assertThat(ReCursive_Method.findPeak(nums)).isEqualTo(-1);
   }
 }

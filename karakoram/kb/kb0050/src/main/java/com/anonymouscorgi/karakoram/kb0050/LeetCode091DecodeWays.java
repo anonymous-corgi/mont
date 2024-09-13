@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
+package com.anonymouscorgi.karakoram.kb0050;
 
 /**
  * LeetCode 91. Decode Ways Medium
@@ -13,14 +13,11 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
  * Example 2: Input: "226" Output: 3 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6),
  * or "BBF" (2 2 6).
  */
-final class LeetCode091DecodeWays {
+interface LeetCode091DecodeWays {
 
-  interface Algorithm {
+  int numDecodings(String s);
 
-    int numDecodings(String s);
-  }
-
-  static Algorithm SubmittedBackward = new Algorithm() {
+  LeetCode091DecodeWays SubmittedBackward = new LeetCode091DecodeWays() {
 
     @Override
     public int numDecodings(String s) {
@@ -42,33 +39,6 @@ final class LeetCode091DecodeWays {
         dp[i] += dp[i + 1];
       }
       return dp[0];
-    }
-  };
-
-
-  static Algorithm Forward = new Algorithm() {
-
-    @Override
-    public int numDecodings(String s) {
-      if (s == null || s.isEmpty()) {
-        return 0;
-      }
-      int[] dp = new int[s.length() + 1];
-      dp[0] = 1;
-      dp[1] = s.charAt(0) == '0' ? 0 : 1;
-      for (int i = 2; i < dp.length; i++) {
-        char cur = s.charAt(i - 1);
-        char pre = s.charAt(i - 2);
-
-        if (pre <= '1' || (pre == '2' && cur < '7')) {
-          dp[i] += dp[i - 2];
-        }
-        if (cur != '0') {
-          dp[i] += dp[i - 1];
-        }
-      }
-
-      return dp[s.length()];
     }
   };
 }

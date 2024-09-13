@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.coinschange;
+package com.anonymouscorgi.karakoram.kb0600;
 
 /**
  * LeetCode 639. Decode Ways II

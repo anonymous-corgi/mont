@@ -57,6 +57,14 @@ Loop items firstly: Avoids Permutations.
 
 + [LeetCode 322. Coin Change](../../../../../../../../../karakoram/kb/kb0300/src/main/java/com/anonymouscorgi/karakoram/kb0300/LeetCode322CoinChange.java)
 + [LeetCode 518. Coin Change 2](../../../../../../../../../karakoram/kb/kb0500/src/main/java/com/anonymouscorgi/karakoram/kb0500/LeetCode518CoinChange2.java)
++ [LeetCode 279. Perfect Squares](../../../../../../../../../karakoram/kb/kb0250/src/main/java/com/anonymouscorgi/karakoram/kb0250/LeetCode279PerfectSquares.java)
+
++ [LeetCode 091. DecodeWays](../../../../../../../../../karakoram/kb/kb0050/src/main/java/com/anonymouscorgi/karakoram/kb0050/LeetCode091DecodeWays.java)
++ [LeetCode 639. DecodeWays II](../../../../../../../../../karakoram/kb/kb0600/src/main/java/com/anonymouscorgi/karakoram/kb0600/LeetCode639DecodeWaysII.java)
+
+#### Two Arrays
+
++ [LeetCode 010 Regular Expression Matching](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LeetCode010RegularExpressionMatching.java)
 
 ### Two Range(Two Subsequence)
 
