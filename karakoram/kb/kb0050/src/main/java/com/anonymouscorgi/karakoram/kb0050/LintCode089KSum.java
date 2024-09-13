@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
+package com.anonymouscorgi.karakoram.kb0050;
 
 /**
  * Description Given n distinct positive integers, integer k (k <= n) and a number target.
@@ -12,14 +12,11 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
  * <p>
  * Return 2.
  */
-final class LintCode089KSum {
+interface LintCode089KSum {
 
-  interface Algorithm {
+  int kSum(int[] A, int k, int target);
 
-    int kSum(int[] A, int k, int target);
-  }
-
-  static Algorithm Method = new Algorithm() {
+  LintCode089KSum Method = new LintCode089KSum() {
 
     @Override
     public int kSum(int[] A, int k, int target) {

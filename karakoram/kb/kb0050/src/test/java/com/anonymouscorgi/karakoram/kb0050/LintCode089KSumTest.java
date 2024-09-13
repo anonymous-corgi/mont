@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp.backpack;
+package com.anonymouscorgi.karakoram.kb0050;
 
-import static com.anonymouscorgi.karakoram.jiuzhang.dp.backpack.LintCode089KSum.*;
+import static com.anonymouscorgi.karakoram.kb0050.LintCode089KSum.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -23,8 +23,6 @@ class LintCode089KSumTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void kSum_method1(int[] A, int k, int target, int expected) {
-    Algorithm algorithms = Method;
-
-    assertThat(algorithms.kSum(A, k, target)).isEqualTo(expected);
+    assertThat(Method.kSum(A, k, target)).isEqualTo(expected);
   }
 }
