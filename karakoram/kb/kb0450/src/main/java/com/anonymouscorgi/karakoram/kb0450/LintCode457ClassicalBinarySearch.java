@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.kb0400;
+package com.anonymouscorgi.karakoram.kb0450;
 
 interface LintCode457ClassicalBinarySearch {
 

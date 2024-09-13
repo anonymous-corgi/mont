@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.kb0450;
+package com.anonymouscorgi.karakoram.kb0400;
 
 public class Main {
 

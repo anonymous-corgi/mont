@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.kb0400;
+package com.anonymouscorgi.karakoram.kb0450;
 
-import static com.anonymouscorgi.karakoram.kb0400.LintCode457ClassicalBinarySearch.*;
+import static com.anonymouscorgi.karakoram.kb0450.LintCode457ClassicalBinarySearch.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
