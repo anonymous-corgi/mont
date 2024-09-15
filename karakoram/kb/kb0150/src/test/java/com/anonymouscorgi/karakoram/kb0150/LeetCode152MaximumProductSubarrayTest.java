@@ -1,10 +1,9 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp;
+package com.anonymouscorgi.karakoram.kb0150;
 
+import static com.anonymouscorgi.karakoram.kb0150.LeetCode152MaximumProductSubarray.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import com.anonymouscorgi.karakoram.jiuzhang.dp.LeetCode152MaximumProductSubarray.Algorithm;
-import com.anonymouscorgi.karakoram.jiuzhang.dp.LeetCode152MaximumProductSubarray.Normal;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -22,8 +21,6 @@ class LeetCode152MaximumProductSubarrayTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void maxProduct(int[] nums, int expected) {
-    Algorithm algorithm = new Normal();
-
-    assertThat(algorithm.maxProduct(nums)).isEqualTo(expected);
+    assertThat(Method.maxProduct(nums)).isEqualTo(expected);
   }
 }

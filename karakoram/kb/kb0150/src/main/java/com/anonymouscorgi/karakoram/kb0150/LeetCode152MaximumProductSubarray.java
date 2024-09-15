@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp;
+package com.anonymouscorgi.karakoram.kb0150;
 
 /**
  * Given an integer array nums, find a subarray that has the largest product, and return the
@@ -16,14 +16,11 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp;
  * 1 <= nums.length <= 2 * 104 -10 <= nums[i] <= 10 The product of any subarray of nums is
  * guaranteed to fit in a 32-bit integer.
  */
-final class LeetCode152MaximumProductSubarray {
+interface LeetCode152MaximumProductSubarray {
 
-  interface Algorithm {
+  int maxProduct(int[] nums);
 
-    int maxProduct(int[] nums);
-  }
-
-  static class Normal implements Algorithm {
+  LeetCode152MaximumProductSubarray Method = new LeetCode152MaximumProductSubarray() {
 
     @Override
     public int maxProduct(int[] nums) {
@@ -45,5 +42,5 @@ final class LeetCode152MaximumProductSubarray {
       }
       return result;
     }
-  }
+  };
 }
