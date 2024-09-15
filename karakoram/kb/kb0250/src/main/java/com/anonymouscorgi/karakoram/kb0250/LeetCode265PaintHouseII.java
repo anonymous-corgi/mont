@@ -1,4 +1,4 @@
-package com.anonymouscorgi.karakoram.jiuzhang.dp;
+package com.anonymouscorgi.karakoram.kb0250;
 
 /**
  * There are a row of n houses, each house can be  painted with one of the k colors. The cost of
@@ -17,14 +17,11 @@ package com.anonymouscorgi.karakoram.jiuzhang.dp;
  * color 2. Minimum cost: 1 + 4 = 5; Or paint house 0 into color 2, paint house 1 into color 0.
  * Minimum cost: 3 + 2 = 5.
  */
-final class LeetCode265PaintHouseII {
+interface LeetCode265PaintHouseII {
 
-  interface Algorithm {
+  int minCostII(int[][] costs);
 
-    int minCostII(int[][] costs);
-  }
-
-  static final class DP implements Algorithm {
+  LeetCode265PaintHouseII DP = new LeetCode265PaintHouseII() {
 
     @Override
     public int minCostII(int[][] costs) {
@@ -67,5 +64,5 @@ final class LeetCode265PaintHouseII {
 
       return prevCost[minCostPrevHouse1];
     }
-  }
+  };
 }

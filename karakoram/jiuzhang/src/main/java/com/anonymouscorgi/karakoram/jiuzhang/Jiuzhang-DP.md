@@ -66,6 +66,11 @@ Loop items firstly: Avoids Permutations.
 
 + [LeetCode 010 Regular Expression Matching](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LeetCode010RegularExpressionMatching.java)
 
+#### Paint House
+
++ [LeetCode 256. Paint House](../../../../../../../../../karakoram/kb/kb0250/src/main/java/com/anonymouscorgi/karakoram/kb0250/LeetCode256PaintHouse.java)
++ [LeetCode 265. Paint House II](../../../../../../../../../karakoram/kb/kb0250/src/main/java/com/anonymouscorgi/karakoram/kb0250/LeetCode265PaintHouseII.java)
+
 ### Two Range(Two Subsequence)
 
 + [LeetCode 072. Edit Distance](/src/leetcode/p051to100/LeetCode072EditDistance.java)

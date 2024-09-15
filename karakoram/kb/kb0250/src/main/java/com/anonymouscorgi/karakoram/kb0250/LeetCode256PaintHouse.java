@@ -16,14 +16,11 @@ package com.anonymouscorgi.karakoram.kb0250;
  * Example: Input: [[17,2,17],[16,16,5],[14,3,19]] Output: 10 Explanation: Paint house 0 into blue,
  * paint house 1 into green, paint house 2 into blue. Minimum cost: 2 + 5 + 3 = 10.
  */
-final class LeetCode256PaintHouse {
+interface LeetCode256PaintHouse {
 
-  interface Algorithm {
+  int minCost(int[][] costs);
 
-    int minCost(int[][] costs);
-  }
-
-  static final class DP implements Algorithm {
+  LeetCode256PaintHouse DP = new LeetCode256PaintHouse() {
 
     @Override
     public int minCost(int[][] costs) {
@@ -42,5 +39,5 @@ final class LeetCode256PaintHouse {
       }
       return Math.min(curMax[0], Math.min(curMax[1], curMax[2]));
     }
-  }
+  };
 }
