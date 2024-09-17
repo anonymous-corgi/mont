@@ -1,6 +1,6 @@
 # Jiuzhang - Normal
 
-+ ##### [](../../../../../../../../../)
++ [](../../../../../../../../../)
 
 ### Chapter 2 - Binary Search:
 
@@ -46,9 +46,14 @@ Lintcode246BinaryTreePathSumII
 
 #####  [LeetCode 261. Graph Valid Tree](/src/leetcode/p251to300/LeetCode261GraphValidTree.java)
 
-### Chapter 5 - Breadth First Search
+### Chapter 5 - Breadth First Search & Depth First Search
 
-#### 5.1 Graph
+#### 5.1 DFS
+
++ [LintCode 015. Permutations](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LintCode015Permutations.java)
++ [LintCode 016. Permutations II](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LintCode016PermutationsII.java)
+
+#### 5.2 Graph
 
 + ##### [LeetCode 33. N-Queens](../../../../../../../../../karakoram/kb/kb0000/src/main/java/com/anonymouscorgi/karakoram/kb0000/LintCode33NQueens.java)
 
