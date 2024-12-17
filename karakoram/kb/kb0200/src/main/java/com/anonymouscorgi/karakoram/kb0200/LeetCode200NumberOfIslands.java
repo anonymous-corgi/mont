@@ -19,15 +19,11 @@ import java.util.Arrays;
  *
  * m == grid.length n == grid[i].length 1 <= m, n <= 300 grid[i][j] is '0' or '1'.
  */
-final class LeetCode200NumberOfIslands {
+interface LeetCode200NumberOfIslands {
 
-  interface Algorithm {
+  int numIslands(boolean[][] grid);
 
-    int numIslands(boolean[][] grid);
-  }
-
-  static final class UnionFind implements Algorithm {
-
+  LeetCode200NumberOfIslands UnionFind = new LeetCode200NumberOfIslands() {
 
     @Override
     public int numIslands(boolean[][] grid) {
@@ -64,7 +60,7 @@ final class LeetCode200NumberOfIslands {
       return count;
     }
 
-    private boolean connect(int[] ufp, int from, int to) {
+    private static boolean connect(int[] ufp, int from, int to) {
       int root_to = find(ufp, to);
       int root_from = find(ufp, from);
       if (root_from != root_to) {
@@ -75,8 +71,8 @@ final class LeetCode200NumberOfIslands {
       }
     }
 
-    private int find(int[] ufp, int num) {
+    private static int find(int[] ufp, int num) {
       return ufp[num] == num ? num : (ufp[num] = find(ufp, ufp[num]));
     }
-  }
+  };
 }

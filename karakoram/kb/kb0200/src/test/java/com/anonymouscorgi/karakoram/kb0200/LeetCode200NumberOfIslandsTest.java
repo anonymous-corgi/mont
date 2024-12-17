@@ -1,10 +1,9 @@
 package com.anonymouscorgi.karakoram.kb0200;
 
+import static com.anonymouscorgi.karakoram.kb0200.LeetCode200NumberOfIslands.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import com.anonymouscorgi.karakoram.kb0200.LeetCode200NumberOfIslands.Algorithm;
-import com.anonymouscorgi.karakoram.kb0200.LeetCode200NumberOfIslands.UnionFind;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -37,8 +36,6 @@ class LeetCode200NumberOfIslandsTest {
   @ParameterizedTest
   @MethodSource("generateTestParametersStream")
   void numIslands(boolean[][] grip, int expected) {
-    Algorithm algorithm = new UnionFind();
-
-    assertThat(algorithm.numIslands(grip)).isEqualTo(expected);
+    assertThat(UnionFind.numIslands(grip)).isEqualTo(expected);
   }
 }
