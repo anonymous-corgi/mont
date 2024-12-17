@@ -17,9 +17,9 @@ public class LeetCode199BinaryTreeRightSideView {
     private static final class DFS implements Method {
 
         public List<Integer> rightSideView(TreeNode root) {
-            List<Integer> res = new ArrayList<>();
-            rightSideView(root, 0, res);
-            return res;
+            List<Integer> result = new ArrayList<>();
+            rightSideView(root, 0, result);
+            return result;
         }
 
         private void rightSideView(TreeNode root, int depth, List<Integer> res) {
