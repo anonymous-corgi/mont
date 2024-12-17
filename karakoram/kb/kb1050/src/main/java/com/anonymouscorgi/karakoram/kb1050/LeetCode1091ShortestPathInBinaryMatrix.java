@@ -24,7 +24,8 @@ interface LeetCode1091ShortestPathInBinaryMatrix {
   @Accepted
   LeetCode1091ShortestPathInBinaryMatrix Method = new LeetCode1091ShortestPathInBinaryMatrix() {
 
-    private static int[][] DIRECTIONS = {{0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1},
+    private static int[][] DIRECTIONS = {{-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1},
+        {-1, 1},
         {-1, 0}};
 
     @Override
@@ -63,3 +64,10 @@ interface LeetCode1091ShortestPathInBinaryMatrix {
     }
   };
 }
+
+//[[0,1,1,0,0,0],
+// [0,1,0,1,1,0],
+// [0,1,1,0,1,0],
+// [0,0,0,1,1,0],
+// [1,1,1,1,1,0],
+// [1,1,1,1,1,0]]
