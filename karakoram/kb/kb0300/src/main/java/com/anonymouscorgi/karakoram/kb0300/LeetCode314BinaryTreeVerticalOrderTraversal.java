@@ -6,15 +6,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * LeetCode 314. Binary Tree Vertical Order Traversal
- *
+ * <p>
  * Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to
  * bottom, column by column).
- *
+ * <p>
  * If two nodes are in the same row and column, the order should be from left to right.
+ * <p>
+ * Similar to
+ * {@link com.anonymouscorgi.karakoram.kb0950.LeetCode987VerticalOrderTraversalOfABinaryTree}
  */
 interface LeetCode314BinaryTreeVerticalOrderTraversal {
 
@@ -28,14 +30,13 @@ interface LeetCode314BinaryTreeVerticalOrderTraversal {
         return Collections.emptyList();
       }
 
-      Map<Integer, List<Integer>> resultMap = new HashMap<>();
+      HashMap<Integer, List<Integer>> resultMap = new HashMap<>();
       LinkedList<Task> taskQueue = new LinkedList<>();
       taskQueue.offer(new Task(0, root));
       while (!taskQueue.isEmpty()) {
         Task task = taskQueue.poll();
-        List<Integer> columnResult = resultMap.getOrDefault(task.column, new ArrayList<>());
+        List<Integer> columnResult = resultMap.computeIfAbsent(task.column, k -> new ArrayList<>());
         columnResult.add(task.treeNode.val);
-        resultMap.put(task.column, columnResult);
         if (task.treeNode.left != null) {
           taskQueue.offer(new Task(task.column - 1, task.treeNode.left));
         }
