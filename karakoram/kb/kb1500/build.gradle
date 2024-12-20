@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+
+group 'com.anonymouscorgi.karakoram.kb1500'
+version 'unspecified'
+
+apply from: '../../dependencies.gradle'
