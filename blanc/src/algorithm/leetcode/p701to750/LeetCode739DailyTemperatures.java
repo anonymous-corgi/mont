@@ -3,7 +3,7 @@ package algorithm.leetcode.p701to750;
 import java.util.Stack;
 
 public class LeetCode739DailyTemperatures {
-  
+
   public int[] dailyTemperatures(int[] temperatures) {
     int[] res = new int[temperatures.length];
     Stack<Integer> stack = new Stack<>();
@@ -18,9 +18,4 @@ public class LeetCode739DailyTemperatures {
     }
     return res;
   }
-
-  public static void main(String[] args) {
-
-  }
-
 }
