@@ -1,9 +1,14 @@
 package com.anonymouscorgi.karakoram.kb0900
 
+import com.anonymouscorgi.karakoram.annotation.Accepted
+import com.anonymouscorgi.karakoram.annotation.Medium
+
+@Medium
 interface LeetCode930BinarySubarraysWithSum {
 
     fun numSubarraysWithSum(nums: IntArray, goal: Int): Int
 
+    @Accepted
     object SUM_MAP : LeetCode930BinarySubarraysWithSum {
 
         override fun numSubarraysWithSum(nums: IntArray, goal: Int): Int {
