@@ -17,7 +17,7 @@ import com.anonymouscorgi.karakoram.annotation.Medium
  * You must write an algorithm that runs in O(log n) time.
  */
 @Medium
-interface LeetCode153FindMinimumInRotatedSortedArray {
+internal interface LeetCode153FindMinimumInRotatedSortedArray {
 
     fun findMin(nums: IntArray): Int;
 

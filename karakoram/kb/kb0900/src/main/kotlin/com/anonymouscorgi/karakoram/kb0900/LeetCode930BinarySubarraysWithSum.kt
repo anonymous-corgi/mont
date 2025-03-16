@@ -4,7 +4,7 @@ import com.anonymouscorgi.karakoram.annotation.Accepted
 import com.anonymouscorgi.karakoram.annotation.Medium
 
 @Medium
-interface LeetCode930BinarySubarraysWithSum {
+internal interface LeetCode930BinarySubarraysWithSum {
 
     fun numSubarraysWithSum(nums: IntArray, goal: Int): Int
 

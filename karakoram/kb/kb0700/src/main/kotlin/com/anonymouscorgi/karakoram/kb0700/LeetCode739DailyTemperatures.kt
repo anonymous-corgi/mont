@@ -4,7 +4,7 @@ import com.anonymouscorgi.karakoram.annotation.Accepted
 import com.anonymouscorgi.karakoram.annotation.Medium
 
 @Medium
-interface LeetCode739DailyTemperatures {
+internal interface LeetCode739DailyTemperatures {
 
     fun dailyTemperatures(temperatures: IntArray): IntArray
 

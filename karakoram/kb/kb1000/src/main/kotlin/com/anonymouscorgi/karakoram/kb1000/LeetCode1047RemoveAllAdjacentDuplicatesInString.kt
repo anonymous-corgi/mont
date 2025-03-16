@@ -4,7 +4,7 @@ import com.anonymouscorgi.karakoram.annotation.Accepted
 import com.anonymouscorgi.karakoram.annotation.Easy
 
 @Easy
-interface LeetCode1047RemoveAllAdjacentDuplicatesInString {
+internal interface LeetCode1047RemoveAllAdjacentDuplicatesInString {
 
     fun removeDuplicates(s: String): String
 

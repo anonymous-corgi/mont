@@ -5,7 +5,7 @@ import com.anonymouscorgi.karakoram.annotation.Medium
 import com.anonymouscorgi.karakoram.base.TreeNode
 
 @Medium
-interface LeetCode450DeleteNodeInABST {
+internal interface LeetCode450DeleteNodeInABST {
 
     fun deleteNode(root: TreeNode?, key: Int): TreeNode?
 
