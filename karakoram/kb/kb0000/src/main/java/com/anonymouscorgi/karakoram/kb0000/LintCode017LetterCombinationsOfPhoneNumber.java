@@ -10,39 +10,37 @@ interface LintCode017LetterCombinationsOfPhoneNumber {
 
   String[] DIAL_MAP = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-  LintCode017LetterCombinationsOfPhoneNumber DFS = new LintCode017LetterCombinationsOfPhoneNumber() {
+  LintCode017LetterCombinationsOfPhoneNumber DFS =
+      new LintCode017LetterCombinationsOfPhoneNumber() {
 
-    @Override
-    public List<String> letterCombinations(String digits) {
-      if (digits == null || digits.length() == 0) {
-        return Collections.emptyList();
-      }
-      List<String> results = new ArrayList<>();
-      int[] convertedDigits = new int[digits.length()];
-      for (int i = 0, len = digits.length(); i < len; i++) {
-        convertedDigits[i] = Integer.parseInt(digits.substring(i, i + 1));
-      }
+        @Override
+        public List<String> letterCombinations(String digits) {
+          if (digits == null || digits.length() == 0) {
+            return Collections.emptyList();
+          }
+          List<String> results = new ArrayList<>();
+          int[] convertedDigits = new int[digits.length()];
+          for (int i = 0, len = digits.length(); i < len; i++) {
+            convertedDigits[i] = Integer.parseInt(digits.substring(i, i + 1));
+          }
 
-      dfs(convertedDigits, 0, new StringBuffer(), results);
-      return results;
-    }
+          dfs(convertedDigits, 0, new StringBuffer(), results);
+          return results;
+        }
 
-    private static void dfs(
-        int[] digits,
-        int digitIndex,
-        StringBuffer resultBuilder,
-        List<String> results) {
-      if (digitIndex == digits.length) {
-        results.add(resultBuilder.toString());
-        return;
-      }
+        private void dfs(
+            int[] digits, int digitIndex, StringBuffer resultBuilder, List<String> results) {
+          if (digitIndex == digits.length) {
+            results.add(resultBuilder.toString());
+            return;
+          }
 
-      String dial = DIAL_MAP[digits[digitIndex]];
-      for (int i = 0; i < dial.length(); i++) {
-        resultBuilder.append(dial.charAt(i));
-        dfs(digits, digitIndex + 1, resultBuilder, results);
-        resultBuilder.deleteCharAt(resultBuilder.length() - 1);
-      }
-    }
-  };
+          String dial = DIAL_MAP[digits[digitIndex]];
+          for (int i = 0; i < dial.length(); i++) {
+            resultBuilder.append(dial.charAt(i));
+            dfs(digits, digitIndex + 1, resultBuilder, results);
+            resultBuilder.deleteCharAt(resultBuilder.length() - 1);
+          }
+        }
+      };
 }

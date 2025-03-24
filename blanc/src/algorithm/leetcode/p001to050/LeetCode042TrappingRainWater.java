@@ -1,11 +1,5 @@
 package algorithm.leetcode.p001to050;
 
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-@SuppressWarnings("unused")
 public class LeetCode042TrappingRainWater {
 
     private interface Method {
@@ -65,27 +59,5 @@ public class LeetCode042TrappingRainWater {
             }
             return total;
         }
-    }
-
-    private static Method getMethod() {
-        return new Candy();
-    }
-
-    private void test(int[] heights, int expected) {
-        Method method = getMethod();
-        int actual = method.trap(heights);
-        assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void testcase1() {
-        int[] heights = {1, 0, 1};
-        test(heights, 1);
-    }
-
-    @Test
-    public void testcase2() {
-        int[] heights = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-        test(heights, 6);
     }
 }
