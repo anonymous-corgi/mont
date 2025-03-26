@@ -29,7 +29,7 @@ interface LeetCode138CopyListWithRandomPointer {
       return copyRandomList(head, new HashMap<>());
     }
 
-    private static Node copyRandomList(Node head, HashMap<Node, Node> cache) {
+    private Node copyRandomList(Node head, HashMap<Node, Node> cache) {
       if (head == null) {
         return null;
       }

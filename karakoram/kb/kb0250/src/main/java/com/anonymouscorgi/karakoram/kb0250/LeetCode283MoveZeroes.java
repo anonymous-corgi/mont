@@ -42,7 +42,7 @@ interface LeetCode283MoveZeroes {
       }
     }
 
-    private static void swap(int[] nums, int a, int b) {
+    private void swap(int[] nums, int a, int b) {
       if (a != b) {
         int temp = nums[a];
         nums[a] = nums[b];

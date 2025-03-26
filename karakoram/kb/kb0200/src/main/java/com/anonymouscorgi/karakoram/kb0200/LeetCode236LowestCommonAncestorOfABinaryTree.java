@@ -12,7 +12,7 @@ interface LeetCode236LowestCommonAncestorOfABinaryTree {
       return lowestCommonAncestor(root, p, q, new int[]{0});
     }
 
-    private static TreeNode lowestCommonAncestor(TreeNode node, TreeNode p, TreeNode q,
+    private TreeNode lowestCommonAncestor(TreeNode node, TreeNode p, TreeNode q,
         int[] hasNode) {
       if (node == null) {
         return null;

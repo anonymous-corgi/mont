@@ -70,7 +70,7 @@ interface LeetCode827MakingALargeIsland {
       return maxSize;
     }
 
-    private static void connect(int[] ufp, int[] sizes, int a, int b) {
+    private void connect(int[] ufp, int[] sizes, int a, int b) {
       int rootA = find(ufp, a);
       int rootB = find(ufp, b);
       if (rootA < rootB) {
@@ -84,7 +84,7 @@ interface LeetCode827MakingALargeIsland {
       }
     }
 
-    private static int find(int[] ufp, int num) {
+    private int find(int[] ufp, int num) {
       return ufp[num] == num ? num : (ufp[num] = find(ufp, ufp[num]));
     }
   };

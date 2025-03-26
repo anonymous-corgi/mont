@@ -60,7 +60,7 @@ interface LeetCode200NumberOfIslands {
       return count;
     }
 
-    private static boolean connect(int[] ufp, int from, int to) {
+    private boolean connect(int[] ufp, int from, int to) {
       int root_to = find(ufp, to);
       int root_from = find(ufp, from);
       if (root_from != root_to) {
@@ -71,7 +71,7 @@ interface LeetCode200NumberOfIslands {
       }
     }
 
-    private static int find(int[] ufp, int num) {
+    private int find(int[] ufp, int num) {
       return ufp[num] == num ? num : (ufp[num] = find(ufp, ufp[num]));
     }
   };

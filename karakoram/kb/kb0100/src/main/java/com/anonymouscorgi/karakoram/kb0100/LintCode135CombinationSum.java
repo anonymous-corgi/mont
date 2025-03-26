@@ -36,7 +36,7 @@ interface LintCode135CombinationSum {
       return results;
     }
 
-    private static void findCombination(
+    private void findCombination(
         int[] nums,
         int target,
         int startIndex,

@@ -27,7 +27,7 @@ interface LeetCode179LargestNumber {
       return sb.toString();
     }
 
-    private static int compare(String a, String b) {
+    private int compare(String a, String b) {
       for (int i = 0, len = a.length() + b.length(); i < len; i++) {
         char c1 = i < a.length() ? a.charAt(i) : b.charAt(i - a.length());
         char c2 = i < b.length() ? b.charAt(i) : a.charAt(i - b.length());

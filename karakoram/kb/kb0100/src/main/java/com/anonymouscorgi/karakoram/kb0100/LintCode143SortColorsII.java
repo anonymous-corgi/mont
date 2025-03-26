@@ -23,7 +23,7 @@ interface LintCode143SortColorsII {
       sortColors(colors, 1, k, 0, colors.length - 1);
     }
 
-    private static void sortColors(int[] colors, int kStart, int kEnd, int startIndex,
+    private void sortColors(int[] colors, int kStart, int kEnd, int startIndex,
         int endIndex) {
       if (kStart >= kEnd || startIndex >= endIndex) {
         return;
@@ -49,7 +49,7 @@ interface LintCode143SortColorsII {
       sortColors(colors, k + 1, kEnd, highNumIndex + 1, endIndex);
     }
 
-    private static void swap(int[] colors, int a, int b) {
+    private void swap(int[] colors, int a, int b) {
       if (a == b) {
         return;
       }

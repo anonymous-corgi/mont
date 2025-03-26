@@ -37,7 +37,7 @@ interface LeetCode215KthLargestElementInAnArray {
       return quickSelect(nums, 0, nums.length - 1, k - 1);
     }
 
-    private static int quickSelect(int[] nums, int start, int end, int targetIndex) {
+    private int quickSelect(int[] nums, int start, int end, int targetIndex) {
       if (start == end) {
         return nums[start];
       }
@@ -67,7 +67,7 @@ interface LeetCode215KthLargestElementInAnArray {
       }
     }
 
-    private static void swap(int[] nums, int a, int b) {
+    private void swap(int[] nums, int a, int b) {
       if (a != b) {
         int temp = nums[a];
         nums[a] = nums[b];

@@ -21,13 +21,13 @@ interface LintCode136PalindoromePartitioning {
       return results;
     }
 
-    private static void searcher(
+    private void searcher(
         String s,
         int startIndex,
         List<String> resultBuilder,
         List<List<String>> results) {
       if (startIndex >= s.length()) {
-        results.add(resultBuilder);
+        results.add(new ArrayList<>(resultBuilder));
         return;
       }
 
@@ -41,7 +41,7 @@ interface LintCode136PalindoromePartitioning {
       }
     }
 
-    private static boolean isPalindrome(String words) {
+    private boolean isPalindrome(String words) {
       int size = words.length();
       for (int i = 0; i < (size / 2); i++) {
         if (words.charAt(i) != words.charAt(size - 1 - i)) {

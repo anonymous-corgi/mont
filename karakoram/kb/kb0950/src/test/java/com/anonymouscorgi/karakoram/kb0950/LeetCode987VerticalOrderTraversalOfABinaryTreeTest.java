@@ -27,7 +27,7 @@ class LeetCode987VerticalOrderTraversalOfABinaryTreeTest {
             /* root= */TreeNodeUtil.deserialize(
                 "[1,2,3,4,10,9,11,null,5,null,null,null,null,null,null,null,6]"),
             /* expected= */
-            List.of(List.of(4), List.of(2, 5), List.of(1, 10, 9, 6), List.of(3), List.of(11))),
+            List.of(List.of(4), List.of(2, 5), List.of(1, 9, 10, 6), List.of(3), List.of(11))),
         arguments(
             /* root= */TreeNodeUtil.deserialize(
                 "[3,9,20,null,null,15,7]"),

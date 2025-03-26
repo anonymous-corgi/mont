@@ -23,7 +23,7 @@ interface LintCode065MedianOfTwoSortedArrays {
       }
     }
 
-    private static double findKSmallestInSortedArrays(int[] a, int[] b, int k) {
+    private double findKSmallestInSortedArrays(int[] a, int[] b, int k) {
       int indexStartA = 0;
       int lenA = a.length;
       int indexStartB = 0;

@@ -40,7 +40,7 @@ interface LintCode148SortColors {
       }
     }
 
-    private static void swap(int[] nums, int a, int b) {
+    private void swap(int[] nums, int a, int b) {
       if (a == b) {
         return;
       }
