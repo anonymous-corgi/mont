@@ -1,6 +1,6 @@
-package com.anonymouscorgi.karakoram.kb0650;
+package com.anonymouscorgi.karakoram.kb0550
 
-import com.anonymouscorgi.karakoram.base.ListNode;
+import com.anonymouscorgi.karakoram.base.ListNode
 
 /**
  * LintCode 599. Insert into a Cyclic Sorted List
@@ -9,36 +9,35 @@ import com.anonymouscorgi.karakoram.base.ListNode;
  * into the list such that it remains a cyclic sorted list. The given node can be any single node in
  * the list. Return the inserted new node.
  */
-interface LintCode599InsertIntoACyclicSortedList {
+internal interface LintCode599InsertIntoACyclicSortedList {
+  fun insert(node: ListNode, x: Int): ListNode
 
-  ListNode insert(ListNode node, int x);
-
-  LintCode599InsertIntoACyclicSortedList Method = new LintCode599InsertIntoACyclicSortedList() {
-    @Override
-    public ListNode insert(ListNode node, int x) {
-      ListNode cursor = node;
-      ListNode newNode = new ListNode(x);
+  object Method : LintCode599InsertIntoACyclicSortedList {
+    override fun insert(node: ListNode, x: Int): ListNode {
+      var cursor: ListNode? = node
+      val newNode = ListNode(x)
       if (cursor == null) {
-        newNode.next = newNode;
+        newNode.next = newNode
       } else {
         do {
           // When node and node.next are ascending.
-          if (cursor.val <= x && x <= cursor.next.val) {
-            break;
+          if (cursor!!.`val` <= x && x <= cursor.next.`val`) {
+            break
           }
           // When node is max and node.next is min.
-          if (cursor.val > cursor.next.val) {
+          if (cursor.`val` > cursor.next.`val`) {
             // When x is smaller than min or x is larger than max.
-            if (cursor.val <= x || x <= cursor.next.val) {
-              break;
+            if (cursor.`val` <= x || x <= cursor.next.`val`) {
+              break
             }
           }
-          cursor = cursor.next;
-        } while (cursor != node);
-        newNode.next = cursor.next;
-        cursor.next = newNode;
+          cursor = cursor.next
+        } while (cursor !== node)
+        newNode.next = cursor!!.next
+        cursor.next = newNode
       }
-      return newNode;
+      return newNode
     }
-  };
+  }
+
 }
